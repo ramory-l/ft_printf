@@ -4,6 +4,6 @@
 #include "get_next_line.h"
 #include <stdarg.h>
 
-int max(int a, int b);
+void	ft_print_int(int nbr);
 
 #endif
