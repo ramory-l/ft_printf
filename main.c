@@ -1,8 +1,11 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	main(void)
+int 	main(void)
 {
-	ft_printf("%d \n %s", 5, "Hello");
+	float test;
+
+	test = 12.1115;
+	ft_print_fpn(test, 3);
 	return (0);
 }
