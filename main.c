@@ -3,6 +3,6 @@
 
 int	main(void)
 {
-	printf("%d", max(9, 5));
+	ft_printf("%d \n %s", 5, "Hello");
 	return (0);
 }

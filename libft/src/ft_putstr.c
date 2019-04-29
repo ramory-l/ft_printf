@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ramory-l <ramory-l@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 17:28:51 by ramory-l          #+#    #+#             */
-/*   Updated: 2018/11/25 17:28:52 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/04/29 16:48:52 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putstr(char const *s)
 		return ;
 	while (*s)
 	{
-		ft_putchar(*s);
+		write(1, s, 1);
 		s++;
 	}
 }

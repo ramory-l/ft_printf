@@ -4,6 +4,8 @@
 #include "get_next_line.h"
 #include <stdarg.h>
 
+
+int		ft_printf(const char *format, ...);
 void	ft_print_int(int nbr);
 
 #endif
