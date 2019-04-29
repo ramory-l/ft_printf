@@ -6,13 +6,16 @@
 #    By: ramory-l <ramory-l@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 14:34:56 by ramory-l          #+#    #+#              #
-#    Updated: 2019/04/29 15:13:06 by ramory-l         ###   ########.fr        #
+#    Updated: 2019/04/29 16:12:57 by ramory-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_printf
+NAME = libftprintf.a
 
-SRC_SEARCH = src/*.c main.c
+EXE = test
+
+SRC_SEARCH = src/*.c \
+			 libft/src/*.c
 
 SRC = $(wildcard $(SRC_SEARCH))
 
@@ -22,29 +25,28 @@ HEADERS = -I include -I libft/include
 
 IMFLAGS = -Wall -Wextra -Werror
 
-LFT = -Llibft -lft
-
 all: $(NAME)
 
-$(NAME): $(OBJ) libft
-	gcc $(OBJ) -o $@ $(LFT)
+$(NAME): $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 %.o: %.c
-	gcc -c $< -o $@ $(IMFLAGS) $(HEADERS)
-
-.PHONY: libft
-libft:
-	make -C libft
+	@gcc -c $< -o $@ $(IMFLAGS) $(HEADERS)
 
 .PHONY: clean
 clean:
-	rm -Rf $(OBJ)
-	make clean -C libft
+	@rm -Rf $(OBJ)
 
 .PHONY: fclean
 fclean: clean
-	rm -Rf $(NAME)
-	make fclean -C libft
+	@rm -Rf $(NAME)
 
 .PHONY: re
 re: fclean all
+
+.PHONY: test
+test:
+	make re
+	@rm -rf $(EXE)
+	@gcc -o test main.c $(HEADERS) -L . -lftprintf

@@ -3,4 +3,6 @@
 
 #include "get_next_line.h"
 
+int max(int a, int b);
+
 #endif
