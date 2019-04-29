@@ -3,6 +3,8 @@
 
 int	main(void)
 {
-	ft_printf("%d \n %s", 5, "Hello");
+	float foobar = 0.9375;
+	printf("%;", foobar);
+	ft_printf("%i \n %s %%", 5, "Hello");
 	return (0);
 }

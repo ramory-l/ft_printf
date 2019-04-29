@@ -1,39 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 17:25:43 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/04/29 17:39:18 by ramory-l         ###   ########.fr       */
+/*   Created: 2019/04/29 17:38:01 by ramory-l          #+#    #+#             */
+/*   Updated: 2019/04/29 18:24:54 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+char	*ft_itoa_base(unsigned long long int value, int base)
 {
-	int n;
-	int neg;
+	int		len;
+	int		temp;
+	char	*radix;
+	char	*number;
 
-	n = 0;
-	neg = 1;
-	while (*str == ' ' || *str == '\f' ||
-			*str == '\n' || *str == '\t' ||
-			*str == '\r' || *str == '\v')
-		str++;
-	if (*str == '-')
-	{
-		neg = -1;
-		str++;
-	}
-	else if (*str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
-	{
-		n = n * 10 + *str - '0';
-		str++;
-	}
-	return (n * neg);
+	len = 0;
+	temp = value;
+	radix = "0123456789ABCDEF";
+	if (value == 0)
+		return ("0");
+	while (value /= base)
+		len++;
+	number = (char *)malloc(sizeof(char) * (len + 1));
+	
+	return (NULL);
 }

@@ -6,6 +6,7 @@
 
 
 int		ft_printf(const char *format, ...);
-void	ft_print_int(int nbr);
+void	ft_manage_percent(const char *format, va_list ap);
+int		ft_print_number(unsigned long long int number, char c);
 
 #endif
