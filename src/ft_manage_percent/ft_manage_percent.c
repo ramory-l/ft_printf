@@ -4,14 +4,14 @@ static const char	*ft_find_size(const char *format)
 {
 	char	*new_format;
 
-	if (!(new_format = ft_strstr(format, "hh")))
-		return (new_format);
-	if (!(new_format = ft_strstr(format, "h")))
-		return (new_format);
-	if (!(new_format = ft_strstr(format, "ll")))
-		return (new_format);
-	if (!(new_format = ft_strstr(format, "l")))
-		return (new_format);
+	if (ft_strstr(format, "hh"))
+		return (new_format = ft_strstr(format, "hh"));
+	if (ft_strstr(format, "h"))
+		return (new_format = ft_strstr(format, "h"));
+	if (ft_strstr(format, "ll"))
+		return (new_format = ft_strstr(format, "ll"));
+	if (ft_strstr(format, "l"))
+		return (new_format = ft_strstr(format, "l"));
 	return (format);
 }
 
@@ -25,7 +25,6 @@ static void			ft_signed_number(const char *format, va_list ap)
 	{
 		number = va_arg(ap, long long int);
 		ft_print_signed_num(number);
-		format++;
 	}
 }
 
@@ -40,7 +39,6 @@ static void			ft_unsigned_number(const char *format, va_list ap)
 	{
 		number = va_arg(ap, unsigned long long int);
 		ft_print_unsigned_num(number, *format);
-		format++;
 	}
 }
 
