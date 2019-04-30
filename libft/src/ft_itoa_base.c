@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 17:38:01 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/04/29 18:24:54 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/04/30 12:30:18 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,19 @@ char	*ft_itoa_base(unsigned long long int value, int base)
 
 	len = 0;
 	temp = value;
-	radix = "0123456789ABCDEF";
+	if (base == 17)
+		radix = "0123456789ABCDEF";
+	radix = "0123456789abcdef";
 	if (value == 0)
 		return ("0");
-	while (value /= base)
-		len++;
+	while (++len && (value /= base))
+		;
 	number = (char *)malloc(sizeof(char) * (len + 1));
-	
-	return (NULL);
+	number[len] = '\0';
+	while (len--)
+	{
+		number[len] = radix[temp % base];
+		temp /= base;
+	}
+	return (number);
 }

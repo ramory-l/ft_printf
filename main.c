@@ -3,8 +3,7 @@
 
 int	main(void)
 {
-	float foobar = 0.9375;
-	printf("%;", foobar);
-	ft_printf("%i \n %s %%", 5, "Hello");
+	printf("%i \n %s %%", 5, "Hello");
+	ft_printf("%; i \n %s %%", 5, "Hello");
 	return (0);
 }

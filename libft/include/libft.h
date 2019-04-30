@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 16:05:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2018/11/27 15:49:40 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/04/30 12:19:17 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_striter(char *s, void (*f)(char *));
+char				*ft_itoa_base(unsigned long long int value, int base);
 
 #endif
