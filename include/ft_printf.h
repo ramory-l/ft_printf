@@ -8,12 +8,15 @@
 # define INIT 0
 # define FLAG_MINUS (1 << 1)
 # define FLAG_PLUS (1 << 2)
-# define FLAG_ZERO (1 << 3)
-# define FLAG_SPACE (1 << 4)
-# define FLAG_OCT (1 << 5)
+# define FLAG_SPACE (1 << 3)
+# define FLAG_OCT (1 << 4)
+# define FLAG_ZERO (1 << 5)
 
 int		ft_printf(const char *format, ...);
 void	ft_manage_percent(const char *format, va_list ap);
-int		ft_print_number(unsigned long long int number, char c);
+void	ft_print_signed_num(int number);
+char	*ft_itoa_signed(int number);
+void	ft_print_unsigned_num(unsigned long long int number, char c);
+char	*ft_itoa_base_unsigned(unsigned long long int number, int base);
 
 #endif

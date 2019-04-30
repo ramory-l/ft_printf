@@ -6,7 +6,7 @@
 #    By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 14:34:56 by ramory-l          #+#    #+#              #
-#    Updated: 2019/04/30 12:50:42 by ramory-l         ###   ########.fr        #
+#    Updated: 2019/04/30 16:58:26 by ramory-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = libftprintf.a
 EXE = test
 
 SRC_SEARCH = src/*.c \
+			 src/ft_manage_percent/*.c \
+			 src/ft_manage_percent/ft_print_number/*.c \
 			 libft/src/*.c
 
 SRC = $(wildcard $(SRC_SEARCH))

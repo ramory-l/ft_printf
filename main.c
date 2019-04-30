@@ -3,7 +3,6 @@
 
 int	main(void)
 {
-	printf("%i \n %s %%", 5, "Hello");
-	ft_printf("%; i \n %s %%", 5, "Hello");
+	printf("%Xhh\n", -100);
 	return (0);
 }
