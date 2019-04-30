@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static char		*ft_find_size(const char *format)
+static const char	*ft_find_size(const char *format)
 {
 	char	*new_format;
 
@@ -15,10 +15,10 @@ static char		*ft_find_size(const char *format)
 	return (format);
 }
 
-static void		ft_signed_number(const char *format, va_list ap)
+static void			ft_signed_number(const char *format, va_list ap)
 {
 	long long int	number;
-	char			*new_format;
+	const char		*new_format;
 
 	new_format = ft_find_size(format);
 	if (ft_strchr(new_format, 'd') || ft_strchr(new_format, 'i'))
@@ -29,10 +29,10 @@ static void		ft_signed_number(const char *format, va_list ap)
 	}
 }
 
-static void		ft_unsigned_number(const char *format, va_list ap)
+static void			ft_unsigned_number(const char *format, va_list ap)
 {
 	unsigned long long int	number;
-	char					*new_format;
+	const char				*new_format;
 
 	new_format = ft_find_size(format);
 	if (ft_strchr(new_format, 'o') || ft_strchr(new_format, 'u') ||
@@ -44,7 +44,7 @@ static void		ft_unsigned_number(const char *format, va_list ap)
 	}
 }
 
-void			ft_manage_percent(const char *format, va_list ap)
+void				ft_manage_percent(const char *format, va_list ap)
 {
 	ft_signed_number(format, ap);
 	ft_unsigned_number(format, ap);

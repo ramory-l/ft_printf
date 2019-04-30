@@ -3,6 +3,6 @@
 
 int	main(void)
 {
-	printf("%Xhh\n", -100);
+	ft_printf("%X\n", -100);
 	return (0);
 }
