@@ -14,8 +14,8 @@
 
 int		ft_printf(const char *format, ...);
 void	ft_manage_percent(const char *format, va_list ap);
-void	ft_print_signed_num(int number);
-char	*ft_itoa_signed(int number);
+void	ft_print_signed_num(long long int number);
+char	*ft_itoa_signed(long long int number);
 void	ft_print_unsigned_num(unsigned long long int number, char c);
 char	*ft_itoa_base_unsigned(unsigned long long int number, int base);
 

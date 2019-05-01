@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char	*ft_itoa_signed(int number)
+char	*ft_itoa_signed(long long int number)
 {
 	int				len;
 	int				sign;
@@ -8,6 +8,7 @@ char	*ft_itoa_signed(int number)
 	int				temp;
 
 	len = 0;
+	sign = 0;
 	if (number == 0)
 		return ("0");
 	if (number < 0)

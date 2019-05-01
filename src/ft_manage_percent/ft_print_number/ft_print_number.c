@@ -11,7 +11,7 @@ int		ft_choose_base(char c)
 	return (10);
 }
 
-void	ft_print_signed_num(int number)
+void	ft_print_signed_num(long long int number)
 {
 	char	*num;
 

@@ -3,6 +3,8 @@
 
 int	main(void)
 {
-	printf("%hhX", -120);
+	long int a = 3214512512;
+	printf("%h ld\n", a);
+	ft_printf("%h ld\n", a);
 	return (0);
 }
