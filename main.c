@@ -3,8 +3,8 @@
 
 int	main(void)
 {
-	long int a = 3214512512;
-	printf("%h ld\n", a);
-	ft_printf("%h ld\n", a);
+	int a = 255;
+	printf("%d\n Ggggg\n", a);
+	ft_printf("%d\n Ggggg\n", a);
 	return (0);
 }

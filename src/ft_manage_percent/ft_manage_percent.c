@@ -19,18 +19,18 @@ static const char	*ft_choose_type(const char *format)
 
 static int			ft_find_size(const char *format)
 {
-	if (ft_strstr(format, "h"))
-		return (2);
-	if (ft_strstr(format, "hh"))
-		return (1);
 	if (ft_strstr(format, "ll"))
 		return (3);
 	if (ft_strstr(format, "l"))
 		return (4);
+	if (ft_strstr(format, "hh"))
+		return (1);
+	if (ft_strstr(format, "hh"))
+		return (2);
 	return (0);
 }
 
-static void			ft_signed_number(const char *format, va_list ap)
+static const char	*ft_signed_number(const char *format, va_list ap)
 {
 	int				qualifier;
 
@@ -49,9 +49,10 @@ static void			ft_signed_number(const char *format, va_list ap)
 		if (qualifier == 4)
 			ft_print_signed_num((long)va_arg(ap, int));
 	}
+	return (format);
 }
 
-static void			ft_unsigned_number(const char *format, va_list ap)
+static const char	*ft_unsigned_number(const char *format, va_list ap)
 {
 	int				qualifier;
 
@@ -70,14 +71,14 @@ static void			ft_unsigned_number(const char *format, va_list ap)
 		if (qualifier == 4)
 			ft_print_unsigned_num(va_arg(ap, unsigned long), *format);
 	}
+	return (format);
 }
 
-void				ft_manage_percent(const char *format, va_list ap)
+const char			*ft_manage_percent(const char *format, va_list ap)
 {
-	ft_signed_number(format, ap);
-	ft_unsigned_number(format, ap);
-	if (*format == 's')
-		ft_putstr(va_arg(ap, char *));
-	if (*format == '%')
-		write(1, "%", 1);
+	format = ft_signed_number(format, ap);
+	format = ft_unsigned_number(format, ap);
+	if (*format)
+		return (format + 1);
+	return (format);
 }
