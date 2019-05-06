@@ -7,6 +7,6 @@
 
 int		ft_printf(const char *format, ...);
 void	ft_print_int(int nbr);
-void	ft_print_fpn(double nbr, unsigned int nbr_sign);
+void	ft_print_fpn(double nbr);
 
 #endif

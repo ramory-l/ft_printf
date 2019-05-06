@@ -1,62 +1,147 @@
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-static void ft_rounding(double nbr)
+typedef union
 {
-	unsigned int end_nbr;
-	unsigned int last_nbr;
+	int integer;
+	float fl;
+} 			number;
+
+void		ft_magic(int mantis, int exp)
+{
+	int normal;
+	int mantis_arr[1000];
+	int len;
+	int tmp;
+	int	temp;
+	int tmp_exp;
 	char c;
 
-	end_nbr = nbr;
-	end_nbr = end_nbr % 10;
-	last_nbr = nbr * 10;
-	last_nbr = last_nbr % 10;
-	if (last_nbr >= 5)
-		end_nbr += end_nbr;
-	c = end_nbr + '0';
-	write(1, &c, 1);
-}
-
-static void	ft_end_nbr(double nbr, unsigned int nbr_sign)
-{
-	unsigned int end_nbr;
-	unsigned int count;
-	char c;
-
-	end_nbr = 0;
-	if (nbr_sign == 0)
-		count = 6;
-	else if (nbr_sign > 308)
-		return ;
-	else
-		count = nbr_sign;
-	while (count)
+	tmp = 0;
+	len = 1000;
+	while (len--) // заполнение массива нулями
 	{
-		end_nbr = nbr * 10;
-		c = (end_nbr % 10) + '0';
-		nbr = nbr * 10;
-		if (count != 1)
+		mantis_arr[tmp] = 0;
+		tmp++;
+	}
+	tmp = 0;
+	len = 1000;
+	if (exp <= 150)
+	{
+		normal = 5;
+		exp = 150 - exp;
+		tmp_exp = exp;
+	}
+	else
+	{
+		exp = 150 - exp;
+		normal = 2;
+	}
+	while (mantis) // заполнение массива мантисой с конца
+	{
+		len--;
+		mantis_arr[len] = mantis % 10;
+		mantis = mantis / 10;
+	}
+	len = 1000;
+	while (exp) // умножнение столбиком
+	{
+		tmp = 0;
+		len = 1000;
+		while (len)
+		{
+			len--;
+			if ((mantis_arr[len] * normal) > 9)
+			{
+				
+				if (tmp > 0) // если мы что-то держим в "памяти"
+				{
+					mantis_arr[len] = mantis_arr[len] * normal;
+					mantis_arr[len] = mantis_arr[len] + tmp;
+					if (mantis_arr[len] > 9)
+					{
+						tmp = mantis_arr[len] / 10;
+						mantis_arr[len] %= 10;
+					}
+					else
+						tmp = 0;
+				}
+				else
+				{
+					tmp = (mantis_arr[len] * normal) / 10; // второй разряд в "памяти"
+					mantis_arr[len] = (mantis_arr[len] * normal) % 10; // перезапись нашего числа
+				}
+				if (mantis_arr[len - 1] == 0) // если второй разрд в памяти, а следующий разряд мантисы равен 0
+				{
+					mantis_arr[len - 1] = tmp;
+					tmp = 0;
+					len--;
+				}
+			}
+			else
+			{
+				mantis_arr[len] = mantis_arr[len] * normal;
+				mantis_arr[len] = mantis_arr[len] + tmp;
+				if (mantis_arr[len] > 9)
+				{
+					tmp = mantis_arr[len] / 10;
+					mantis_arr[len] %= 10;
+				}
+				else
+					tmp = 0;
+			}
+			if (mantis_arr[len])
+				temp = len;
+		}
+		exp--;
+	}
+	len = 1000;
+	if (normal == 5) // проверка на точку
+	{
+		while (temp != 1000)
+		{
+			
+			if (temp == (len - tmp_exp))
+				write(1, ".", 1);
+			c = mantis_arr[temp] + '0';
 			write(1, &c, 1);
-		else
-			ft_rounding(nbr);
-		count--;
+			temp++;
+			//tmp_exp--;
+		}
+	}
+	else
+	{
+		while (len != 1000)
+		{
+			c = mantis_arr[len] + '0';
+			write(1, &c, 1);
+			len--;
+		}
 	}
 }
 
-void		ft_print_fpn(double nbr, unsigned int nbr_sign)
+void		ft_print_fpn(double nbr)
 {
-	unsigned int begin_nbr;
+	int sign;
+	int exp;
+	int mantis;
+	number bits;
 
-	begin_nbr = 0;
-	if (nbr < 0)
-	{
-		nbr = nbr * (-1);
-		begin_nbr = (unsigned int)nbr;
+	sign = 0;
+	exp = 0;
+	mantis = 0;
+
+	bits.fl = nbr;
+
+	sign = ((bits.integer >> 31) == 0) ? 1 : -1;
+	exp = ((bits.integer >> 23) & 0xff);
+	mantis = (exp == 0) ? (bits.integer & 0x7fffff) << 1 :
+	(bits.integer & 0x7fffff) | 0x800000;
+	printf("exp: %d\n", exp);
+	printf("sign: %d\n", sign);
+	printf("mantis: %d\n", mantis);
+	if (sign == -1)
 		write(1, "-", 1);
-	}
-	else
-		begin_nbr = (unsigned int)nbr;
-	ft_print_int(begin_nbr);
-	write(1, ".", 1);
-	ft_end_nbr(nbr, nbr_sign);
+	ft_magic(mantis, exp);
 }

@@ -3,9 +3,10 @@
 
 int 	main(void)
 {
-	float test;
+	double test;
 
-	test = 12.1115;
-	ft_print_fpn(test, 3);
+	test = 45.45;
+	ft_print_fpn(test);
+	printf("\n%.20f\n", test);
 	return (0);
 }
