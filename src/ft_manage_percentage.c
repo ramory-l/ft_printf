@@ -54,14 +54,25 @@ static char	ft_find_flags(const char *format, int type_index)
 
 static	char	*ft_find_size(const char *format, int type_index)
 {
+	int i;
+	int h;
+
+	i = 0;
+	h = 0;
 	if (ft_strnstr(format, "ll", type_index))
 		return ("ll");
 	if (ft_strnstr(format, "l", type_index))
 		return ("l");
-	if (ft_strnstr(format, "hh", type_index))
-		return ("hh");
-	if (ft_strnstr(format, "h", type_index))
+	while (i < type_index)
+	{
+		if (format[i] == 'h')
+			h++;
+		i++;
+	}
+	if (h % 2)
 		return ("h");
+	else
+		return ("hh");
 	return ("");
 }
 
