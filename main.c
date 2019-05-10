@@ -4,9 +4,7 @@
 
 int	main(void)
 {
-	// ft_printf("dsds dasd dsads\n");
-	// ft_printf("%");
-	int d = ft_printf(" ");
+	int d = ft_printf("%d\n", -1000);
 	printf("%d", d);
 	return (0);
 }

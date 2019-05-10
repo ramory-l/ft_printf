@@ -29,8 +29,7 @@ int ft_printf(const char *format, ...)
 				write(1, temp, i);
 				i = 0;
 			}
-			format++;
-			ft_manage_percentage(&format, &data);
+			format = ft_manage_percentage(ap, format, &data);
 			temp = format;
 		}
 		if (ft_is_printable(*format))

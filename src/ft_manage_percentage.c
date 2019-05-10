@@ -8,18 +8,27 @@ static	int type(char c)
 	return (0);
 }
 
-static int	ft_find_type_index(const char **format, t_printf *data)
+static int	ft_find_type_index(const char *format, t_printf *data)
 {
+	int i;
 	int index;
 
+	i = 0;
 	index = 0;
-	while (format[0][index] && !type(format[0][index]))
-		index++;
-	data->type = format[0][index];
+	while (format[i])
+	{
+		if (type(format[i]))
+		{
+			index = i;
+			break ;
+		}
+		i++;
+	}
+	data->type = format[index];
 	return (index);
 }
 
-static char	ft_find_flags(const char **format, int type_index)
+static char	ft_find_flags(const char *format, int type_index)
 {
 	int i;
 	char flags;
@@ -28,35 +37,35 @@ static char	ft_find_flags(const char **format, int type_index)
 	flags = INIT;
 	while (i < type_index)
 	{
-		if (format[0][i] == '-')
+		if (format[i] == '-')
 			flags |= FLAG_MINUS;
-		if (format[0][i] == '+')
+		if (format[i] == '+')
 			flags |= FLAG_PLUS;
-		if (format[0][i] == ' ')
+		if (format[i] == ' ')
 			flags |= FLAG_SPACE;
-		if (format[0][i] == '#')
+		if (format[i] == '#')
 			flags |= FLAG_OCT;
-		if (format[0][i] == '0')
+		if (format[i] == '0')
 			flags |= FLAG_ZERO;
 		i++;
 	}
 	return (flags);
 }
 
-static	char	*ft_find_size(const char **format, int type_index)
+static	char	*ft_find_size(const char *format, int type_index)
 {
-	if (ft_strnstr(*format, "ll", type_index))
+	if (ft_strnstr(format, "ll", type_index))
 		return ("ll");
-	if (ft_strnstr(*format, "l", type_index))
+	if (ft_strnstr(format, "l", type_index))
 		return ("l");
-	if (ft_strnstr(*format, "hh", type_index))
+	if (ft_strnstr(format, "hh", type_index))
 		return ("hh");
-	if (ft_strnstr(*format, "h", type_index))
+	if (ft_strnstr(format, "h", type_index))
 		return ("h");
 	return ("");
 }
 
-static int		ft_find_width(const char **format, int type_index)
+static int		ft_find_width(const char *format, int type_index)
 {
 	int i;
 	int width;
@@ -65,14 +74,14 @@ static int		ft_find_width(const char **format, int type_index)
 	width = 0;
 	while (i < type_index)
 	{
-		if (format[0][i] >= '1' && format[0][i] <= '9')
-			width = ft_atoi(&format[0][i]);
+		if (format[i] >= '1' && format[i] <= '9')
+			width = ft_atoi(&format[i]);
 		i++;
 	}
 	return (width);
 }
 
-static	int		ft_find_accuracy(const char **format, int type_index)
+static	int		ft_find_accuracy(const char *format, int type_index)
 {
 	int i;
 	int accuracy;
@@ -81,20 +90,30 @@ static	int		ft_find_accuracy(const char **format, int type_index)
 	accuracy = 0;
 	while (i < type_index)
 	{
-		if (format[0][i] == '.' && format[0][i + 1] >= '1' && format[0][i + 1] <= '9')
-			accuracy = ft_atoi(&format[0][i + 1]);
+		if (format[i] == '.' && format[i + 1] >= '1' && format[i + 1] <= '9')
+			accuracy = ft_atoi(&format[i + 1]);
 		i++;
 	}
 	return (accuracy);
 }
 
-void		ft_manage_percentage(const char **format, t_printf *data)
+const	char	*ft_manage_percentage(va_list ap, const char *format, t_printf *data)
 {
+	int offset;
 	int type_index;
 
 	type_index = ft_find_type_index(format, data);
+	if (type_index == 0)
+	{
+		format++;
+		if (ft_strchr(format, '%'))
+			return (format = ft_strchr(format, '%'));
+		return ("");
+	}
 	data->flags = ft_find_flags(format, type_index);
 	data->width = ft_find_width(format, type_index);
 	data->accuracy = ft_find_accuracy(format, type_index);
 	data->size = ft_find_size(format, type_index);
+	ft_print_number(ap, format, data);
+	return (format + type_index + 1);
 }

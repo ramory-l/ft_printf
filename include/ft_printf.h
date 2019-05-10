@@ -22,6 +22,8 @@ typedef struct	s_printf
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
-void			ft_manage_percentage(const char **format, t_printf *data);
+const char		*ft_manage_percentage(va_list ap, const char *format, t_printf *data);
+void			ft_print_number(va_list ap, const char *format, t_printf *data);
+char			*ft_itoa_base_universal(unsigned long long int value, int base);
 
 #endif
