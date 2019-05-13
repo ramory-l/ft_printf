@@ -23,9 +23,10 @@ typedef struct	s_printf
 
 int				ft_printf(const char *format, ...);
 const char		*ft_manage_percentage(va_list ap, const char *format, t_printf *data);
+void			ft_manage_signed(t_printf *data, char *number);
+void			ft_manage_unsigned(t_printf *data, char *number);
 void			ft_print(va_list ap, const char *format, t_printf *data);
 char			*ft_itoa_signed(long long int value);
 char			*ft_itoa_base_unsigned(unsigned long long int value, int base);
-void			ft_manage_number(t_printf *data, char *number);
 
 #endif

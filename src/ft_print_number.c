@@ -11,7 +11,7 @@ static int	ft_choose_base(char c)
 	return (10);
 }
 
-static char *ft_print_signed(va_list ap, t_printf *data)
+static void	ft_print_signed(va_list ap, t_printf *data)
 {
 	int di;
 	char *number;
@@ -27,11 +27,11 @@ static char *ft_print_signed(va_list ap, t_printf *data)
 		number = ft_itoa_signed((char)di);
 	if (ft_strcmp(data->size, "h") == 0)
 		number = ft_itoa_signed((short int)di);
+	ft_manage_signed(data, number);
 	data->printed += ft_strlen(number);
-	return (number);
 }
 
-static char *ft_print_unsigned(va_list ap, t_printf *data)
+static void	ft_print_unsigned(va_list ap, t_printf *data)
 {
 	int base;
 	unsigned int oux_x;
@@ -49,8 +49,8 @@ static char *ft_print_unsigned(va_list ap, t_printf *data)
 		number = ft_itoa_base_unsigned((unsigned char)oux_x, base);
 	if (ft_strcmp(data->size, "h") == 0)
 		number = ft_itoa_base_unsigned((unsigned short int)oux_x, base);
+	ft_manage_unsigned(data, number);
 	data->printed += ft_strlen(number);
-	return (number);
 }
 
 static void ft_print_number(va_list ap, const char *format, t_printf *data)
@@ -58,11 +58,10 @@ static void ft_print_number(va_list ap, const char *format, t_printf *data)
 	char *number;
 
 	if (data->type == 'd' || data->type == 'i')
-		number = ft_print_signed(ap, data);
+		ft_print_signed(ap, data);
 	if (data->type == 'o' || data->type == 'u' ||
 		data->type == 'x' || data->type == 'X')
-		number = ft_print_unsigned(ap, data);
-	ft_manage_number(data, number);
+		ft_print_unsigned(ap, data);
 }
 
 void	ft_print(va_list ap, const char *format, t_printf *data)
