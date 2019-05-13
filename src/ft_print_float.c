@@ -8,7 +8,7 @@ typedef union
 	float fl;
 } 			number;
 
-void		ft_magic(int mantis, int exp)
+void		ft_result(int mantis, int exp)
 {
 	int normal;
 	int mantis_arr[1000];
@@ -20,7 +20,7 @@ void		ft_magic(int mantis, int exp)
 
 	tmp = 0;
 	len = 1000;
-	while (len--) // заполнение массива нулями
+	while (len--)
 	{
 		mantis_arr[tmp] = 0;
 		tmp++;
@@ -38,14 +38,15 @@ void		ft_magic(int mantis, int exp)
 		exp = 150 - exp;
 		normal = 2;
 	}
-	while (mantis) // заполнение массива мантисой с конца
+	while (mantis)
 	{
 		len--;
 		mantis_arr[len] = mantis % 10;
 		mantis = mantis / 10;
 	}
 	len = 1000;
-	while (exp) // умножнение столбиком
+
+	while (exp) // моя остановочка
 	{
 		tmp = 0;
 		len = 1000;
@@ -54,8 +55,7 @@ void		ft_magic(int mantis, int exp)
 			len--;
 			if ((mantis_arr[len] * normal) > 9)
 			{
-				
-				if (tmp > 0) // если мы что-то держим в "памяти"
+				if (tmp > 0)
 				{
 					mantis_arr[len] = mantis_arr[len] * normal;
 					mantis_arr[len] = mantis_arr[len] + tmp;
@@ -69,10 +69,10 @@ void		ft_magic(int mantis, int exp)
 				}
 				else
 				{
-					tmp = (mantis_arr[len] * normal) / 10; // второй разряд в "памяти"
-					mantis_arr[len] = (mantis_arr[len] * normal) % 10; // перезапись нашего числа
+					tmp = (mantis_arr[len] * normal) / 10;
+					mantis_arr[len] = (mantis_arr[len] * normal) % 10;
 				}
-				if (mantis_arr[len - 1] == 0) // если второй разрд в памяти, а следующий разряд мантисы равен 0
+				if (mantis_arr[len - 1] == 0)
 				{
 					mantis_arr[len - 1] = tmp;
 					tmp = 0;
@@ -97,17 +97,15 @@ void		ft_magic(int mantis, int exp)
 		exp--;
 	}
 	len = 1000;
-	if (normal == 5) // проверка на точку
+	if (normal == 5)
 	{
 		while (temp != 1000)
 		{
-			
 			if (temp == (len - tmp_exp))
 				write(1, ".", 1);
 			c = mantis_arr[temp] + '0';
 			write(1, &c, 1);
 			temp++;
-			//tmp_exp--;
 		}
 	}
 	else
@@ -121,7 +119,7 @@ void		ft_magic(int mantis, int exp)
 	}
 }
 
-void		ft_print_fpn(double nbr)
+void		ft_print_float(float nbr)
 {
 	int sign;
 	int exp;
@@ -138,10 +136,7 @@ void		ft_print_fpn(double nbr)
 	exp = ((bits.integer >> 23) & 0xff);
 	mantis = (exp == 0) ? (bits.integer & 0x7fffff) << 1 :
 	(bits.integer & 0x7fffff) | 0x800000;
-	printf("exp: %d\n", exp);
-	printf("sign: %d\n", sign);
-	printf("mantis: %d\n", mantis);
 	if (sign == -1)
 		write(1, "-", 1);
-	ft_magic(mantis, exp);
+	ft_result(mantis, exp);
 }
