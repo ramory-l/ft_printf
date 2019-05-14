@@ -36,14 +36,14 @@ static void	ft_apply_flags1(t_printf *data)
 			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len);
 }
 
-void	ft_manage_signed(t_printf *data)
+void		ft_manage_signed(t_printf *data)
 {
 	ft_manage_flags(data);
 	ft_apply_flags1(data);
 	ft_putstr(data->nbr);
 }
 
-void	ft_manage_unsigned(t_printf *data)
+void		ft_manage_unsigned(t_printf *data)
 {
 	ft_manage_flags(data);
 	ft_apply_flags1(data);
