@@ -1,13 +1,13 @@
 #include "ft_printf.h"
 
-static int ft_is_printable(unsigned char c)
+static int	ft_is_printable(unsigned char c)
 {
 	if ((c >= 32 && c <= 126) || c == '\n')
 		return (1);
 	return (0);
 }
 
-int ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
 	int i;
 	const char *temp;
@@ -29,7 +29,7 @@ int ft_printf(const char *format, ...)
 				write(1, temp, i);
 				i = 0;
 			}
-			format = ft_manage_percentage(ap, format, &data);
+			format = ft_percentage(ap, format, &data);
 			temp = format;
 		}
 		if (ft_is_printable(*format))

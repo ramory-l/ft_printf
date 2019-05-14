@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static void	ft_ignore_flags(t_printf *data)
+static void	ft_manage_flags(t_printf *data)
 {
 	if (data->flags & FLAG_MINUS && data->flags & FLAG_ZERO)
 		data->flags &= ~FLAG_ZERO;
@@ -8,13 +8,44 @@ static void	ft_ignore_flags(t_printf *data)
 		data->flags &= ~FLAG_SPACE;
 }
 
-void	ft_manage_signed(t_printf *data, char *number)
+static void	ft_apply_flags1(t_printf *data)
 {
-	ft_ignore_flags(data);
-	ft_putstr(number);
+	int len;
+
+	len = ft_strlen(data->nbr);
+	if (data->flags & FLAG_SPACE && data->nbr[0] != '-' && data->width == 0)
+		data->nbr = ft_fill_spaces(data->nbr, '<', 1);
+	if (data->flags & FLAG_SPACE &&
+		data->width > 0 && !(data->flags & FLAG_MINUS))
+	{
+		if (data->width > ft_strlen(data->nbr))
+			data->nbr = ft_fill_spaces(data->nbr, '<', data->width - len);
+	}
+	if (data->flags & FLAG_SPACE && data->width > 0 && data->flags & FLAG_MINUS)
+	{
+		if (data->nbr[0] != '-')
+		{
+			data->nbr = ft_fill_spaces(data->nbr, '<', 1);
+			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len - 1);
+		}
+		else
+			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len);
+	}
+	if (!(data->flags & FLAG_SPACE) && data->width > 0)
+		if (data->width > ft_strlen(data->nbr))
+			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len);
 }
 
-void	ft_manage_unsigned(t_printf *data, char *number)
+void	ft_manage_signed(t_printf *data)
 {
-	ft_putstr(number);
+	ft_manage_flags(data);
+	ft_apply_flags1(data);
+	ft_putstr(data->nbr);
+}
+
+void	ft_manage_unsigned(t_printf *data)
+{
+	ft_manage_flags(data);
+	ft_apply_flags1(data);
+	ft_putstr(data->nbr);
 }

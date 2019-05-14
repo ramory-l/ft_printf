@@ -1,8 +1,8 @@
-#ifndef FT_PRINT_F_H
-#define FT_PRINT_F_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include "get_next_line.h"
-#include <stdarg.h>
+# include "get_next_line.h"
+# include <stdarg.h>
 
 # define INIT 0
 # define FLAG_MINUS 1
@@ -18,13 +18,14 @@ typedef struct	s_printf
 	int		width;
 	int		accuracy;
 	char	*size;
+	char	*nbr;
 	int		printed;
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
-const char		*ft_manage_percentage(va_list ap, const char *format, t_printf *data);
-void			ft_manage_signed(t_printf *data, char *number);
-void			ft_manage_unsigned(t_printf *data, char *number);
+const char		*ft_percentage(va_list ap, const char *format, t_printf *data);
+void			ft_manage_signed(t_printf *data);
+void			ft_manage_unsigned(t_printf *data);
 void			ft_print(va_list ap, const char *format, t_printf *data);
 char			*ft_itoa_signed(long long int value);
 char			*ft_itoa_base_unsigned(unsigned long long int value, int base);

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static	int type(char c)
+static int	type(char c)
 {
 	if (c == 'd' || c == 'i' || c == 'o' ||
 		c == 'u' || c == 'x' || c == 'X')
@@ -30,8 +30,8 @@ static int	ft_find_type_index(const char *format, t_printf *data)
 
 static char	ft_find_flags(const char *format, int type_index)
 {
-	int i;
-	char flags;
+	int		i;
+	char	flags;
 
 	i = 0;
 	flags = INIT;
@@ -108,7 +108,7 @@ static	int		ft_find_accuracy(const char *format, int type_index)
 	return (accuracy);
 }
 
-const	char	*ft_manage_percentage(va_list ap, const char *format, t_printf *data)
+const	char	*ft_percentage(va_list ap, const char *format, t_printf *data)
 {
 	int type_index;
 

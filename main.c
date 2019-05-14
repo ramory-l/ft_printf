@@ -6,7 +6,8 @@ int	main(void)
 {
 	// hh = 24
 	// h = -1000
-	ft_printf("%d\n", -1000);
-	   printf("% -.15d\n", -1000);
+	ft_printf("%-7hd\n", 1000);
+	//    printf("%-7hd\n", 1000);
+	// ft_printf("%");
 	return (0);
 }
