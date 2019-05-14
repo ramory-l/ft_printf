@@ -6,6 +6,8 @@ static void	ft_manage_flags(t_printf *data)
 		data->flags &= ~FLAG_ZERO;
 	if (data->flags & FLAG_PLUS && data->flags & FLAG_SPACE)
 		data->flags &= ~FLAG_SPACE;
+	if (data->flags & FLAG_ZERO && data->accuracy > 0)
+		data->flags &= ~FLAG_ZERO;
 }
 
 static void	ft_apply_flags1(t_printf *data)
