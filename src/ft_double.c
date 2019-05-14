@@ -1,28 +1,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-typedef union
-{
-	long lng;
-	double dbl;
-}				dbltolng;
-
-struct	sem_double 
-{
-	int sign;
-	int exp;
-	long mantis;
-};
-
-typedef struct	t_array
-{
-	int mantis_arr[1000];
-	int len_arr;
-	int tmp;
-	int temp;
-	int base;
-}				s_array;
-
 static s_array	*ft_bzero_array(s_array *double_a)
 {
 	double_a->len_arr = 1000;
@@ -143,6 +121,7 @@ static void		ft_itoa_and_print_double(long mantis, int exp)
 	exp = 1075 - exp;
 	double_a = ft_mult_column(exp, double_a);
 	ft_print_double(double_a, exp);
+	free(double_a);
 }
 
 void			ft_double(double nbr)
