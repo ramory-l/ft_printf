@@ -35,7 +35,7 @@ static void	ft_apply_flags1(t_printf *data)
 	}
 	if (!(data->flags & FLAG_SPACE) && data->width > 0)
 		if (data->width > ft_strlen(data->nbr))
-			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len);
+			data->nbr = ft_fill_spaces(data->nbr, '<', data->width - len);
 }
 
 static void	ft_apply_flags2(t_printf *data)

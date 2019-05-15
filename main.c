@@ -4,7 +4,7 @@
 
 int	main(void)
 {
-	printf("%.4d\n", -10);
-	ft_printf("%.4d\n", -10);
+	printf("%10d\n", -10);
+	ft_printf("%10d\n", -10);
 	return (0);
 }
