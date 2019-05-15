@@ -38,10 +38,22 @@ static void	ft_apply_flags1(t_printf *data)
 			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len);
 }
 
+static void	ft_apply_flags2(t_printf *data)
+{
+	int len;
+
+	len = ft_strlen(data->nbr);
+	if (data->nbr[0] == '-')
+		len = ft_strlen(data->nbr) - 1;
+	if (data->accuracy > len)
+		data->nbr = ft_fill_zeros(data->nbr, data->accuracy - len);
+}
+
 void		ft_manage_signed(t_printf *data)
 {
 	ft_manage_flags(data);
 	ft_apply_flags1(data);
+	ft_apply_flags2(data);
 	ft_putstr(data->nbr);
 }
 

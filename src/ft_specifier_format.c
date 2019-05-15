@@ -57,7 +57,7 @@ int		ft_find_width(const char *format, int type_index)
 	width = 0;
 	while (i < type_index)
 	{
-		if (format[i] >= '1' && format[i] <= '9')
+		if (format[i] >= '1' && format[i] <= '9' && format[i - 1] != '.')
 			width = ft_atoi(&format[i]);
 		i++;
 	}

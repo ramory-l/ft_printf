@@ -53,8 +53,6 @@ static void		ft_print_unsigned(va_list ap, t_printf *data)
 
 static void		ft_print_number(va_list ap, const char *format, t_printf *data)
 {
-	char *number;
-
 	if (data->type == 'd' || data->type == 'i')
 		ft_print_signed(ap, data);
 	if (data->type == 'o' || data->type == 'u' ||

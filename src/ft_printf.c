@@ -22,8 +22,8 @@ int			ft_printf(const char *format, ...)
 
 	if (!format)
 		return (0);
-	va_start(data.sup.ap, format);
 	ft_bzero(&data, sizeof(data));
+	va_start(data.sup.ap, format);
 	while (*format)
 	{
 		if (*format == '%')
