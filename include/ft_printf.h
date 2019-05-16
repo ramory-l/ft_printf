@@ -11,6 +11,11 @@
 # define FLAG_OCT 8
 # define FLAG_ZERO 16
 
+# define QUAL_LL 1
+# define QUAL_L 2
+# define QUAL_H 4
+# define QUAL_HH 8
+
 typedef struct	s_sup
 {
 	int			i;
@@ -24,16 +29,17 @@ typedef struct	s_printf
 	char	flags;
 	int		width;
 	int		accuracy;
-	char	*size;
+	char	qualifier;
 	char	*nbr;
 	int		printed;
+	int		sign;
 	t_sup	sup;
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
 const char		*ft_percentage(va_list ap, const char *format, t_printf *data);
 char			ft_find_flags(const char *format, int type_index);
-char			*ft_find_size(const char *format, int type_index);
+char			ft_find_qualifier(const char *format, int type_index);
 int				ft_find_width(const char *format, int type_index);
 int				ft_find_accuracy(const char *format, int type_index);
 void			ft_manage_signed(t_printf *data);

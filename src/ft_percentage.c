@@ -43,7 +43,7 @@ const char	*ft_percentage(va_list ap, const char *format, t_printf *data)
 	data->flags = ft_find_flags(format, type_index);
 	data->width = ft_find_width(format, type_index);
 	data->accuracy = ft_find_accuracy(format, type_index);
-	data->size = ft_find_size(format, type_index);
+	data->qualifier = ft_find_qualifier(format, type_index);
 	ft_print(ap, format, data);
 	return (format + type_index + 1);
 }

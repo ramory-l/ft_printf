@@ -15,7 +15,7 @@ static void	ft_apply_flags1(t_printf *data)
 	int len;
 
 	len = ft_strlen(data->nbr);
-	if (data->flags & FLAG_SPACE && data->nbr[0] != '-' && data->width == 0)
+	if (data->flags & FLAG_SPACE && !data->sign && data->width == 0)
 		data->nbr = ft_fill_spaces(data->nbr, '<', 1);
 	if (data->flags & FLAG_SPACE &&
 		data->width > 0 && !(data->flags & FLAG_MINUS))
@@ -25,7 +25,7 @@ static void	ft_apply_flags1(t_printf *data)
 	}
 	if (data->flags & FLAG_SPACE && data->width > 0 && data->flags & FLAG_MINUS)
 	{
-		if (data->nbr[0] != '-')
+		if (!data->sign)
 		{
 			data->nbr = ft_fill_spaces(data->nbr, '<', 1);
 			data->nbr = ft_fill_spaces(data->nbr, '>', data->width - len - 1);
@@ -38,15 +38,33 @@ static void	ft_apply_flags1(t_printf *data)
 			data->nbr = ft_fill_spaces(data->nbr, '<', data->width - len);
 }
 
+static char	*ft_manage_oct(t_printf *data)
+{
+	char *temp;
+	char *new_str;
+
+	if (data->type == 'x')
+		temp = "0x";
+	else if (data->type == 'X')
+		temp = "0X";
+	new_str = ft_strjoin(temp, data->nbr);
+	free(data->nbr);
+	data->nbr = new_str;
+	free(new_str);
+	return (data->nbr);
+}
+
 static void	ft_apply_flags2(t_printf *data)
 {
 	int len;
 
 	len = ft_strlen(data->nbr);
-	if (data->nbr[0] == '-')
+	if (data->sign)
 		len = ft_strlen(data->nbr) - 1;
 	if (data->accuracy > len)
 		data->nbr = ft_fill_zeros(data->nbr, data->accuracy - len);
+	if (data->flags & FLAG_OCT && (data->type == 'x' || data->type == 'X'))
+		data->nbr = ft_manage_oct(data);
 }
 
 void		ft_manage_signed(t_printf *data)
@@ -61,5 +79,6 @@ void		ft_manage_unsigned(t_printf *data)
 {
 	ft_manage_flags(data);
 	ft_apply_flags1(data);
+	ft_apply_flags2(data);
 	ft_putstr(data->nbr);
 }

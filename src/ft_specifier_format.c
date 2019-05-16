@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-char	ft_find_flags(const char *format, int type_index)
+char		ft_find_flags(const char *format, int type_index)
 {
 	int		i;
 	char	flags;
@@ -24,17 +24,15 @@ char	ft_find_flags(const char *format, int type_index)
 	return (flags);
 }
 
-char	*ft_find_size(const char *format, int type_index)
+static char	ft_find_h(const char *format, int type_index)
 {
 	int i;
 	int h;
+	char qualifier;
 
 	i = 0;
 	h = 0;
-	if (ft_strnstr(format, "ll", type_index))
-		return ("ll");
-	if (ft_strnstr(format, "l", type_index))
-		return ("l");
+	qualifier = INIT;
 	while (i < type_index)
 	{
 		if (format[i] == 'h')
@@ -42,13 +40,41 @@ char	*ft_find_size(const char *format, int type_index)
 		i++;
 	}
 	if (h % 2)
-		return ("h");
-	else
-		return ("hh");
-	return ("");
+	{
+		qualifier |= QUAL_H;
+		return (qualifier);
+	}
+	else if (h)
+	{
+		qualifier |= QUAL_HH;
+		return (qualifier);
+	}
+	return (0);
 }
 
-int		ft_find_width(const char *format, int type_index)
+char		ft_find_qualifier(const char *format, int type_index)
+{
+	int i;
+	int h;
+	char qualifier;
+
+	i = 0;
+	h = 0;
+	qualifier = INIT;
+	if (ft_strnstr(format, "ll", type_index))
+	{
+		qualifier |= QUAL_LL;
+		return (qualifier);
+	}
+	if (ft_strnstr(format, "l", type_index))
+	{
+		qualifier |= QUAL_L;
+		return (qualifier);
+	}
+	return (ft_find_h(format, type_index));
+}
+
+int			ft_find_width(const char *format, int type_index)
 {
 	int i;
 	int width;
@@ -64,7 +90,7 @@ int		ft_find_width(const char *format, int type_index)
 	return (width);
 }
 
-int		ft_find_accuracy(const char *format, int type_index)
+int			ft_find_accuracy(const char *format, int type_index)
 {
 	int i;
 	int accuracy;

@@ -26,9 +26,9 @@ char *ft_itoa_base_unsigned(unsigned long long int value, int base)
 	}
 	else
 		radix = "0123456789abcdef";
-	len = ft_find_length(value, base);
 	if (value == 0)
 		return ("0");
+	len = ft_find_length(value, base);
 	number = (char *)malloc(sizeof(char) * (len + 1));
 	while (len--)
 	{

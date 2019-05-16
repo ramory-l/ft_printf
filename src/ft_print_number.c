@@ -16,15 +16,17 @@ static void		ft_print_signed(va_list ap, t_printf *data)
 	int di;
 
 	di = va_arg(ap, int);
-	if (!*data->size)
+	if (di < 0)
+		data->sign = 1;
+	if (!data->qualifier)
 		data->nbr = ft_itoa_signed(di);
-	if (ft_strcmp(data->size, "ll") == 0)
+	if (data->qualifier & QUAL_LL)
 		data->nbr = ft_itoa_signed((long long int)di);
-	if (ft_strcmp(data->size, "l") == 0)
+	if (data->qualifier & QUAL_L)
 		data->nbr = ft_itoa_signed((long int)di);
-	if (ft_strcmp(data->size, "hh") == 0)
+	if (data->qualifier & QUAL_HH)
 		data->nbr = ft_itoa_signed((char)di);
-	if (ft_strcmp(data->size, "h") == 0)
+	if (data->qualifier & QUAL_H)
 		data->nbr = ft_itoa_signed((short int)di);
 	ft_manage_signed(data);
 	data->printed += ft_strlen(data->nbr);
@@ -34,18 +36,22 @@ static void		ft_print_unsigned(va_list ap, t_printf *data)
 {
 	int				base;
 	unsigned int	oux_x;
+	int				check_sign;
 
 	base = ft_choose_base(data->type);
 	oux_x = va_arg(ap, unsigned int);
-	if (!*data->size)
+	check_sign = oux_x;
+	if (check_sign < 0)
+		data->sign = 1;
+	if (!data->qualifier)
 		data->nbr = ft_itoa_base_unsigned(oux_x, base);
-	if (ft_strcmp(data->size, "ll") == 0)
+	if (data->qualifier & QUAL_LL)
 		data->nbr = ft_itoa_base_unsigned((unsigned long long int)oux_x, base);
-	if (ft_strcmp(data->size, "l") == 0)
+	if (data->qualifier & QUAL_L)
 		data->nbr = ft_itoa_base_unsigned((unsigned long int)oux_x, base);
-	if (ft_strcmp(data->size, "hh") == 0)
+	if (data->qualifier & QUAL_HH)
 		data->nbr = ft_itoa_base_unsigned((unsigned char)oux_x, base);
-	if (ft_strcmp(data->size, "h") == 0)
+	if (data->qualifier & QUAL_H)
 		data->nbr = ft_itoa_base_unsigned((unsigned short int)oux_x, base);
 	ft_manage_unsigned(data);
 	data->printed += ft_strlen(data->nbr);
