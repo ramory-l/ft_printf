@@ -66,10 +66,50 @@ static void		ft_print_number(va_list ap, const char *format, t_printf *data)
 		ft_print_unsigned(ap, data);
 }
 
+static void		ft_print_string(va_list ap, const char *format, t_printf *data)
+{
+	char *temp;
+
+	temp = va_arg(ap, char *);
+	ft_putstr(temp);
+	data->printed += ft_strlen(temp);
+}
+
+static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)
+{
+	char *temp;
+	char *new_str;
+
+	temp = "0x";
+	data->nbr = ft_itoa_base_unsigned((unsigned long long int)va_arg(ap, void*), 16);
+	new_str = ft_strjoin(temp, data->nbr);
+	if (ft_strcmp(data->nbr, "0") == 0)
+	{
+		ft_putstr(new_str);
+		data->printed += ft_strlen(new_str);
+		free(new_str);
+		return ;
+	}
+	free(data->nbr);
+	data->nbr = new_str;
+	free(new_str);
+	ft_putstr(data->nbr);
+	data->printed += ft_strlen(data->nbr);
+}
+
 void			ft_print(va_list ap, const char *format, t_printf *data)
 {
 	if (data->type == 'd' || data->type == 'i' ||
 		data->type == 'o' || data->type == 'u' ||
 		data->type == 'x' || data->type == 'X')
 		ft_print_number(ap, format, data);
+	if (data->type == 'c')
+	{
+		ft_putchar((char)va_arg(ap, int));
+		data->printed += 1;
+	}
+	if (data->type == 's')
+		ft_print_string(ap, format, data);
+	if (data->type == 'p')
+		ft_print_ptr(ap, format, data);
 }

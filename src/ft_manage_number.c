@@ -47,6 +47,8 @@ static char	*ft_manage_oct(t_printf *data)
 		temp = "0x";
 	else if (data->type == 'X')
 		temp = "0X";
+	else if (data->type == 'o')
+		temp = "0";
 	new_str = ft_strjoin(temp, data->nbr);
 	free(data->nbr);
 	data->nbr = new_str;
@@ -63,7 +65,8 @@ static void	ft_apply_flags2(t_printf *data)
 		len = ft_strlen(data->nbr) - 1;
 	if (data->accuracy > len)
 		data->nbr = ft_fill_zeros(data->nbr, data->accuracy - len);
-	if (data->flags & FLAG_OCT && (data->type == 'x' || data->type == 'X'))
+	if (data->flags & FLAG_OCT && (data->type == 'x' ||
+								data->type == 'X' || data->type == 'o'))
 		data->nbr = ft_manage_oct(data);
 }
 

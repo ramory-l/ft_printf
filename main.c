@@ -4,7 +4,10 @@
 
 int	main(void)
 {
-	printf("%#X\n", -10);
-	ft_printf("%#X\n", -10);
+	char *ptr = 0;
+
+	char *Hekko = "Hello";
+	printf("%p\n", ptr);
+	ft_printf("%p\n", ptr);
 	return (0);
 }
