@@ -7,10 +7,10 @@ int	main(void)
 	int d;
 	int i;
 
-	d = printf("%+d\n", 10);
-	i = ft_printf("%+d\n", 10);
+	d = ft_printf("%+d\n", 10);
+	i = ft_printf("%+d\n", 1000);
 
 
-	ft_printf("**%d**%d**\n", 10, 10);
+	ft_printf("**%d**%d**\n", d, i);
 	return (0);
 }
