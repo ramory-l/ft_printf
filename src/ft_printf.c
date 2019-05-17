@@ -7,12 +7,12 @@ static int	ft_is_printable(unsigned char c)
 	return (0);
 }
 
-static void	ft_check(int i, const char *temp)
+static void	ft_check(t_printf *data)
 {
-	if (i != 0)
+	if (data->sup.i != 0)
 	{
-		write(1, temp, i);
-		i = 0;
+		write(1, data->sup.temp, data->sup.i);
+		data->sup.i = 0;
 	}
 }
 
@@ -24,11 +24,12 @@ int			ft_printf(const char *format, ...)
 		return (0);
 	ft_bzero(&data, sizeof(data));
 	va_start(data.sup.ap, format);
+	data.sup.temp = format;
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			ft_check(data.sup.i, data.sup.temp);
+			ft_check(&data);
 			format = ft_percentage(data.sup.ap, format, &data);
 			data.sup.temp = format;
 		}
@@ -40,7 +41,7 @@ int			ft_printf(const char *format, ...)
 		if (*format)
 			format++;
 	}
-	ft_check(data.sup.i, data.sup.temp);
+	ft_check(&data);
 	va_end(data.sup.ap);
 	return (data.printed);
 }

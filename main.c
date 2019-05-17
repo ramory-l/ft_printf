@@ -4,10 +4,13 @@
 
 int	main(void)
 {
-	char *ptr = 0;
+	int d;
+	int i;
 
-	char *Hekko = "Hello";
-	printf("%p\n", ptr);
-	ft_printf("%p\n", ptr);
+	d = printf("%+d\n", 10);
+	i = ft_printf("%+d\n", 10);
+
+
+	ft_printf("**%d**%d**\n", 10, 10);
 	return (0);
 }

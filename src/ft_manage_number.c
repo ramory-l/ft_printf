@@ -59,6 +59,8 @@ static char	*ft_manage_oct(t_printf *data)
 static void	ft_apply_flags2(t_printf *data)
 {
 	int len;
+	char *temp;
+	char *new_str;
 
 	len = ft_strlen(data->nbr);
 	if (data->sign)
@@ -68,6 +70,16 @@ static void	ft_apply_flags2(t_printf *data)
 	if (data->flags & FLAG_OCT && (data->type == 'x' ||
 								data->type == 'X' || data->type == 'o'))
 		data->nbr = ft_manage_oct(data);
+	if (!data->sign &&
+		data->flags & FLAG_PLUS && (data->type == 'd' || data->type == 'i'))
+	{
+		temp = "+";
+		new_str = ft_strjoin(temp, data->nbr);
+		if (ft_strcmp(data->nbr, "0") != 0)
+			free(data->nbr);
+		data->nbr = new_str;
+		free(new_str);
+	}
 }
 
 void		ft_manage_signed(t_printf *data)
