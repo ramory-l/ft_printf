@@ -7,8 +7,8 @@ int	main(void)
 	int d;
 	int i;
 
-	d = ft_printf("%+d\n", 10);
-	i = ft_printf("%+d\n", 1000);
+	d = ft_printf("%p\n", 100);
+	i = ft_printf("%p\n", 1000);
 
 
 	ft_printf("**%d**%d**\n", d, i);

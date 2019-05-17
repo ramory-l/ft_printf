@@ -77,22 +77,8 @@ static void		ft_print_string(va_list ap, const char *format, t_printf *data)
 
 static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)
 {
-	char *temp;
-	char *new_str;
-
-	temp = "0x";
 	data->nbr = ft_itoa_base_unsigned((unsigned long long int)va_arg(ap, void*), 16);
-	new_str = ft_strjoin(temp, data->nbr);
-	if (ft_strcmp(data->nbr, "0") == 0)
-	{
-		ft_putstr(new_str);
-		data->printed += ft_strlen(new_str);
-		free(new_str);
-		return ;
-	}
-	free(data->nbr);
-	data->nbr = new_str;
-	free(new_str);
+	data->nbr = ft_strjoin("0x", data->nbr);
 	ft_putstr(data->nbr);
 	data->printed += ft_strlen(data->nbr);
 }
