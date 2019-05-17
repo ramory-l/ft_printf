@@ -4,29 +4,52 @@
 
 typedef union
 {
-	__uint128_t uint128t;
+	unsigned long unsigned_long;
 	long double long_double;
-}				longdoubletouint128;
+}				longdoubletounsignedlong;
 
-struct	sem_long_double
+struct	long_double
 {
 	int sign;
 	int exp;
-	long long mantis;
+	unsigned long mantis;
 };
+
+static void			print_bits_unsigned_long(unsigned long octet)
+{
+	int i;
+
+	i = 63;
+	while (i >= 0)
+	{
+		(octet & (1UL << i)) != 0 ? write(1, "1", 1) : write(1, "0", 1);
+		i--;
+	}
+}
+
+void    ft_magic(int exp)
+{
+    exp = exp - LDBL_MAX_EXP + 1;
+    printf("\nnew_exp: %d\n", exp);
+    printf("\nmax_exp: %d\n", LDBL_MAX_EXP);
+}
 
 void    ft_long_double(long double number)
 {
-    longdoubletouint128 bits;
-    struct sem_long_double longdouble;
+    longdoubletounsignedlong bits;
+    struct long_double longdouble;
     
     bits.long_double = number;
-    longdouble.sign = (((bits.uint128t >> (80 - 1)) & 0x1) == 0) ? 1 : -1;
+    longdouble.sign = (*(&bits.unsigned_long + 1)) & (1 << 15);
     if (longdouble.sign == -1)
         write(1, "-", 1);
-    longdouble.exp = (int)((bits.uint128t >> 64) & 0x7fffL);
-    longdouble.mantis = bits.uint128t & 0xFFFFFFFFFFFFFFFF;
+    longdouble.exp = (int)(*(&bits.unsigned_long + 1) & 0x7fffL);
+    longdouble.mantis = bits.unsigned_long;
     printf("sign: %d\n", longdouble.sign);
     printf("exp: %d\n", longdouble.exp);
-    printf("mantis: %llu\n", longdouble.mantis);
+    printf("mantis: %lu\n", longdouble.mantis);
+    printf("mantis: %lu\n", bits.unsigned_long);
+    // bits.unsigned_long = 5;
+    print_bits_unsigned_long(bits.unsigned_long);
+    ft_magic(longdouble.exp);
 }

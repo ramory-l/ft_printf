@@ -41,16 +41,15 @@
 // 	int base;
 // }				ss_array;
 
-struct	sem_double 
-{
-	int sign;
-	int exp;
-	long mantis;
-};
+// struct	sem_double 
+// {
+// 	int sign;
+// 	int exp;
+// 	long mantis;
+// };
 
 int		ft_printf(const char *format, ...);
 void	ft_print_int(int nbr);
-// void	ft_print_float(float nbr);
 // void    ft_double(double nbr);
 void	ft_long_double(long double nbr);
 

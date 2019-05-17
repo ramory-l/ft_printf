@@ -3,25 +3,27 @@
 #include <float.h>
 #include <limits.h>
 
+static void			print_bits_unsigned_long(unsigned long octet)
+{
+	int i;
+
+	i = 63;
+	while (i != -1)
+	{
+		(octet & (1 << i)) == 1 ? write(1, "1", 1) : write(1, "0", 1);
+		i--;
+	}
+}
+
 int 	main(void)
 {
-	// float flt;
-	double dbl;
 	long double l_dbl;
+	unsigned long addr;
 	
-	// flt = 11.11;
-	// dbl = 0.5;
-	l_dbl = 42.0;
-	// printf("custom float: \n");
-	// ft_double(flt);
-	// printf("\noriginal float: \n%.49f\n\n", flt);
-	// printf("custom double: \n");
-	// ft_double(dbl);
-	// printf("\noriginal double: \n%.1500f\n\n", dbl);
-	// printf("exp: %d\n", DBL_MAX_EXP);
-	// printf("custom long double: \n");
-	// ft_long_double(l_dbl);
-	// printf("\noriginal long double: \n%.58Lf\n", l_dbl);
+	l_dbl = 818.15625L;
+	addr = (unsigned long)l_dbl;
+	print_bits_unsigned_long(*(&addr - 1));
+	printf("original long double: %.58Lf\n\n", l_dbl);
 	ft_long_double(l_dbl);
 	return (0);
 }
