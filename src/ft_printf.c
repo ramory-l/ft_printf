@@ -1,5 +1,13 @@
 #include "ft_printf.h"
 
+static int	ft_init(t_printf *data, const char *format)
+{
+	if (!format)
+		return (0);
+	ft_bzero(data, sizeof(*data));
+	return (1);
+}
+
 static int	ft_is_printable(unsigned char c)
 {
 	if ((c >= 32 && c <= 126) || c == '\n')
@@ -20,9 +28,8 @@ int			ft_printf(const char *format, ...)
 {
 	t_printf	data;
 
-	if (!format)
+	if (!ft_init(&data, format))
 		return (0);
-	ft_bzero(&data, sizeof(data));
 	va_start(data.sup.ap, format);
 	data.sup.temp = format;
 	while (*format)
