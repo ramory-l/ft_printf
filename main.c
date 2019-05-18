@@ -4,13 +4,7 @@
 
 int	main(void)
 {
-	int d;
-	int i;
-
-	d = ft_printf("%p\n", 100);
-	i = ft_printf("%p\n", 1000);
-
-
-	ft_printf("**%d**%d**\n", d, i);
+	   printf("%llx\n", 9223372036854775808);
+	ft_printf("%llx\n", 9223372036854775808);
 	return (0);
 }

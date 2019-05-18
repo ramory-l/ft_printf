@@ -29,18 +29,35 @@ static int	ft_find_type_index(const char *format, t_printf *data)
 	return (index);
 }
 
+static int	ft_find_percentage(const char *format, t_printf *data)
+{
+	int i;
+	int index;
+
+	i = 1;
+	index = 0;
+	while (format[i])
+	{
+		if (format[i] == '%')
+			index = i;
+		i++;
+	}
+	return (index);
+}
+
 const char	*ft_percentage(va_list ap, const char *format, t_printf *data)
 {
 	int type_index;
 
-	type_index = ft_find_type_index(format, data);
+	type_index = ft_find_percentage(format, data);
 	if (type_index == 0)
 	{
-		format++;
-		if (ft_strchr(format, '%'))
-			return (format = ft_strchr(format, '%'));
-		return ("");
+		type_index = ft_find_type_index(format, data);
+		if (!type_index)
+			return ("");
 	}
+	else
+		data->type = '%';
 	data->flags = ft_find_flags(format, type_index);
 	data->width = ft_find_width(format, type_index);
 	data->accuracy = ft_find_accuracy(format, type_index);

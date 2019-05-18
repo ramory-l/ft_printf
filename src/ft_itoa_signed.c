@@ -29,7 +29,7 @@ char *ft_itoa_signed(long long int value)
 	}
 	len = ft_find_length(value);
 	len += sign;
-	number = (char *)malloc(sizeof(char) * (len + 1));
+	number = ft_strnew(len);
 	if (sign)
 		number[0] = '-';
 	while (len-- > sign)

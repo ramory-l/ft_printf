@@ -26,9 +26,9 @@ char		ft_find_flags(const char *format, int type_index)
 
 static char	ft_find_h(const char *format, int type_index)
 {
-	int i;
-	int h;
-	char qualifier;
+	int		i;
+	int		h;
+	char	qualifier;
 
 	i = 0;
 	h = 0;
@@ -54,9 +54,9 @@ static char	ft_find_h(const char *format, int type_index)
 
 char		ft_find_qualifier(const char *format, int type_index)
 {
-	int i;
-	int h;
-	char qualifier;
+	int		i;
+	int		h;
+	char	qualifier;
 
 	i = 0;
 	h = 0;
@@ -84,7 +84,12 @@ int			ft_find_width(const char *format, int type_index)
 	while (i < type_index)
 	{
 		if (format[i] >= '1' && format[i] <= '9' && format[i - 1] != '.')
+		{
 			width = ft_atoi(&format[i]);
+			while (ft_isdigit(format[i]))
+				i++;
+			i--;
+		}
 		i++;
 	}
 	return (width);
@@ -99,8 +104,13 @@ int			ft_find_accuracy(const char *format, int type_index)
 	accuracy = 0;
 	while (i < type_index)
 	{
-		if (format[i] == '.' && format[i + 1] >= '1' && format[i + 1] <= '9')
-			accuracy = ft_atoi(&format[i + 1]);
+		if (format[i] == '.')
+		{
+			if (format[i + 1] >= '1' && format[i + 1] <= '9')
+				accuracy = ft_atoi(&format[i + 1]);
+			else
+				accuracy = 0;
+		}
 		i++;
 	}
 	return (accuracy);

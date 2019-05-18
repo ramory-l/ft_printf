@@ -29,7 +29,7 @@ char *ft_itoa_base_unsigned(unsigned long long int value, int base)
 	if (value == 0)
 		return ("0");
 	len = ft_find_length(value, base);
-	number = (char *)malloc(sizeof(char) * (len + 1));
+	number = ft_strnew(len);
 	while (len--)
 	{
 		number[len] = radix[value % base];

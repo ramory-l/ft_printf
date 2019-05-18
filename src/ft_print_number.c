@@ -13,13 +13,13 @@ static int		ft_choose_base(char c)
 
 static void		ft_print_signed(va_list ap, t_printf *data)
 {
-	int di;
+	long long int di;
 
-	di = va_arg(ap, int);
+	di = va_arg(ap, long long int);
 	if (di < 0)
 		data->sign = 1;
 	if (!data->qualifier)
-		data->nbr = ft_itoa_signed(di);
+		data->nbr = ft_itoa_signed((int)di);
 	if (data->qualifier & QUAL_LL)
 		data->nbr = ft_itoa_signed((long long int)di);
 	if (data->qualifier & QUAL_L)
@@ -34,17 +34,17 @@ static void		ft_print_signed(va_list ap, t_printf *data)
 
 static void		ft_print_unsigned(va_list ap, t_printf *data)
 {
-	int				base;
-	unsigned int	oux_x;
-	int				check_sign;
+	int						base;
+	unsigned long long int	oux_x;
+	int						check_sign;
 
 	base = ft_choose_base(data->type);
-	oux_x = va_arg(ap, unsigned int);
+	oux_x = va_arg(ap, unsigned long long int);
 	check_sign = oux_x;
 	if (check_sign < 0)
 		data->sign = 1;
 	if (!data->qualifier)
-		data->nbr = ft_itoa_base_unsigned(oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((unsigned int)oux_x, base);
 	if (data->qualifier & QUAL_LL)
 		data->nbr = ft_itoa_base_unsigned((unsigned long long int)oux_x, base);
 	if (data->qualifier & QUAL_L)
@@ -75,9 +75,21 @@ static void		ft_print_string(va_list ap, const char *format, t_printf *data)
 	data->printed += ft_strlen(temp);
 }
 
+static void		ft_print_percentage(const char *format, t_printf *data)
+{
+	data->nbr = "%";
+	if (!(data->flags & FLAG_MINUS) && data->width)
+		data->nbr = ft_fill_spaces(data->nbr, '<', data->width - 1);
+	if (data->flags & FLAG_MINUS && data->width)
+		data->nbr = ft_fill_spaces(data->nbr, '>', data->width - 1);
+	ft_putstr(data->nbr);
+	data->printed += ft_strlen(data->nbr);
+}
+
 static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)
 {
-	data->nbr = ft_itoa_base_unsigned((unsigned long long int)va_arg(ap, void*), 16);
+	data->nbr =
+		ft_itoa_base_unsigned((unsigned long long int)va_arg(ap, void*), 16);
 	data->nbr = ft_strjoin("0x", data->nbr);
 	ft_putstr(data->nbr);
 	data->printed += ft_strlen(data->nbr);
@@ -98,4 +110,6 @@ void			ft_print(va_list ap, const char *format, t_printf *data)
 		ft_print_string(ap, format, data);
 	if (data->type == 'p')
 		ft_print_ptr(ap, format, data);
+	if (data->type == '%')
+		ft_print_percentage(format, data);
 }
