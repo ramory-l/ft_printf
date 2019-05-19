@@ -37,7 +37,7 @@ int			ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			ft_check(&data);
-			format = ft_percentage(data.sup.ap, format, &data);
+			format = ft_check_ptc(data.sup.ap, format, &data);
 			data.sup.temp = format;
 		}
 		if (ft_is_printable(*format))

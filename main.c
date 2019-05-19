@@ -4,7 +4,7 @@
 
 int	main(void)
 {
-	   printf("%llx\n", 9223372036854775808);
-	ft_printf("%llx\n", 9223372036854775808);
+	ft_printf("%   -5%\n");
+	   printf("%   -5%\n");
 	return (0);
 }
