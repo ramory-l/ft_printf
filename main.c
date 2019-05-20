@@ -4,6 +4,6 @@
 
 int	main(void)
 {
-	ft_printf("@moulitest: %s", NULL);
+	ft_printf("%-5%\n");
 	return (0);
 }

@@ -28,10 +28,7 @@ void			ft_choose_print(va_list ap, const char *format, t_printf *data)
 		data->type == 'x' || data->type == 'X')
 		ft_print_dioux_x(ap, format, data);
 	if (data->type == 'c')
-	{
-		ft_putchar((char)va_arg(ap, int));
-		data->printed += 1;
-	}
+		ft_print_char(ap, format, data);
 	if (data->type == 's')
 		ft_print_string(ap, format, data);
 	if (data->type == 'p')

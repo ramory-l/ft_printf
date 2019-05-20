@@ -1,118 +1,93 @@
 #include "ft_printf.h"
 
-char		ft_find_flags(const char *format, int type_index)
+static int	type(char c)
 {
-	int		i;
-	char	flags;
-
-	i = 0;
-	flags = INIT;
-	while (i < type_index)
-	{
-		if (format[i] == '-')
-			flags |= FLAG_MINUS;
-		if (format[i] == '+')
-			flags |= FLAG_PLUS;
-		if (format[i] == ' ')
-			flags |= FLAG_SPACE;
-		if (format[i] == '#')
-			flags |= FLAG_OCT;
-		if (format[i] == '0' && !ft_isdigit(format[i - 1]) && format[i - 1] != '.')
-			flags |= FLAG_ZERO;
-		i++;
-	}
-	return (flags);
-}
-
-static char	ft_find_h(const char *format, int type_index)
-{
-	int		i;
-	int		h;
-	char	qualifier;
-
-	i = 0;
-	h = 0;
-	qualifier = INIT;
-	while (i < type_index)
-	{
-		if (format[i] == 'h')
-			h++;
-		i++;
-	}
-	if (h % 2)
-	{
-		qualifier |= QUAL_H;
-		return (qualifier);
-	}
-	else if (h)
-	{
-		qualifier |= QUAL_HH;
-		return (qualifier);
-	}
+	if (c == 'd' || c == 'i' || c == 'o' ||
+		c == 'u' || c == 'x' || c == 'X' ||
+		c == 'c' || c == 's' || c == 'p' ||
+		c == '%')
+		return (1);
 	return (0);
 }
 
-char		ft_find_qualifier(const char *format, int type_index)
+static void	ft_check_flag(const char *format, t_printf *data)
 {
-	int		i;
-	int		h;
-	char	qualifier;
-
-	i = 0;
-	h = 0;
-	qualifier = INIT;
-	if (ft_strnstr(format, "ll", type_index))
-	{
-		qualifier |= QUAL_LL;
-		return (qualifier);
-	}
-	if (ft_strnstr(format, "l", type_index))
-	{
-		qualifier |= QUAL_L;
-		return (qualifier);
-	}
-	return (ft_find_h(format, type_index));
+	if (*format == '-')
+		data->flags |= FLAG_MINUS;
+	if (*format == '+')
+		data->flags |= FLAG_PLUS;
+	if (*format == ' ')
+		data->flags |= FLAG_SPACE;
+	if (*format == '#')
+		data->flags |= FLAG_OCT;
+	if (*format == '0' && !ft_isdigit(*(format - 1)) && *(format - 1) != '.')
+		data->flags |= FLAG_ZERO;
 }
 
-int			ft_find_width(const char *format, int type_index)
+static const char	*ft_check_width(const char *format, t_printf *data)
 {
-	int i;
-	int width;
-
-	i = 0;
-	width = 0;
-	while (i < type_index)
+	if (*format >= '1' && *format <= '9' && *(format - 1) != '.')
 	{
-		if (format[i] >= '1' && format[i] <= '9' && format[i - 1] != '.')
-		{
-			width = ft_atoi(&format[i]);
-			while (ft_isdigit(format[i]))
-				i++;
-			i--;
-		}
-		i++;
+		data->width = ft_atoi(format);
+		while (ft_isdigit(*format))
+			format++;
+		format -= 2;
 	}
-	return (width);
+	return (format);
 }
 
-int			ft_find_acc(const char *format, int type_index, t_printf *data)
+static void ft_check_acc(const char *format, t_printf *data)
+{
+	if (*format == '.')
+	{
+		data->acc = 1;
+		if (*(format + 1) >= '1' && *(format + 1) <= '9')
+			data->accuracy = ft_atoi(format + 1);
+	}
+}
+
+static void	ft_check_size(t_printf *data)
+{
+	if (data->l_count)
+	{
+		if (data->l_count % 2)
+			data->size |= SIZE_L;
+		else
+			data->size |= SIZE_LL;
+		return ;
+	}
+	if (data->h_count)
+	{
+		if (data->h_count % 2)
+			data->size |= SIZE_H;
+		else
+			data->size |= SIZE_HH;
+	}
+}
+
+int	ft_specifier_format(const char *format, t_printf *data)
 {
 	int i;
-	int accuracy;
+	int index;
 
-	i = 0;
-	accuracy = 0;
-	while (i < type_index)
+	i = 1;
+	index = 0;
+	while (format[i])
 	{
-		if (format[i] == '.')
+		if (type(format[i]))
 		{
-			data->acc = 1;
-			if (format[i + 1] >= '1' && format[i + 1] <= '9')
-				accuracy = ft_atoi(&format[i + 1]);
-			else
-				accuracy = 0;
+			index = i;
+			break ;
 		}
+		ft_check_flag(&format[i], data);
+		format = ft_check_width(&format[i], data);
+		if (format[i] == 'l')
+			data->l_count++;
+		if (format[i] == 'h')
+			data->h_count++;
 		i++;
 	}
-	return (accuracy);
+	ft_check_size(data);
+	data->type = format[index];
+	return (index);
 }
