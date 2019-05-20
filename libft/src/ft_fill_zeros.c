@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:02:35 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/15 12:19:46 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/05/20 14:21:22 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ char		*ft_fill_zeros(char *s, int zeros)
 		free(temp);
 		temp = ft_strjoin(new_str, s + 1);
 		free(new_str);
-		free(s);
 		return (temp);
 	}
 	new_str = ft_strjoin(temp, s);
 	free(temp);
-	free(s);
 	return (new_str);
 }

@@ -17,7 +17,7 @@ char		ft_find_flags(const char *format, int type_index)
 			flags |= FLAG_SPACE;
 		if (format[i] == '#')
 			flags |= FLAG_OCT;
-		if (format[i] == '0')
+		if (format[i] == '0' && !ft_isdigit(format[i - 1]) && format[i - 1] != '.')
 			flags |= FLAG_ZERO;
 		i++;
 	}
@@ -95,7 +95,7 @@ int			ft_find_width(const char *format, int type_index)
 	return (width);
 }
 
-int			ft_find_accuracy(const char *format, int type_index)
+int			ft_find_acc(const char *format, int type_index, t_printf *data)
 {
 	int i;
 	int accuracy;
@@ -106,6 +106,7 @@ int			ft_find_accuracy(const char *format, int type_index)
 	{
 		if (format[i] == '.')
 		{
+			data->acc = 1;
 			if (format[i + 1] >= '1' && format[i + 1] <= '9')
 				accuracy = ft_atoi(&format[i + 1]);
 			else

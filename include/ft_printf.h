@@ -34,6 +34,8 @@ typedef struct	s_printf
 	int		printed;
 	int		sign;
 	int		len;
+	int		acc;
+	char	*temp;
 	t_sup	sup;
 }				t_printf;
 
@@ -42,12 +44,13 @@ const char		*ft_check_ptc(va_list ap, const char *format, t_printf *data);
 char			ft_find_flags(const char *format, int type_index);
 char			ft_find_qualifier(const char *format, int type_index);
 int				ft_find_width(const char *format, int type_index);
-int				ft_find_accuracy(const char *format, int type_index);
+int				ft_find_acc(const char *format, int type_index, t_printf *data);
 void			ft_choose_print(va_list ap, const char *format, t_printf *data);
 void			ft_manage_di(t_printf *data);
 void			ft_manage_oux_x(t_printf *data);
 void			ft_minus_width_rule(t_printf *data);
 void			ft_print_dioux_x(va_list ap, const char *format, t_printf *data);
+void			ft_print_string(va_list ap, const char *format, t_printf *data);
 char			*ft_itoa_signed(long long int value);
 char			*ft_itoa_base_unsigned(unsigned long long int value, int base);
 

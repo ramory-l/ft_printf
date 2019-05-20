@@ -40,12 +40,12 @@ int			ft_printf(const char *format, ...)
 			format = ft_check_ptc(data.sup.ap, format, &data);
 			data.sup.temp = format;
 		}
-		if (ft_is_printable(*format))
+		if (ft_is_printable(*format) && *format != '%')
 		{
 			data.sup.i++;
 			data.printed++;
 		}
-		if (*format)
+		if (*format && *format != '%')
 			format++;
 	}
 	ft_check(&data);

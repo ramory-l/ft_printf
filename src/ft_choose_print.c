@@ -1,14 +1,5 @@
 #include "ft_printf.h"
 
-static void		ft_print_string(va_list ap, const char *format, t_printf *data)
-{
-	char *temp;
-
-	temp = va_arg(ap, char *);
-	ft_putstr(temp);
-	data->printed += ft_strlen(temp);
-}
-
 static void		ft_print_percentage(const char *format, t_printf *data)
 {
 	data->nbr = NULL;

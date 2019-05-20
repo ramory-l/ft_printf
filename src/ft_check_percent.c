@@ -49,7 +49,7 @@ const char	*ft_check_ptc(va_list ap, const char *format, t_printf *data)
 		return ("");
 	data->flags = ft_find_flags(format, type_index);
 	data->width = ft_find_width(format, type_index);
-	data->accuracy = ft_find_accuracy(format, type_index);
+	data->accuracy = ft_find_acc(format, type_index, data);
 	data->qualifier = ft_find_qualifier(format, type_index);
 	ft_manage_flags(data);
 	ft_choose_print(ap, format, data);
