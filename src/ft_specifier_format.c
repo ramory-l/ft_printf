@@ -24,16 +24,15 @@ static void	ft_check_flag(const char *format, t_printf *data)
 		data->flags |= FLAG_ZERO;
 }
 
-static const char	*ft_check_width(const char *format, t_printf *data)
+static void	ft_check_width(int *i, const char *format, t_printf *data)
 {
-	if (*format >= '1' && *format <= '9' && *(format - 1) != '.')
+	if (format[*i] >= '1' && format[*i] <= '9' && format[*i - 1] != '.')
 	{
-		data->width = ft_atoi(format);
-		while (ft_isdigit(*format))
-			format++;
-		format -= 2;
+		data->width = ft_atoi(&format[*i]);
+		while (ft_isdigit(format[*i]))
+			(*i)++;
+		(*i)--;
 	}
-	return (format);
 }
 
 static void ft_check_acc(const char *format, t_printf *data)
@@ -67,7 +66,7 @@ static void	ft_check_size(t_printf *data)
 
 int	ft_specifier_format(const char *format, t_printf *data)
 {
-	int i;
+	int	i;
 	int index;
 
 	i = 1;
@@ -80,7 +79,8 @@ int	ft_specifier_format(const char *format, t_printf *data)
 			break ;
 		}
 		ft_check_flag(&format[i], data);
-		format = ft_check_width(&format[i], data);
+		ft_check_width(&i, format, data);
+		ft_check_acc(&format[i], data);
 		if (format[i] == 'l')
 			data->l_count++;
 		if (format[i] == 'h')

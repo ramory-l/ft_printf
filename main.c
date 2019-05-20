@@ -4,6 +4,6 @@
 
 int	main(void)
 {
-	ft_printf("%-5%\n");
+	ft_printf("%.2s is a string", "this");
 	return (0);
 }
