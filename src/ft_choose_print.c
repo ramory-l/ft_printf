@@ -8,9 +8,9 @@ static void		ft_print_percent(const char *format, t_printf *data)
 	i = 0;
 	ft_bzero(buffer, sizeof(buffer));
 	if (!(data->flags & FLAG_MINUS) && data->width)
-		ft_fill_buff(buffer, '<', "%", data->width);
+		ft_fill_spaces(buffer, '<', "%", data->width);
 	else if (data->flags & FLAG_MINUS && data->width)
-		ft_fill_buff(buffer, '>', "%", data->width);
+		ft_fill_spaces(buffer, '>', "%", data->width);
 	else
 		buffer[0] = '%';
 	ft_putstr(buffer);
