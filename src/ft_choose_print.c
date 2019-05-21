@@ -1,15 +1,20 @@
 #include "ft_printf.h"
 
-static void		ft_print_percentage(const char *format, t_printf *data)
+static void		ft_print_percent(const char *format, t_printf *data)
 {
-	data->nbr = NULL;
-	data->nbr = ft_strjoin(data->nbr, "%");
+	int	i;
+	char buffer[512];
+
+	i = 0;
+	ft_bzero(buffer, sizeof(buffer));
 	if (!(data->flags & FLAG_MINUS) && data->width)
-		data->nbr = ft_fill_spaces(data->nbr, '<', data->width - 1);
-	if (data->flags & FLAG_MINUS && data->width)
-		data->nbr = ft_fill_spaces(data->nbr, '>', data->width - 1);
-	ft_putstr(data->nbr);
-	data->printed += ft_strlen(data->nbr);
+		ft_fill_buff(buffer, '<', "%", data->width);
+	else if (data->flags & FLAG_MINUS && data->width)
+		ft_fill_buff(buffer, '>', "%", data->width);
+	else
+		buffer[0] = '%';
+	ft_putstr(buffer);
+	data->printed += ft_strlen(buffer);
 }
 
 static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)
@@ -34,5 +39,5 @@ void			ft_choose_print(va_list ap, const char *format, t_printf *data)
 	if (data->type == 'p')
 		ft_print_ptr(ap, format, data);
 	if (data->type == '%')
-		ft_print_percentage(format, data);
+		ft_print_percent(format, data);
 }

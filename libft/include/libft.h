@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 16:05:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/15 11:16:23 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/05/21 11:46:50 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ char				*ft_strtrim(char const *s);
 char				*ft_itoa(int n);
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char				*ft_fill_spaces(char *s, char mode, int spaces);
-char				*ft_fill_zeros(char *s, int zeros);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_atoi(const char *str);
 size_t				ft_strlen(const char *s);
@@ -86,5 +84,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_striter(char *s, void (*f)(char *));
+void				ft_fill_spaces(char *buffer, char mode, char *str, size_t size);
+void				ft_fill_zeroes(char *buffer, char mode, char *str, size_t size);
 
 #endif
