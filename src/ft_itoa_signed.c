@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int ft_find_length(long long int value)
+static int ft_find_length(lli value)
 {
 	int len;
 
@@ -13,7 +13,7 @@ static int ft_find_length(long long int value)
 	return (len);
 }
 
-char *ft_itoa_signed(long long int value)
+char *ft_itoa_signed(lli value, t_printf *data)
 {
 	int len;
 	int	sign;
@@ -29,6 +29,7 @@ char *ft_itoa_signed(long long int value)
 	}
 	len = ft_find_length(value);
 	len += sign;
+	data->len = len;
 	number = ft_strnew(len);
 	if (sign)
 		number[0] = '-';

@@ -2,17 +2,14 @@
 
 static void		ft_print_percent(const char *format, t_printf *data)
 {
-	int	i;
 	char buffer[512];
 
-	i = 0;
 	ft_bzero(buffer, sizeof(buffer));
+	buffer[0] = '%';
 	if (!(data->flags & FLAG_MINUS) && data->width)
 		ft_fill_spaces(buffer, '<', "%", data->width);
-	else if (data->flags & FLAG_MINUS && data->width)
+	if (data->flags & FLAG_MINUS && data->width)
 		ft_fill_spaces(buffer, '>', "%", data->width);
-	else
-		buffer[0] = '%';
 	ft_putstr(buffer);
 	data->printed += ft_strlen(buffer);
 }
@@ -20,10 +17,11 @@ static void		ft_print_percent(const char *format, t_printf *data)
 static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)
 {
 	data->nbr =
-		ft_itoa_base_unsigned((unsigned long long int)va_arg(ap, void*), 16);
+		ft_itoa_base_unsigned((ulli)va_arg(ap, void*), 16, data);
 	data->nbr = ft_strjoin("0x", data->nbr);
-	ft_putstr(data->nbr);
-	data->printed += ft_strlen(data->nbr);
+	data->len += 2;
+	write(1, data->nbr, data->len);
+	data->printed += data->len;;
 }
 
 void			ft_choose_print(va_list ap, const char *format, t_printf *data)

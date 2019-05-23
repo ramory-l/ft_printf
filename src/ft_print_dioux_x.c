@@ -19,17 +19,16 @@ static void		ft_print_di(va_list ap, t_printf *data)
 	if (di < 0)
 		data->sign = 1;
 	if (!data->size)
-		data->nbr = ft_itoa_signed((int)di);
+		data->nbr = ft_itoa_signed((int)di, data);
 	if (data->size & SIZE_LL)
-		data->nbr = ft_itoa_signed((long long int)di);
+		data->nbr = ft_itoa_signed((lli)di, data);
 	if (data->size & SIZE_L)
-		data->nbr = ft_itoa_signed((long int)di);
+		data->nbr = ft_itoa_signed((long int)di, data);
 	if (data->size & SIZE_HH)
-		data->nbr = ft_itoa_signed((char)di);
+		data->nbr = ft_itoa_signed((char)di, data);
 	if (data->size & SIZE_H)
-		data->nbr = ft_itoa_signed((short int)di);
+		data->nbr = ft_itoa_signed((short int)di, data);
 	ft_manage_di(data);
-	data->printed += ft_strlen(data->nbr);
 }
 
 static void		ft_print_oux_x(va_list ap, t_printf *data)
@@ -44,17 +43,16 @@ static void		ft_print_oux_x(va_list ap, t_printf *data)
 	if (check_sign < 0)
 		data->sign = 1;
 	if (!data->size)
-		data->nbr = ft_itoa_base_unsigned((unsigned int)oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((unsigned int)oux_x, base, data);
 	if (data->size & SIZE_LL)
-		data->nbr = ft_itoa_base_unsigned((unsigned long long int)oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((ulli)oux_x, base, data);
 	if (data->size & SIZE_L)
-		data->nbr = ft_itoa_base_unsigned((unsigned long int)oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((unsigned long int)oux_x, base, data);
 	if (data->size & SIZE_HH)
-		data->nbr = ft_itoa_base_unsigned((unsigned char)oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((unsigned char)oux_x, base, data);
 	if (data->size & SIZE_H)
-		data->nbr = ft_itoa_base_unsigned((unsigned short int)oux_x, base);
+		data->nbr = ft_itoa_base_unsigned((unsigned short int)oux_x, base, data);
 	ft_manage_oux_x(data);
-	data->printed += ft_strlen(data->nbr);
 }
 
 void		ft_print_dioux_x(va_list ap, const char *format, t_printf *data)

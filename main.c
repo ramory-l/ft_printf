@@ -4,6 +4,8 @@
 
 int	main(void)
 {
-	ft_printf("%5%\n");
+	int d = ft_printf("%#08x\n", 42);
+
+	printf("%d\n", d);
 	return (0);
 }

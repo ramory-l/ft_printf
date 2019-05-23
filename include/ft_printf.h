@@ -15,6 +15,9 @@
 # define SIZE_H 4
 # define SIZE_HH 8
 
+typedef unsigned long long int ulli;
+typedef long long int lli;
+
 typedef struct	s_sup
 {
 	int			i;
@@ -24,20 +27,20 @@ typedef struct	s_sup
 
 typedef struct	s_printf
 {
-	char	type;
-	char	flags;
-	int		width;
-	int		accuracy;
-	char	size;
-	char	*nbr;
-	int		printed;
-	int		sign;
-	int		len;
-	int		acc;
-	char	*temp;
-	int		l_count;
-	int		h_count;
-	t_sup	sup;
+	char		type;
+	char		flags;
+	int			width;
+	int			accuracy;
+	char		size;
+	char		*nbr;
+	int			printed;
+	int			sign;
+	int			len;
+	int			acc;
+	char		*temp;
+	int			l_count;
+	int			h_count;
+	t_sup		sup;
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
@@ -50,7 +53,7 @@ void			ft_minus_width_rule(t_printf *data);
 void			ft_print_dioux_x(va_list ap, const char *format, t_printf *data);
 void			ft_print_char(va_list ap, const char *format, t_printf *data);
 void			ft_print_string(va_list ap, const char *format, t_printf *data);
-char			*ft_itoa_signed(long long int value);
-char			*ft_itoa_base_unsigned(unsigned long long int value, int base);
+char			*ft_itoa_signed(lli value, t_printf *data);
+char			*ft_itoa_base_unsigned(ulli value, int base, t_printf *data);
 
 #endif

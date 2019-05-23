@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int ft_find_length(unsigned long long int value, int base)
+static int ft_find_length(ulli value, int base)
 {
 	int len;
 
@@ -13,7 +13,7 @@ static int ft_find_length(unsigned long long int value, int base)
 	return (len);
 }
 
-char *ft_itoa_base_unsigned(unsigned long long int value, int base)
+char *ft_itoa_base_unsigned(ulli value, int base, t_printf *data)
 {
 	int len;
 	char *radix;
@@ -29,6 +29,7 @@ char *ft_itoa_base_unsigned(unsigned long long int value, int base)
 	if (value == 0)
 		return ("0");
 	len = ft_find_length(value, base);
+	data->len = len;
 	number = ft_strnew(len);
 	while (len--)
 	{

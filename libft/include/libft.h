@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 16:05:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/21 11:46:50 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/05/21 15:17:17 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_striter(char *s, void (*f)(char *));
+void				ft_fill_buff(int start, char *buffer, char *str);
 void				ft_fill_spaces(char *buffer, char mode, char *str, size_t size);
 void				ft_fill_zeroes(char *buffer, char mode, char *str, size_t size);
 

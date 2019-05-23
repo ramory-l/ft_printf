@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:50:35 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/21 11:47:29 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/05/21 14:42:17 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	back_mode(char *buffer, char mode, char *str, size_t size)
 	}
 }
 
-void	ft_fill_spaces(char *buffer, char mode, char *str, size_t size)
+void	ft_fill_zeroes(char *buffer, char mode, char *str, size_t size)
 {
 	for_mode(buffer, mode, str, size);
 	back_mode(buffer, mode, str, size);
