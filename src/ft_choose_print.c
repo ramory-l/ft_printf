@@ -2,16 +2,21 @@
 
 static void		ft_print_percent(const char *format, t_printf *data)
 {
+	int turn;
 	char buffer[512];
 
+	turn = 0;
 	ft_bzero(buffer, sizeof(buffer));
 	buffer[0] = '%';
+	data->len = 1;
 	if (!(data->flags & FLAG_MINUS) && data->width)
-		ft_fill_spaces(buffer, '<', "%", data->width);
+		turn = ft_fill_spaces(buffer, '<', data->width, data->len);
 	if (data->flags & FLAG_MINUS && data->width)
-		ft_fill_spaces(buffer, '>', "%", data->width);
-	ft_putstr(buffer);
-	data->printed += ft_strlen(buffer);
+		turn = ft_fill_spaces(buffer, '>', data->width, data->len);
+	if (turn)
+		data->len = data->width;
+	write(1, buffer, data->len);
+	data->printed += data->len;
 }
 
 static void		ft_print_ptr(va_list ap, const char *format, t_printf *data)

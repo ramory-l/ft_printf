@@ -6,7 +6,7 @@
 #    By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 14:34:56 by ramory-l          #+#    #+#              #
-#    Updated: 2019/05/01 14:34:00 by ramory-l         ###   ########.fr        #
+#    Updated: 2019/05/24 22:21:31 by ramory-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 %.o: %.c
-	@gcc -c $< -o $@ $(HEADERS)
+	@gcc -c $< -o $@ $(HEADERS) -g
 
 .PHONY: clean
 clean:
@@ -50,4 +50,4 @@ re: fclean all
 .PHONY: test
 test:
 	@rm -rf $(EXE)
-	@gcc -o test main.c $(HEADERS) -L . -lftprintf
+	@gcc -o test main.c $(HEADERS) -L . -lftprintf -g
