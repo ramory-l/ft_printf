@@ -1,55 +1,115 @@
-#include <stdio.h>
 #include "ft_printf.h"
-#include <float.h> // библиотека с константами
 
-typedef union
+// вывод битов unsigned long
+static void		ft_printBitsUnsignedLong(unsigned long number)
 {
-	unsigned long unsigned_long;
-	long double long_double;
-}				longdoubletounsignedlong;
+	int	numBits;
 
-struct	long_double
-{
-	int sign;
-	int exp;
-	unsigned long mantis;
-};
-
-static void			print_bits_unsigned_long(unsigned long octet)
-{
-	int i;
-
-	i = 63;
-	while (i >= 0)
+	numBits = 63;
+	while (numBits >= 0)
 	{
-		(octet & (1UL << i)) != 0 ? write(1, "1", 1) : write(1, "0", 1);
-		i--;
+		(number & (1UL << numBits)) != 0 ? write(1, "1", 1) : write(1, "0", 1);
+		numBits--;
+	}
+	write(1, "\n\n", 2);
+}
+
+// возведение в степень
+static int		ft_exponentiation(int power, int number)
+{
+	int result;
+
+	result = number;
+	if (power == 0)
+		result = 1;
+	else
+		while (power-- != 1)
+			result *= number;
+	return (result);
+}
+
+//разделение числа по ячейкам
+static t_arrayInt		ft_separationNumber(t_arrayInt arrayInt, int check_result)
+{
+	int num1;
+	int num2;
+
+	num1 = check_result / 100000000;
+	num2 = check_result % 100000000;
+
+}
+
+// заполнение массива
+static void		ft_fillArray(t_powerBits bitsPower)
+{
+	t_arrayInt arrayInt;
+	int check_result;
+	int iArr;
+
+	iArr = 0;
+	check_result = 0;
+	while (bitsPower.countPower--)
+	{
+		if (iArr == 0 && arrayInt.intResult[iArr] == 0)
+			arrayInt.intResult[iArr] = ft_exponentiation(MAX_POWER, BASE_INT);
+		else
+		{
+			check_result = arrayInt.intResult[iArr] * ft_exponentiation(MAX_POWER, BASE_INT);
+			if (check_result > MAX_CELL)
+				arrayInt = ft_separationNumber(arrayInt, check_result);
+			else
+				arrayInt.intResult[iArr] = check_result;
+		}
 	}
 }
 
-void    ft_magic(int exp)
+// разбивка степеней
+static void		ft_separationPower(t_powerBits bitsPower)
 {
-    exp = exp - LDBL_MAX_EXP + 1;
-    printf("\nnew_exp: %d\n", exp);
-    printf("\nmax_exp: %d\n", LDBL_MAX_EXP);
+	if (bitsPower.power > 10)
+    {
+        bitsPower.countPower = bitsPower.power / 10;
+        bitsPower.remainPower = bitsPower.power % 10;
+    }
+	ft_fillArray(bitsPower);
 }
 
-void    ft_long_double(long double number)
+// поиск степеней из бинарной мантисы
+static void		ft_findingIntPower(t_longDouble longDouble)
 {
-    longdoubletounsignedlong bits;
-    struct long_double longdouble;
-    
-    bits.long_double = number;
-    longdouble.sign = (*(&bits.unsigned_long + 1)) & (1 << 15);
-    if (longdouble.sign == -1)
-        write(1, "-", 1);
-    longdouble.exp = (int)(*(&bits.unsigned_long + 1) & 0x7fffL);
-    longdouble.mantis = bits.unsigned_long;
-    printf("sign: %d\n", longdouble.sign);
-    printf("exp: %d\n", longdouble.exp);
-    printf("mantis: %lu\n", longdouble.mantis);
-    printf("mantis: %lu\n", bits.unsigned_long);
-    // bits.unsigned_long = 5;
-    print_bits_unsigned_long(bits.unsigned_long);
-    ft_magic(longdouble.exp);
+	t_powerBits	bitsPower;
+	int 		numOfIntBits;
+	int 		numOfBits;
+	int 		bit;
+
+	bit = 0;
+	numOfBits = 63;
+	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
+	bitsPower.power = numOfIntBits;
+	while (numOfIntBits)
+	{
+		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
+		numOfBits--;
+		bitsPower.power--;
+		if (bit == 1)
+		{
+			printf("2^%d\n", bitsPower.power);
+			ft_separationPower(bitsPower);
+		}
+		numOfIntBits--;
+	}
+}
+
+// тут начинается магия
+void    ft_longDouble(long double number)
+{
+	longDoubleToUnsignedLong	bits;
+	t_longDouble 				longDouble;
+
+	bits.longDouble = number;
+	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
+	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
+	longDouble.mantis = bits.unsignedLong;
+	ft_printBitsUnsignedLong(longDouble.mantis);
+	ft_findingIntPower(longDouble);
 }
