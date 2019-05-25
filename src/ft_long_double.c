@@ -28,44 +28,53 @@ static int		ft_exponentiation(int power, int number)
 	return (result);
 }
 
-//разделение числа по ячейкам
-static t_arrayInt		ft_separationNumber(t_arrayInt arrayInt, int check_result)
+// подсчет степеней
+static s_arrayInt	ft_calcPower(s_arrayInt arrayInt, int power)
 {
-	int num1;
-	int num2;
+	arrayInt.flag = 0;
+	int tmp_flag;
+	unsigned long long int current = 0;
 
-	num1 = check_result / 100000000;
-	num2 = check_result % 100000000;
-
+	if (arrayInt.intTmp[arrayInt.iArr] == 0)
+	{
+		arrayInt.intTmp[arrayInt.iArr] = ft_exponentiation(power, BASE_INT);
+		arrayInt.remainder = 0;
+		arrayInt.flag++;
+	}
+	tmp_flag = arrayInt.flag;
+	while (arrayInt.iArr < arrayInt.flag - 1 || arrayInt.remainder)
+	{
+		current = arrayInt.remainder + arrayInt.intTmp[arrayInt.iArr] * ft_exponentiation(power, BASE_INT);
+		arrayInt.intTmp[arrayInt.iArr] = current % MAX_CELL;
+		arrayInt.remainder = current / MAX_CELL;
+		arrayInt.iArr++;
+		arrayInt.intTmp[arrayInt.iArr] = current / MAX_CELL;
+		if ((arrayInt.iArr > tmp_flag - 1) && arrayInt.remainder)
+			tmp_flag++;
+	}
+	arrayInt.flag = tmp_flag;
+	return (arrayInt);
 }
 
 // заполнение массива
-static void		ft_fillArray(t_powerBits bitsPower)
+static void		ft_fillArray(s_powerBits bitsPower)
 {
-	t_arrayInt arrayInt;
-	int check_result;
-	int iArr;
+	s_arrayInt arrayInt;
 
-	iArr = 0;
-	check_result = 0;
+	arrayInt.flag = 0;
 	while (bitsPower.countPower--)
-	{
-		if (iArr == 0 && arrayInt.intResult[iArr] == 0)
-			arrayInt.intResult[iArr] = ft_exponentiation(MAX_POWER, BASE_INT);
-		else
-		{
-			check_result = arrayInt.intResult[iArr] * ft_exponentiation(MAX_POWER, BASE_INT);
-			if (check_result > MAX_CELL)
-				arrayInt = ft_separationNumber(arrayInt, check_result);
-			else
-				arrayInt.intResult[iArr] = check_result;
-		}
-	}
+		arrayInt = ft_calcPower(arrayInt, MAX_POWER);
+	if (bitsPower.remainPower)
+		arrayInt = ft_calcPower(arrayInt, bitsPower.remainPower);
+	else
+		arrayInt = ft_calcPower(arrayInt, bitsPower.power);
 }
 
 // разбивка степеней
-static void		ft_separationPower(t_powerBits bitsPower)
+static void		ft_separationPower(s_powerBits bitsPower)
 {
+	bitsPower.countPower = 0;
+	bitsPower.remainPower = 0;
 	if (bitsPower.power > 10)
     {
         bitsPower.countPower = bitsPower.power / 10;
@@ -74,10 +83,17 @@ static void		ft_separationPower(t_powerBits bitsPower)
 	ft_fillArray(bitsPower);
 }
 
-// поиск степеней из бинарной мантисы
-static void		ft_findingIntPower(t_longDouble longDouble)
+/*// сложение массивов
+static s_arrayInt	ft_summPower(s_arrayInt arrayInt)
 {
-	t_powerBits	bitsPower;
+ df
+}*/
+
+// поиск степеней из бинарной мантисы
+static void		ft_findingIntPower(s_longDouble longDouble)
+{
+	s_powerBits	bitsPower;
+	s_arrayInt	arrayInt;
 	int 		numOfIntBits;
 	int 		numOfBits;
 	int 		bit;
@@ -93,6 +109,10 @@ static void		ft_findingIntPower(t_longDouble longDouble)
 		bitsPower.power--;
 		if (bit == 1)
 		{
+//			if (arrayInt.intResult)
+//				ft_summPower(arrayInt);
+//			else
+//				arrayInt.intResult = arrayInt.intTmp;
 			printf("2^%d\n", bitsPower.power);
 			ft_separationPower(bitsPower);
 		}
@@ -104,7 +124,7 @@ static void		ft_findingIntPower(t_longDouble longDouble)
 void    ft_longDouble(long double number)
 {
 	longDoubleToUnsignedLong	bits;
-	t_longDouble 				longDouble;
+	s_longDouble 				longDouble;
 
 	bits.longDouble = number;
 	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);

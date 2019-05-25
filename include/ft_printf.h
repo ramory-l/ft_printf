@@ -8,7 +8,7 @@
 
 #define MAX_POWER 10
 #define BASE_INT 2
-#define MAX_CELL 9999999
+#define MAX_CELL 100000000
 
 typedef union
 {
@@ -16,25 +16,29 @@ typedef union
 	long double			longDouble;
 }						longDoubleToUnsignedLong;
 
-typedef struct			s_longDouble
+typedef struct			t_longDouble
 {
 	int					sign;
 	int					exp;
 	unsigned long		mantis;
-}						t_longDouble;
+}						s_longDouble;
 
-typedef struct			s_arrayInt
+typedef struct			t_arrayInt
 {
 	unsigned long int	intResult[1500];
 	unsigned long int	intTmp[1500];
-}						t_arrayInt;
+	int 				flag;
+	unsigned long int	remainder;
+	int					iArr;
+	int					jArr;
+}						s_arrayInt;
 
-typedef struct			s_powerBits
+typedef struct			t_powerBits
 {
 	int 				power;
 	int 				countPower;
 	int 				remainPower;
-}						t_powerBits;
+}						s_powerBits;
 
 
 void	ft_print_int(int nbr);
