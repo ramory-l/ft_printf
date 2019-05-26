@@ -4,7 +4,6 @@
 
 int	main(void)
 {
-	ft_printf("%2c\n", 0);
-	printf("%2c\n", 0);
+	ft_printf("%#6o\n", 2500);
 	return (0);
 }

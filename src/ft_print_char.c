@@ -28,6 +28,7 @@ void	ft_print_char(va_list ap, const char *format, t_printf *data)
 {
 	char buffer[512];
 
+	ft_bzero(buffer, sizeof(buffer));
 	buffer[0] = va_arg(ap, int);
 	data->len = 1;
 	ft_width_accuracy(buffer, data);

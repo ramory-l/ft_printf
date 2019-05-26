@@ -8,5 +8,6 @@ void		ft_manage_di(t_printf *data)
 	ft_fill_buff(0, buffer, data->nbr);
 	if (ft_strcmp(data->nbr, "0") != 0)
 		free(data->nbr);
-	ft_putstr(buffer);
+	write(1, buffer, data->len);
+	data->printed += data->len;
 }
