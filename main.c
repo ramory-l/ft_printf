@@ -4,6 +4,8 @@
 
 int	main(void)
 {
-	ft_printf("@moulitest: %5x %5x\n", 0, 0);
+	int d = ft_printf("%c\n", 'x');
+
+	ft_printf("%d\n", d);
 	return (0);
 }

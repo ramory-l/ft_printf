@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 16:05:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/25 01:36:06 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/05/26 10:50:44 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 void				ft_striter(char *s, void (*f)(char *));
 void				ft_move_buff(char *buffer, int offset);
 void				ft_fill_buff(int start, char *buffer, char *str);
+void				ft_clean_buff(char *buffer, int start, int end);
 int					ft_fill_spaces(char *buffer, char mode, size_t size, int len);
 int					ft_fill_zeroes(char *buffer, char mode, size_t size, int len);
 

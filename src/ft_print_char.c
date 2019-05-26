@@ -2,8 +2,9 @@
 
 void	ft_print_char(va_list ap, const char *format, t_printf *data)
 {
-	data->nbr = ft_strnew(1);
-	data->nbr[0] = va_arg(ap, int);
-	ft_putstr(data->nbr);
+	char buffer[512];
+
+	buffer[0] = va_arg(ap, int);
+	write(1, buffer, 1);
 	data->printed += 1;
 }
