@@ -27,8 +27,7 @@ typedef struct			t_arrayInt
 {
 	unsigned long int	intResult[1500];
 	unsigned long int	intTmp[1500];
-	int 				flag;
-	unsigned long int	remainder;
+	int					lenArr;
 	int					iArr;
 	int					jArr;
 }						s_arrayInt;

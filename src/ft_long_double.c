@@ -1,5 +1,41 @@
 #include "ft_printf.h"
 
+// вспомогательная функция для вывода заполненых ячеек на экран
+static void		ft_printCellArr(s_arrayInt arrayInt)
+{
+	int iTemp;
+	int iArr;
+
+	iTemp = arrayInt.iArr;
+	iArr = 0;
+	// printf("%d\n", iTemp);
+	while (iTemp >= 0)
+	{
+		printf("%lu\n", arrayInt.intResult[iArr]);
+		iArr++;
+		iTemp--;
+	}
+}
+
+// заполнение массивов нулями
+static s_arrayInt	ft_bzeroArrs(void)
+{
+	s_arrayInt arrayInt;
+	int lenArr;
+	int iArr;
+
+	iArr = 0;
+	lenArr = 1500;
+	arrayInt.lenArr = 1500;
+	while (lenArr--)
+	{
+		arrayInt.intResult[iArr] = 0;
+		arrayInt.intTmp[iArr] = 0;
+		iArr++;
+	}
+	return (arrayInt);
+}
+
 // вывод битов unsigned long
 static void		ft_printBitsUnsignedLong(unsigned long number)
 {
@@ -28,50 +64,46 @@ static int		ft_exponentiation(int power, int number)
 	return (result);
 }
 
-// подсчет степеней
-static s_arrayInt	ft_calcPower(s_arrayInt arrayInt, int power)
+// умножение длинного на короткое
+static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power)
 {
-	arrayInt.flag = 0;
-	int tmp_flag;
-	unsigned long long int current = 0;
+	unsigned long long int current;
+	unsigned long long int remainder;
+	int jArr;
 
-	if (arrayInt.intTmp[arrayInt.iArr] == 0)
+	jArr = 0;
+	remainder = 0;
+	current = 0;
+	while (jArr <= arrayInt.jArr || remainder)
 	{
-		arrayInt.intTmp[arrayInt.iArr] = ft_exponentiation(power, BASE_INT);
-		arrayInt.remainder = 0;
-		arrayInt.flag++;
+		if (jArr == arrayInt.lenArr)
+			return (arrayInt);
+		if (arrayInt.intTmp[jArr] != 0)
+			current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, BASE_INT);
+		else
+			current = remainder + ft_exponentiation(power, BASE_INT);
+		arrayInt.intTmp[jArr] = current % MAX_CELL;
+		remainder = current / MAX_CELL;
+		jArr++;
 	}
-	tmp_flag = arrayInt.flag;
-	while (arrayInt.iArr < arrayInt.flag - 1 || arrayInt.remainder)
-	{
-		current = arrayInt.remainder + arrayInt.intTmp[arrayInt.iArr] * ft_exponentiation(power, BASE_INT);
-		arrayInt.intTmp[arrayInt.iArr] = current % MAX_CELL;
-		arrayInt.remainder = current / MAX_CELL;
-		arrayInt.iArr++;
-		arrayInt.intTmp[arrayInt.iArr] = current / MAX_CELL;
-		if ((arrayInt.iArr > tmp_flag - 1) && arrayInt.remainder)
-			tmp_flag++;
-	}
-	arrayInt.flag = tmp_flag;
+	arrayInt.jArr = jArr;
 	return (arrayInt);
 }
 
 // заполнение массива
-static void		ft_fillArray(s_powerBits bitsPower)
+static s_arrayInt		ft_fillArray(s_powerBits bitsPower, s_arrayInt arrayInt)
 {
-	s_arrayInt arrayInt;
-
-	arrayInt.flag = 0;
 	while (bitsPower.countPower--)
-		arrayInt = ft_calcPower(arrayInt, MAX_POWER);
+		arrayInt = ft_multLongNumByAShort(arrayInt, MAX_POWER);
 	if (bitsPower.remainPower)
-		arrayInt = ft_calcPower(arrayInt, bitsPower.remainPower);
+		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.remainPower);
 	else
-		arrayInt = ft_calcPower(arrayInt, bitsPower.power);
+		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power);
+	return (arrayInt);
 }
 
 // разбивка степеней
-static void		ft_separationPower(s_powerBits bitsPower)
+static s_arrayInt	ft_separationPower(s_powerBits bitsPower, s_arrayInt arrayInt)
 {
 	bitsPower.countPower = 0;
 	bitsPower.remainPower = 0;
@@ -80,14 +112,53 @@ static void		ft_separationPower(s_powerBits bitsPower)
         bitsPower.countPower = bitsPower.power / 10;
         bitsPower.remainPower = bitsPower.power % 10;
     }
-	ft_fillArray(bitsPower);
+	return (ft_fillArray(bitsPower, arrayInt));
 }
 
-/*// сложение массивов
+// определение максимального значения индекса
+static int	ft_maxIndex(s_arrayInt arrayInt)
+{
+	return (arrayInt.iArr > arrayInt.jArr ? arrayInt.iArr : arrayInt.jArr);
+}
+
+// сложение массивов
 static s_arrayInt	ft_summPower(s_arrayInt arrayInt)
 {
- df
-}*/
+	unsigned long long int remminder;
+	unsigned long long int current;
+	int iArr;
+
+	remminder = 0;
+	iArr = 0;
+	current = 0;
+	while (iArr < ft_maxIndex(arrayInt) || remminder)
+	{
+		if (iArr == arrayInt.lenArr)
+			return (arrayInt);
+		current += remminder + (iArr < arrayInt.lenArr ? arrayInt.intTmp[iArr] : 0);
+		remminder = current / MAX_CELL;
+		if (current)
+			arrayInt.intResult[iArr] += current % MAX_CELL;
+		iArr++; 
+	}
+	return (arrayInt);
+}
+
+// очистка массива intTmp
+static s_arrayInt	ft_bzeroTmpArr(s_arrayInt	arrayInt)
+{
+	int iArr;
+	int lenArr;
+
+	lenArr = arrayInt.jArr;
+	iArr = 0;
+	while (lenArr--)
+	{
+		arrayInt.intTmp[iArr] = 0;
+		iArr++;
+	}
+	return (arrayInt);
+}
 
 // поиск степеней из бинарной мантисы
 static void		ft_findingIntPower(s_longDouble longDouble)
@@ -102,6 +173,7 @@ static void		ft_findingIntPower(s_longDouble longDouble)
 	numOfBits = 63;
 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
 	bitsPower.power = numOfIntBits;
+	arrayInt = ft_bzeroArrs();
 	while (numOfIntBits)
 	{
 		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
@@ -109,15 +181,15 @@ static void		ft_findingIntPower(s_longDouble longDouble)
 		bitsPower.power--;
 		if (bit == 1)
 		{
-//			if (arrayInt.intResult)
-//				ft_summPower(arrayInt);
-//			else
-//				arrayInt.intResult = arrayInt.intTmp;
 			printf("2^%d\n", bitsPower.power);
-			ft_separationPower(bitsPower);
+			arrayInt = ft_separationPower(bitsPower, arrayInt);
+			arrayInt = ft_summPower(arrayInt);
+			arrayInt = ft_bzeroTmpArr(arrayInt);
+			ft_printCellArr(arrayInt);
 		}
 		numOfIntBits--;
 	}
+	ft_printCellArr(arrayInt);
 }
 
 // тут начинается магия
