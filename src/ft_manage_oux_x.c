@@ -5,6 +5,11 @@ static void	ft_width_accuracy(char *buffer, t_printf *data)
 	int	turn;
 
 	turn = 0;
+	if (data->accuracy > data->len && data->type == 'o')
+	{
+		ft_fill_zeroes(buffer, '<', data->accuracy, data->len);
+		data->len = data->accuracy;
+	}
 	if (!(data->flags & FLAG_MINUS) && data->width > data->len &&
 		!(data->flags & FLAG_ZERO) && !(data->flags & FLAG_OCT))
 		turn = ft_fill_spaces(buffer, '<', data->width, data->len);
@@ -24,6 +29,23 @@ static void	ft_width_accuracy(char *buffer, t_printf *data)
 		data->len = data->width;
 }
 
+static void	ft_choose_type(char *buffer, t_printf *data)
+{
+	if (data->type == 'x' || data->type == 'X')
+	{
+		ft_move_buff(buffer, 2);
+		buffer[0] = data->temp[0];
+		buffer[1] = data->temp[1];
+		data->len += 2;
+	}
+	if (data->type == 'o')
+	{
+		ft_move_buff(buffer, 1);
+		buffer[0] = data->temp[0];
+		data->len += 1;
+	}
+}
+
 static void	ft_oct(char *buffer, t_printf *data)
 {
 	int turn;
@@ -33,12 +55,11 @@ static void	ft_oct(char *buffer, t_printf *data)
 		data->temp = "0x";
 	if (data->type == 'X')
 		data->temp = "0X";
+	if (data->type == 'o')
+		data->temp = "0";
 	if (data->flags & FLAG_OCT)
 	{
-		ft_move_buff(buffer, 2);
-		buffer[0] = data->temp[0];
-		buffer[1] = data->temp[1];
-		data->len += 2;
+		ft_choose_type(buffer, data);
 		if (data->width > data->len && !(data->flags & FLAG_MINUS))
 			turn = ft_fill_spaces(buffer, '<', data->width, data->len);
 		if (data->width > data->len && data->flags & FLAG_MINUS)
@@ -54,6 +75,13 @@ static int	ft_check_zero(char *buffer, t_printf *data)
 	{
 		if (data->acc && !data->accuracy)
 		{
+			if (data->type == 'o' && data->flags & FLAG_OCT)
+			{
+				data->len++;
+				write(1, buffer, data->len);
+				data->printed += data->len;
+				return (1);
+			}
 			buffer[data->len] = '\0';
 			write(1, buffer, data->len);
 		}
