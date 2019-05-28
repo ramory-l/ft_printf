@@ -7,7 +7,7 @@ int 	main(void)
 {
 	long double longDouble;
 	
-	longDouble = 881.15625L;
+	longDouble = DBL_MAX;
 	printf("original long double: %.58Lf\n\n", longDouble);
 	ft_longDouble(longDouble);
 	return (0);

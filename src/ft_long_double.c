@@ -1,20 +1,20 @@
 #include "ft_printf.h"
 
-// вспомогательная функция для вывода заполненых ячеек на экран
-static void		ft_printCellArr(s_arrayInt arrayInt)
-{
-	int iTemp;
-	int iArr;
+// // вспомогательная функция для вывода заполненых ячеек на экран
+// static void		ft_printCellArr(s_arrayInt arrayInt)
+// {
+// 	int iTemp;
+// 	int iArr;
 
-	iTemp = arrayInt.iArr - 1;
-	iArr = 0;
-	while (iTemp >= 0)
-	{
-		printf("%lu\n", arrayInt.intResult[iArr]);
-		iArr++;
-		iTemp--;
-	}
-}
+// 	iTemp = arrayInt.iArr - 1;
+// 	iArr = 0;
+// 	while (iTemp >= 0)
+// 	{
+// 		printf("%lu\n", arrayInt.intResult[iArr]);
+// 		iArr++;
+// 		iTemp--;
+// 	}
+// }
 
 // заполнение массивов нулями
 static s_arrayInt	ft_bzeroArrs(void)
@@ -75,14 +75,19 @@ static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power, int bas
 	jArr = 0;
 	remainder = 0;
 	current = 0;
-	while (jArr <= arrayInt.jArr || remainder)
+	if (arrayInt.intTmp[jArr] == 0)
+	{
+		arrayInt.intTmp[jArr] = ft_exponentiation(power, base);
+		jArr++;
+	}
+	while (jArr < arrayInt.jArr || remainder)
 	{
 		if (jArr == arrayInt.lenArr)
 			return (arrayInt);
-		if (arrayInt.intTmp[jArr] != 0)
+		// if (arrayInt.intTmp[jArr] != 0)
 			current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, base);
-		else
-			current = remainder + ft_exponentiation(power, base);
+		// else
+		// 	current = remainder + ft_exponentiation(power, base);
 		arrayInt.intTmp[jArr] = current % MAX_CELL;
 		remainder = current / MAX_CELL;
 		jArr++;
@@ -94,12 +99,14 @@ static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power, int bas
 // заполнение массива
 static s_arrayInt		ft_fillArray(s_powerBits bitsPower, s_arrayInt arrayInt)
 {
-	while (bitsPower.countPower--)
-		arrayInt = ft_multLongNumByAShort(arrayInt, MAX_POWER, bitsPower.base);
-	if (bitsPower.remainPower)
+	if (bitsPower.countPower)  {
+		while (bitsPower.countPower--)
+			arrayInt = ft_multLongNumByAShort(arrayInt, MAX_POWER, bitsPower.base);
+	}
+	if (bitsPower.remainPower || (!bitsPower.remainPower && !bitsPower.countPower))
 		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.remainPower, bitsPower.base);
-	else
-		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power, bitsPower.base);
+	// else
+	// 	arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power, bitsPower.base);
 	return (arrayInt);
 }
 
@@ -108,11 +115,11 @@ static s_arrayInt	ft_separationPower(s_powerBits bitsPower, s_arrayInt arrayInt)
 {
 	bitsPower.countPower = 0;
 	bitsPower.remainPower = 0;
-	if (bitsPower.power > 10)
+	if (bitsPower.power >= 10)
     {
         bitsPower.countPower = bitsPower.power / 10;
-        bitsPower.remainPower = bitsPower.power % 10;
     }
+	bitsPower.remainPower = bitsPower.power % 10;
 	return (ft_fillArray(bitsPower, arrayInt));
 }
 
@@ -174,7 +181,7 @@ static s_arrayInt		ft_findingIntPower(s_longDouble longDouble, int numOfIntBits,
 	numOfBits = 63;
 	bitsPower.base = 2;
 	arrayInt = ft_bzeroArrs();
-	while (numOfIntBits)
+	while (numOfBits)
 	{
 		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
 		numOfBits--;
@@ -188,7 +195,33 @@ static s_arrayInt		ft_findingIntPower(s_longDouble longDouble, int numOfIntBits,
 		}
 		numOfIntBits--;
 	}
-	ft_printCellArr(arrayInt);
+	// ft_printCellArr(arrayInt);
+	return (arrayInt);
+}
+
+// умножение длинного числа на 10
+static s_arrayInt		ft_multLongNumByATen(s_arrayInt arrayInt)
+{
+	unsigned long long int current;
+	unsigned long long int remainder;
+	int iArr;
+
+	iArr = 0;
+	remainder = 0;
+	current = 0;
+	while (iArr < arrayInt.iArr || remainder)
+	{
+		if (iArr == arrayInt.lenArr)
+			return (arrayInt);
+		if (arrayInt.intResult[iArr] != 0)
+			current = remainder + arrayInt.intResult[iArr] * 10;
+		else
+			current = remainder + 10;
+		arrayInt.intResult[iArr] = current % MAX_CELL;
+		remainder = current / MAX_CELL;
+		iArr++;
+	}
+	arrayInt.iArr = iArr;
 	return (arrayInt);
 }
 
@@ -217,16 +250,15 @@ static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfInt
 			if (bit == 1)
 			{
 				flag = 1;
-				printf("5^-%d\n", bitsPower.power);
+				// printf("5^-%d\n", bitsPower.power);
 				arrayInt = ft_separationPower(bitsPower, arrayInt);
 				arrayInt = ft_summPower(arrayInt);
 				arrayInt = ft_bzeroTmpArr(arrayInt);
 			}
-			if (flag == 1)
-				arrayInt = ft_multLongNumByATen(arrayInt, 1, 10);
+			if (flag == 1 && (longDouble.mantis << (63 - numOfBits)) != 0)
+				arrayInt = ft_multLongNumByATen(arrayInt);
 		}
 	}
-	// ft_printCellArr(arrayInt);
 	return (arrayInt);
 }
 
@@ -258,13 +290,14 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	char 						*result = NULL;
 
 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
+	printf("numbOfIntBits: %d\n", numOfIntBits);
 	bitsPower.power = numOfIntBits;
 	arrayInt = ft_findingIntPower(longDouble, numOfIntBits, bitsPower);
 	doubleChar.intToChar = ft_numToChar(arrayInt);
 	arrayInt = ft_findingFractionPower(longDouble, numOfIntBits, bitsPower);
-	// doubleChar.fractionToChar = ft_numToChar(arrayInt);
-	// result = ft_strjoin(doubleChar.intToChar, ".");
-	// result = ft_strjoin(result, doubleChar.fractionToChar);
+	doubleChar.fractionToChar = ft_numToChar(arrayInt);
+	result = ft_strjoin(doubleChar.intToChar, ".");
+	result = ft_strjoin(result, doubleChar.fractionToChar);
 	return (result);
 }
 
@@ -281,5 +314,6 @@ void    ft_longDouble(long double number)
 	longDouble.mantis = bits.unsignedLong;
 	ft_printBitsUnsignedLong(longDouble.mantis);
 	result = ft_workWithMantis(longDouble);
+	printf("result: %s\n", result);
 }
 // не забудь free
