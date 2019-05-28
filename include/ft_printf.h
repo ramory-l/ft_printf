@@ -38,6 +38,7 @@ typedef struct			t_powerBits
 	int 				power;
 	int 				countPower;
 	int 				remainPower;
+	int					base;
 }						s_powerBits;
 
 typedef struct			t_doubleToChar

@@ -32,6 +32,8 @@ static s_arrayInt	ft_bzeroArrs(void)
 		arrayInt.intTmp[iArr] = 0;
 		iArr++;
 	}
+	arrayInt.iArr = 0;
+	arrayInt.jArr = 0;
 	return (arrayInt);
 }
 
@@ -64,7 +66,7 @@ static int		ft_exponentiation(int power, int number)
 }
 
 // умножение длинного на короткое
-static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power)
+static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power, int base)
 {
 	unsigned long long int current;
 	unsigned long long int remainder;
@@ -78,9 +80,9 @@ static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power)
 		if (jArr == arrayInt.lenArr)
 			return (arrayInt);
 		if (arrayInt.intTmp[jArr] != 0)
-			current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, BASE_INT);
+			current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, base);
 		else
-			current = remainder + ft_exponentiation(power, BASE_INT);
+			current = remainder + ft_exponentiation(power, base);
 		arrayInt.intTmp[jArr] = current % MAX_CELL;
 		remainder = current / MAX_CELL;
 		jArr++;
@@ -93,11 +95,11 @@ static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power)
 static s_arrayInt		ft_fillArray(s_powerBits bitsPower, s_arrayInt arrayInt)
 {
 	while (bitsPower.countPower--)
-		arrayInt = ft_multLongNumByAShort(arrayInt, MAX_POWER);
+		arrayInt = ft_multLongNumByAShort(arrayInt, MAX_POWER, bitsPower.base);
 	if (bitsPower.remainPower)
-		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.remainPower);
+		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.remainPower, bitsPower.base);
 	else
-		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power);
+		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power, bitsPower.base);
 	return (arrayInt);
 }
 
@@ -162,18 +164,15 @@ static s_arrayInt	ft_bzeroTmpArr(s_arrayInt	arrayInt)
 }
 
 // поиск степеней для целого числа из бинарной мантисы
-static s_arrayInt		ft_findingIntPower(s_longDouble longDouble)
+static s_arrayInt		ft_findingIntPower(s_longDouble longDouble, int numOfIntBits, s_powerBits bitsPower)
 {
-	s_powerBits	bitsPower;
-	int 		numOfIntBits;
 	int 		numOfBits;
 	int 		bit;
 	s_arrayInt	arrayInt;
 
 	bit = 0;
 	numOfBits = 63;
-	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
-	bitsPower.power = numOfIntBits;
+	bitsPower.base = 2;
 	arrayInt = ft_bzeroArrs();
 	while (numOfIntBits)
 	{
@@ -193,30 +192,43 @@ static s_arrayInt		ft_findingIntPower(s_longDouble longDouble)
 	return (arrayInt);
 }
 
-// // поиск степеней для дробного числа из бинарной мантисы
-// static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble)
-// {
-	
-// 	return (arrayInt);
-// }
+// поиск степеней для дробного числа из бинарной мантисы
+static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfIntBits, s_powerBits bitsPower)
+{
+	int 		numOfBits;
+	int 		bit;
+	s_arrayInt	arrayInt;
+	int 		flag;
 
-// static s_arrayInt		ft_workWithMantis(s_longDouble longDouble)
-// {
-// 	s_powerBits	bitsPower;
-// 	int 		numOfIntBits;
-// 	int 		numOfBits;
-// 	int 		bit;
-// 	s_arrayInt	arrayInt;
-
-// 	bit = 0;
-// 	numOfBits = 63;
-// 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
-// 	bitsPower.power = numOfIntBits;
-// 	arrayInt = ft_bzeroArrs();
-
-// 	ft_printCellArr(arrayInt);
-// 	return (arrayInt);
-// }
+	flag = 0;
+	bit = 0;
+	numOfBits = 63;
+	bitsPower.base = 5;
+	bitsPower.power = 0;
+	arrayInt = ft_bzeroArrs();
+	while (numOfBits)
+	{
+		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
+		numOfIntBits--;
+		numOfBits--;
+		if (numOfIntBits < 0)
+		{
+			bitsPower.power++;
+			if (bit == 1)
+			{
+				flag = 1;
+				printf("5^-%d\n", bitsPower.power);
+				arrayInt = ft_separationPower(bitsPower, arrayInt);
+				arrayInt = ft_summPower(arrayInt);
+				arrayInt = ft_bzeroTmpArr(arrayInt);
+			}
+			if (flag == 1)
+				arrayInt = ft_multLongNumByATen(arrayInt, 1, 10);
+		}
+	}
+	// ft_printCellArr(arrayInt);
+	return (arrayInt);
+}
 
 // перевод чисел в символы
 static char		*ft_numToChar(s_arrayInt arrayInt)
@@ -236,22 +248,38 @@ static char		*ft_numToChar(s_arrayInt arrayInt)
 	return (result);
 }
 
+// работа с мантисой
+static char		*ft_workWithMantis(s_longDouble longDouble)
+{
+	s_powerBits					bitsPower;
+	int 						numOfIntBits;
+	s_arrayInt					arrayInt;
+	s_doubleToChar				doubleChar;
+	char 						*result = NULL;
+
+	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
+	bitsPower.power = numOfIntBits;
+	arrayInt = ft_findingIntPower(longDouble, numOfIntBits, bitsPower);
+	doubleChar.intToChar = ft_numToChar(arrayInt);
+	arrayInt = ft_findingFractionPower(longDouble, numOfIntBits, bitsPower);
+	// doubleChar.fractionToChar = ft_numToChar(arrayInt);
+	// result = ft_strjoin(doubleChar.intToChar, ".");
+	// result = ft_strjoin(result, doubleChar.fractionToChar);
+	return (result);
+}
+
 // тут начинается магия
 void    ft_longDouble(long double number)
 {
 	longDoubleToUnsignedLong	bits;
 	s_longDouble 				longDouble;
-	s_arrayInt					arrayInt;
-	s_doubleToChar				doubleChar;
+	char 						*result;
 
 	bits.longDouble = number;
 	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
 	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
 	longDouble.mantis = bits.unsignedLong;
 	ft_printBitsUnsignedLong(longDouble.mantis);
-	arrayInt = ft_findingIntPower(longDouble);
-	doubleChar.intToChar = ft_numToChar(arrayInt);
-	// arrayInt = ft_findingFractionPower(longDouble);
-	// printf("intToChar: %s\n", doubleChar.intToChar);
+	result = ft_workWithMantis(longDouble);
 }
 // не забудь free
