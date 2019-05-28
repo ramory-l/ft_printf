@@ -5,6 +5,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <float.h>
+# include <stdlib.h>
 
 #define MAX_POWER 10
 #define BASE_INT 2
@@ -38,6 +39,13 @@ typedef struct			t_powerBits
 	int 				countPower;
 	int 				remainPower;
 }						s_powerBits;
+
+typedef struct			t_doubleToChar
+{
+	char *intToChar;
+	char *fractionToChar;
+}						s_doubleToChar;
+
 
 
 void	ft_print_int(int nbr);

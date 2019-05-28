@@ -6,9 +6,8 @@ static void		ft_printCellArr(s_arrayInt arrayInt)
 	int iTemp;
 	int iArr;
 
-	iTemp = arrayInt.iArr;
+	iTemp = arrayInt.iArr - 1;
 	iArr = 0;
-	// printf("%d\n", iTemp);
 	while (iTemp >= 0)
 	{
 		printf("%lu\n", arrayInt.intResult[iArr]);
@@ -141,6 +140,7 @@ static s_arrayInt	ft_summPower(s_arrayInt arrayInt)
 			arrayInt.intResult[iArr] += current % MAX_CELL;
 		iArr++; 
 	}
+	arrayInt.iArr = iArr;
 	return (arrayInt);
 }
 
@@ -157,17 +157,18 @@ static s_arrayInt	ft_bzeroTmpArr(s_arrayInt	arrayInt)
 		arrayInt.intTmp[iArr] = 0;
 		iArr++;
 	}
+	arrayInt.jArr = 0;
 	return (arrayInt);
 }
 
-// поиск степеней из бинарной мантисы
-static void		ft_findingIntPower(s_longDouble longDouble)
+// поиск степеней для целого числа из бинарной мантисы
+static s_arrayInt		ft_findingIntPower(s_longDouble longDouble)
 {
 	s_powerBits	bitsPower;
-	s_arrayInt	arrayInt;
 	int 		numOfIntBits;
 	int 		numOfBits;
 	int 		bit;
+	s_arrayInt	arrayInt;
 
 	bit = 0;
 	numOfBits = 63;
@@ -185,11 +186,54 @@ static void		ft_findingIntPower(s_longDouble longDouble)
 			arrayInt = ft_separationPower(bitsPower, arrayInt);
 			arrayInt = ft_summPower(arrayInt);
 			arrayInt = ft_bzeroTmpArr(arrayInt);
-			ft_printCellArr(arrayInt);
 		}
 		numOfIntBits--;
 	}
 	ft_printCellArr(arrayInt);
+	return (arrayInt);
+}
+
+// // поиск степеней для дробного числа из бинарной мантисы
+// static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble)
+// {
+	
+// 	return (arrayInt);
+// }
+
+// static s_arrayInt		ft_workWithMantis(s_longDouble longDouble)
+// {
+// 	s_powerBits	bitsPower;
+// 	int 		numOfIntBits;
+// 	int 		numOfBits;
+// 	int 		bit;
+// 	s_arrayInt	arrayInt;
+
+// 	bit = 0;
+// 	numOfBits = 63;
+// 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
+// 	bitsPower.power = numOfIntBits;
+// 	arrayInt = ft_bzeroArrs();
+
+// 	ft_printCellArr(arrayInt);
+// 	return (arrayInt);
+// }
+
+// перевод чисел в символы
+static char		*ft_numToChar(s_arrayInt arrayInt)
+{
+	char 	*result;
+	char	*tmp;
+	int 	i;
+
+	i = 0;
+	result = "\0";
+	while (i != arrayInt.iArr)
+	{
+		tmp = ft_itoa(arrayInt.intResult[i]);
+		result = ft_strjoin(result, tmp);
+		i++;
+	}
+	return (result);
 }
 
 // тут начинается магия
@@ -197,11 +241,17 @@ void    ft_longDouble(long double number)
 {
 	longDoubleToUnsignedLong	bits;
 	s_longDouble 				longDouble;
+	s_arrayInt					arrayInt;
+	s_doubleToChar				doubleChar;
 
 	bits.longDouble = number;
 	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
 	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
 	longDouble.mantis = bits.unsignedLong;
 	ft_printBitsUnsignedLong(longDouble.mantis);
-	ft_findingIntPower(longDouble);
+	arrayInt = ft_findingIntPower(longDouble);
+	doubleChar.intToChar = ft_numToChar(arrayInt);
+	// arrayInt = ft_findingFractionPower(longDouble);
+	// printf("intToChar: %s\n", doubleChar.intToChar);
 }
+// не забудь free
