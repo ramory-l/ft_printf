@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 17:26:35 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/28 20:00:08 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/05/29 20:42:11 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static	int			ft_intleng(unsigned long long int n)
 {
 	int			i;
-	unsigned long long int	count;
+	// unsigned long long int	count;
 
-	i = 1;
-	count = 10;
+	i = 0;
+	// count = 10;
 	// n = n < 0 ? -n : n;
-	while (count < n)
+	while (n /= 10)
 	{
-		count = count * 10;
+		// count = count * 10;
 		i++;
 	}
-	return (i);
+	return (i + 1);
 }
 
 char				*ft_itoa(unsigned long long int n)

@@ -187,6 +187,8 @@ static s_arrayInt		ft_findingIntPower(s_longDouble longDouble, int numOfIntBits,
 		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
 		numOfBits--;
 		bitsPower.power--;
+		if (bitsPower.power < 0)
+			return (arrayInt);
 		if (bit == 1)
 		{
 			// printf("2^%d\n", bitsPower.power);
@@ -217,7 +219,7 @@ static s_arrayInt		ft_multLongNumByATen(s_arrayInt arrayInt)
 		if (arrayInt.intResult[iArr] != 0)
 			current = remainder + arrayInt.intResult[iArr] * 10;
 		else
-			current = remainder + 10;
+			current = remainder;
 		arrayInt.intResult[iArr] = current % MAX_CELL;
 		remainder = current / MAX_CELL;
 		iArr++;
@@ -238,9 +240,8 @@ static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfInt
 	bit = 0;
 	numOfBits = 63;
 	bitsPower.base = 5;
-	bitsPower.power = 0;
+	bitsPower.power *= -1;
 	arrayInt = ft_bzeroArrs();
-	// numOfIntBits = numOfIntBits * (-1);
 	while (numOfBits >= 0)
 	{
 		bit = ((longDouble.mantis & (1UL << numOfBits)) != 0) ? 1 : 0;
@@ -252,7 +253,7 @@ static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfInt
 			if (bit == 1)
 			{
 				flag = 1;
-				printf("5^-%d\n", bitsPower.power);
+				// printf("5^%d\n", bitsPower.power);
 				arrayInt = ft_separationPower(bitsPower, arrayInt);
 				arrayInt = ft_summPower(arrayInt);
 				arrayInt = ft_bzeroTmpArr(arrayInt);
@@ -299,7 +300,7 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	doubleChar.intToChar = ft_numToChar(arrayInt);
 	arrayInt = ft_findingFractionPower(longDouble, numOfIntBits, bitsPower);
 	doubleChar.fractionToChar = ft_numToChar(arrayInt);
-	result = ft_strjoin(doubleChar.intToChar, ".");
+	result = ft_strjoin(*doubleChar.intToChar ? doubleChar.intToChar : "0", ".");
 	result = ft_strjoin(result, *doubleChar.fractionToChar ? doubleChar.fractionToChar : "0");
 	return (result);
 }
