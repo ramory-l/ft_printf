@@ -10,6 +10,7 @@
 #define MAX_POWER 10
 #define BASE_INT 2
 #define MAX_CELL 100000000
+#define LEN_ARR 1500
 
 typedef union
 {
@@ -26,8 +27,8 @@ typedef struct			t_longDouble
 
 typedef struct			t_arrayInt
 {
-	unsigned long int	intResult[1500];
-	unsigned long int	intTmp[1500];
+	unsigned long int	intResult[LEN_ARR];
+	unsigned long int	intTmp[LEN_ARR];
 	int					lenArr;
 	int					iArr;
 	int					jArr;
