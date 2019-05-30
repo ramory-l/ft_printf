@@ -45,6 +45,7 @@ typedef struct			t_powerBits
 typedef struct			t_doubleToChar
 {
 	char *intToChar;
+	char *nulls;
 	char *fractionToChar;
 }						s_doubleToChar;
 
