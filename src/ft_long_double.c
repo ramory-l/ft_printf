@@ -37,19 +37,19 @@ static s_arrayInt	ft_bzeroArrs(void)
 	return (arrayInt);
 }
 
-// // вывод битов unsigned long
-// static void		ft_printBitsUnsignedLong(unsigned long number)
-// {
-// 	int	numBits;
+// вывод битов unsigned long
+static void		ft_printBitsUnsignedLong(unsigned long number)
+{
+	int	numBits;
 
-// 	numBits = 63;
-// 	while (numBits >= 0)
-// 	{
-// 		(number & (1UL << numBits)) != 0 ? write(1, "1", 1) : write(1, "0", 1);
-// 		numBits--;
-// 	}
-// 	write(1, "\n\n", 2);
-// }
+	numBits = 63;
+	while (numBits >= 0)
+	{
+		(number & (1UL << numBits)) != 0 ? write(1, "1", 1) : write(1, "0", 1);
+		numBits--;
+	}
+	write(1, "\n\n", 2);
+}
 
 // возведение в степень
 static int		ft_exponentiation(int power, int number)
@@ -84,10 +84,7 @@ static s_arrayInt	ft_multLongNumByAShort(s_arrayInt arrayInt, int power, int bas
 	{
 		if (jArr == arrayInt.lenArr)
 			return (arrayInt);
-		// if (arrayInt.intTmp[jArr] != 0)
-			current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, base);
-		// else
-		// 	current = remainder + ft_exponentiation(power, base);
+		current = remainder + arrayInt.intTmp[jArr] * ft_exponentiation(power, base);
 		arrayInt.intTmp[jArr] = current % MAX_CELL;
 		remainder = current / MAX_CELL;
 		jArr++;
@@ -142,7 +139,6 @@ static s_arrayInt	ft_summPower(s_arrayInt arrayInt)
 		if (iArr == arrayInt.lenArr)
 			return (arrayInt);
 		current = arrayInt.intResult[iArr] + arrayInt.intTmp[iArr] + remminder;
-		// current += remminder + (iArr < arrayInt.lenArr ? arrayInt.intTmp[iArr] : 0);
 		remminder = current / MAX_CELL;
 		if (current)
 			arrayInt.intResult[iArr] = current % MAX_CELL;
@@ -238,7 +234,10 @@ static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfInt
 	bit = 0;
 	numOfBits = 63;
 	bitsPower.base = 5;
-	bitsPower.power *= -1;
+	if (bitsPower.power < 0)
+		bitsPower.power *= -1;
+	else
+		bitsPower.power = 0;
 	arrayInt = ft_bzeroArrs();
 	while (numOfBits >= 0)
 	{
@@ -251,7 +250,7 @@ static s_arrayInt		ft_findingFractionPower(s_longDouble longDouble, int numOfInt
 			if (bit == 1)
 			{
 				flag = 1;
-				// printf("5^%d\n", bitsPower.power);
+				printf("5^%d\n", bitsPower.power);
 				arrayInt = ft_separationPower(bitsPower, arrayInt);
 				arrayInt = ft_summPower(arrayInt);
 				arrayInt = ft_bzeroTmpArr(arrayInt);
@@ -274,7 +273,6 @@ static char		*ft_numToChar(s_arrayInt arrayInt)
 
 	i = --arrayInt.iArr;
 	result = "\0";
-	// printf("iArr: %d\n",  arrayInt.iArr);
 	while (i >= 0)
 	{
 		tmp = ft_itoa(arrayInt.intResult[i]);
@@ -330,11 +328,8 @@ static char		*ft_fillNulls(int exp, char *fraction, unsigned long mantis)
 	countNull = 0;
 	lenFractional = ft_strlen(fraction);
 	power = ft_maxPowerFractional(mantis);
-	// printf("power: %d\n", power);
-	// printf("lenFractional: %d\n", lenFractional);
 	countNull = 64 - power - exp - lenFractional;
 	countNull++;
-	// printf("countNull: %d\n", countNull);
 	result = (char*)malloc((countNull + 1) * sizeof(char));
 	result = ft_memset(result, '0', countNull);
 	result[countNull] = '\0';
@@ -352,6 +347,7 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 
 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
 	bitsPower.power = numOfIntBits;
+	printf("numOfIntBits: %d\n", numOfIntBits);
 	arrayInt = ft_findingIntPower(longDouble, numOfIntBits, bitsPower);
 	doubleChar.intToChar = ft_numToChar(arrayInt);
 	arrayInt = ft_findingFractionPower(longDouble, numOfIntBits, bitsPower);
@@ -365,35 +361,35 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	return (result);
 }
 
-// вывод результата на экран
-static void		ft_printLongDouble(char *result, unsigned int accuracy)
-{
-	size_t	lenResult;
-	int		number;
+// // вывод результата на экран
+// static void		ft_printLongDouble(char *result, unsigned int accuracy)
+// {
+// 	size_t	lenResult;
+// 	int		number;
 
-	lenResult = ft_strlen(result);
-	if (!accuracy)
-		accuracy = 6;
-	accuracy += 2;
-	while (lenResult--)
-	{
-		if (!accuracy)
-			break ;
-		if (lenResult != 1)
-			write(1, result, 1);
-		else
-		{
-			number = *result - '0';
-			printf("number: %d\n", number);
-		}
-		accuracy--;
-		result++;
-	}
-	if (accuracy--)
-	{
-		write(1, "0", 1);
-	}
-}
+// 	lenResult = ft_strlen(result);
+// 	if (!accuracy)
+// 		accuracy = 6;
+// 	accuracy += 2;
+// 	while (lenResult--)
+// 	{
+// 		if (!accuracy)
+// 			break ;
+// 		if (lenResult != 1)
+// 			write(1, result, 1);
+// 		else
+// 		{
+// 			number = *result - '0';
+// 			printf("number: %d\n", number);
+// 		}
+// 		accuracy--;
+// 		result++;
+// 	}
+// 	if (accuracy--)
+// 	{
+// 		write(1, "0", 1);
+// 	}
+// }
 
 // тут начинается магия
 void    ft_longDouble(long double number, unsigned int accuracy)
@@ -402,14 +398,15 @@ void    ft_longDouble(long double number, unsigned int accuracy)
 	s_longDouble 				longDouble;
 	char 						*result;
 
+	accuracy = 0;
 	bits.longDouble = number;
 	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
 	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
 	longDouble.mantis = bits.unsignedLong;
-	// ft_printBitsUnsignedLong(longDouble.mantis);
+	ft_printBitsUnsignedLong(longDouble.mantis);
 	result = ft_workWithMantis(longDouble);
 	printf("result: %s\n", result);
-	ft_printLongDouble(result, accuracy);
+	// ft_printLongDouble(result, accuracy);
 	free(result);
 }
 // не забудь free

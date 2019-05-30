@@ -8,7 +8,7 @@ int 	main(void)
 	long double longDouble;
 	
 	longDouble = 123456789.123456789;
-	printf("%Lf\n\n", longDouble);
-	ft_longDouble(longDouble, 0);
+	printf("%.10Lf\n\n", longDouble);
+	ft_longDouble(longDouble, 10);
 	return (0);
 }

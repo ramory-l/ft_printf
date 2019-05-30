@@ -3,5 +3,6 @@
 		"stdio.h": "c",
 		"ft_printf.h": "c",
 		"limits.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "Disabled"
 }
