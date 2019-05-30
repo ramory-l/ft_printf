@@ -52,6 +52,6 @@ typedef struct			t_doubleToChar
 
 
 void	ft_print_int(int nbr);
-void	ft_longDouble(long double nbr);
+void	ft_longDouble(long double nbr, unsigned int accuracy);
 
 #endif

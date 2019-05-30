@@ -105,8 +105,6 @@ static s_arrayInt		ft_fillArray(s_powerBits bitsPower, s_arrayInt arrayInt)
 	}
 	if (bitsPower.remainPower || (!bitsPower.remainPower && !bitsPower.countPower))
 		arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.remainPower, bitsPower.base);
-	// else
-	// 	arrayInt = ft_multLongNumByAShort(arrayInt, bitsPower.power, bitsPower.base);
 	return (arrayInt);
 }
 
@@ -353,7 +351,6 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	char 						*result;
 
 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
-	// printf("numbOfIntBits: %d\n", numOfIntBits);
 	bitsPower.power = numOfIntBits;
 	arrayInt = ft_findingIntPower(longDouble, numOfIntBits, bitsPower);
 	doubleChar.intToChar = ft_numToChar(arrayInt);
@@ -368,8 +365,38 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	return (result);
 }
 
+// вывод результата на экран
+static void		ft_printLongDouble(char *result, unsigned int accuracy)
+{
+	size_t	lenResult;
+	int		number;
+
+	lenResult = ft_strlen(result);
+	if (!accuracy)
+		accuracy = 6;
+	accuracy += 2;
+	while (lenResult--)
+	{
+		if (!accuracy)
+			break ;
+		if (lenResult != 1)
+			write(1, result, 1);
+		else
+		{
+			number = *result - '0';
+			printf("number: %d\n", number);
+		}
+		accuracy--;
+		result++;
+	}
+	if (accuracy--)
+	{
+		write(1, "0", 1);
+	}
+}
+
 // тут начинается магия
-void    ft_longDouble(long double number)
+void    ft_longDouble(long double number, unsigned int accuracy)
 {
 	longDoubleToUnsignedLong	bits;
 	s_longDouble 				longDouble;
@@ -381,6 +408,8 @@ void    ft_longDouble(long double number)
 	longDouble.mantis = bits.unsignedLong;
 	// ft_printBitsUnsignedLong(longDouble.mantis);
 	result = ft_workWithMantis(longDouble);
-	printf("%s\n", result);
+	printf("result: %s\n", result);
+	ft_printLongDouble(result, accuracy);
+	free(result);
 }
 // не забудь free
