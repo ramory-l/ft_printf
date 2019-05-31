@@ -388,8 +388,11 @@ static char		*ft_rounding(char *result, long long accuracy)
 					result[accuracy] = 0 + '0';
 					check = result[accuracy] - '0';
 				}
-				else
+				else if (check != 9)
+				{	
 					result[accuracy] = check + '0';
+					break ;
+				}
 			}
 		}
 	}
