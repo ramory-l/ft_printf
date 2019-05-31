@@ -400,11 +400,13 @@ static char		*ft_rounding(char *result, long long accuracy)
 }
 
 // вывод результата на экран
-static void		ft_printLongDouble(char *result, long long accuracy)
+static void		ft_printLongDouble(char *result, long long accuracy, int sign)
 {
 	int		count;
 
 	count = 0;
+	if (sign == 1)
+		write(1, "-", 1);
 	while (*result != '.')
 	{
 		write(1, result, 1);
@@ -437,12 +439,12 @@ void    ft_longDouble(long double number, long long accuracy)
 	bits.longDouble = number;
 	if (accuracy < 0)
 		return ;
-	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
+	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15) ? 1 : 0;
 	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
 	longDouble.mantis = bits.unsignedLong;
 	// ft_printBitsUnsignedLong(longDouble.mantis);
 	result = ft_workWithMantis(longDouble);
-	ft_printLongDouble(result, accuracy);
+	ft_printLongDouble(result, accuracy, longDouble.sign);
 	free(result);
 }
 // не забудь free
