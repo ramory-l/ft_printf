@@ -369,7 +369,6 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 // {
 // 	size_t	lenResult;
 // 	int		number;
-
 // 	lenResult = ft_strlen(result);
 // 	if (!accuracy)
 // 		accuracy = 6;

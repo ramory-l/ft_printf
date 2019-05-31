@@ -7,8 +7,8 @@ int 	main(void)
 {
 	long double longDouble;
 	
-	longDouble = 1234.1234;
-	printf("orgres: %.20Lf\n\n", longDouble);
+	longDouble = LDBL_MAX;
+	printf("orgres: %.20000Lf\n\n", longDouble);
 	ft_longDouble(longDouble, 10);
 	return (0);
 }
