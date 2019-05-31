@@ -7,8 +7,8 @@ int 	main(void)
 {
 	long double longDouble;
 	
-	longDouble = 555.555;
-	printf("%.8Lf\n\n", longDouble);
-	ft_longDouble(longDouble, 8);
+	longDouble = 2.198;
+	printf("%.3Lf\n\n", longDouble);
+	ft_longDouble(longDouble, 3);
 	return (0);
 }
