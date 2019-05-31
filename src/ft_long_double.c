@@ -348,7 +348,6 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 
 	numOfIntBits = longDouble.exp - LDBL_MAX_EXP + 2;
 	bitsPower.power = numOfIntBits;
-	// printf("numOfIntBits: %d\n", numOfIntBits);
 	arrayInt = ft_findingIntPower(longDouble, numOfIntBits, bitsPower);
 	doubleChar.intToChar = ft_numToChar(arrayInt);
 	arrayInt = ft_findingFractionPower(longDouble, numOfIntBits, bitsPower);
@@ -362,14 +361,48 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	return (result);
 }
 
-// вывод результата на экран
-static void		ft_printLongDouble(char *result, unsigned int accuracy)
+// округление
+static char		*ft_rounding(char *result, long long accuracy)
 {
-	size_t	lenResult;
+	int	check;
+	char *tmp;
+	long long accuracy_tmp;
+
+	check = 0;
+	tmp = result;
+	accuracy_tmp = accuracy;
+	while (*tmp++)
+		accuracy_tmp--;
+	if (accuracy_tmp <= 0)
+	{
+		check = result[accuracy] - '0';
+		if (check > 4)
+		{
+			accuracy--;
+			check = result[accuracy] - '0';
+			while (accuracy)
+			{
+				if (check >= 9)
+				{
+					result[accuracy] = 0 + '0';
+					check = result[accuracy] - '0';
+				}
+				result[accuracy - 1] = (check++) + '0';
+				check = result[accuracy - 1] - '0';
+				accuracy--;
+				
+			}
+		}
+	}
+	return (result);
+}
+
+// вывод результата на экран
+static void		ft_printLongDouble(char *result, long long accuracy)
+{
 	int		count;
 
 	count = 0;
-	lenResult = ft_strlen(result);
 	while (*result != '.')
 	{
 		write(1, result, 1);
@@ -379,31 +412,34 @@ static void		ft_printLongDouble(char *result, unsigned int accuracy)
 		return ;
 	else
 	{
-		while (accuracy && lenResult)
+		write(1, result, 1);
+		result++;
+		result = ft_rounding(result, accuracy);
+		while (*result && accuracy--)
 		{
 			write(1, result, 1);
-			accuracy--;
 			result++;
 		}
-		if (accuracy--)
+		while (accuracy-- > 0)
 			write(1, "0", 1);
 	}
 }
 
 // тут начинается магия
-void    ft_longDouble(long double number, unsigned int accuracy)
+void    ft_longDouble(long double number, long long accuracy)
 {
 	longDoubleToUnsignedLong	bits;
 	s_longDouble 				longDouble;
 	char 						*result;
 
 	bits.longDouble = number;
+	if (accuracy < 0)
+		return ;
 	longDouble.sign = (*(&bits.unsignedLong + 1)) & (1 << 15);
 	longDouble.exp = (int)(*(&bits.unsignedLong + 1) & 0x7fffL);
 	longDouble.mantis = bits.unsignedLong;
 	// ft_printBitsUnsignedLong(longDouble.mantis);
 	result = ft_workWithMantis(longDouble);
-	// printf("result: %s\n", result);
 	ft_printLongDouble(result, accuracy);
 	free(result);
 }
