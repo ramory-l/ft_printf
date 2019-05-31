@@ -32,7 +32,6 @@ typedef struct			t_arrayInt
 	int					lenArr;
 	int					iArr;
 	int					jArr;
-	int					flagInt;
 }						s_arrayInt;
 
 typedef struct			t_powerBits

@@ -7,8 +7,8 @@ int 	main(void)
 {
 	long double longDouble;
 	
-	longDouble = LDBL_MAX;
-	printf("orgres: %.20000Lf\n\n", longDouble);
-	ft_longDouble(longDouble, 10);
+	longDouble = DBL_MIN;
+	printf("%Lf\n\n", longDouble);
+	ft_longDouble(longDouble, 6);
 	return (0);
 }
