@@ -11,7 +11,7 @@ static int		ft_choose_base(char c)
 	return (10);
 }
 
-static void		ft_print_di(va_list ap, t_printf *data)
+static void		ft_di(va_list ap, t_printf *data, t_buffer *bf)
 {
 	long long int di;
 
@@ -19,19 +19,19 @@ static void		ft_print_di(va_list ap, t_printf *data)
 	if (di < 0)
 		data->sign = 1;
 	if (!data->size)
-		data->nbr = ft_itoa_signed((int)di, data);
+		ft_itoa_signed((int)di, bf);
 	if (data->size & SIZE_LL)
-		data->nbr = ft_itoa_signed((lli)di, data);
+		ft_itoa_signed((lli)di, bf);
 	if (data->size & SIZE_L)
-		data->nbr = ft_itoa_signed((long int)di, data);
+		ft_itoa_signed((long int)di, bf);
 	if (data->size & SIZE_HH)
-		data->nbr = ft_itoa_signed((char)di, data);
+		ft_itoa_signed((char)di, bf);
 	if (data->size & SIZE_H)
-		data->nbr = ft_itoa_signed((short int)di, data);
-	ft_manage_di(data);
+		ft_itoa_signed((short int)di, bf);
+	// ft_manage_di(data);
 }
 
-static void		ft_print_oux_x(va_list ap, t_printf *data)
+static void		ft_oux_x(va_list ap, t_printf *data, t_buffer *bf)
 {
 	int						base;
 	unsigned long long int	oux_x;
@@ -43,23 +43,23 @@ static void		ft_print_oux_x(va_list ap, t_printf *data)
 	if (check_sign < 0)
 		data->sign = 1;
 	if (!data->size)
-		data->nbr = ft_itoa_base_unsigned((unsigned int)oux_x, base, data);
+		ft_itoa_base_unsigned((unsigned int)oux_x, base, data);
 	if (data->size & SIZE_LL)
-		data->nbr = ft_itoa_base_unsigned((ulli)oux_x, base, data);
+		ft_itoa_base_unsigned((ulli)oux_x, base, data);
 	if (data->size & SIZE_L)
-		data->nbr = ft_itoa_base_unsigned((unsigned long int)oux_x, base, data);
+		ft_itoa_base_unsigned((unsigned long int)oux_x, base, data);
 	if (data->size & SIZE_HH)
-		data->nbr = ft_itoa_base_unsigned((unsigned char)oux_x, base, data);
+		ft_itoa_base_unsigned((unsigned char)oux_x, base, data);
 	if (data->size & SIZE_H)
-		data->nbr = ft_itoa_base_unsigned((unsigned short int)oux_x, base, data);
+		ft_itoa_base_unsigned((unsigned short int)oux_x, base, data);
 	ft_manage_oux_x(data);
 }
 
-void		ft_print_dioux_x(va_list ap, const char *format, t_printf *data)
+void		ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf)
 {
 	if (data->type == 'd' || data->type == 'i')
-		ft_print_di(ap, data);
+		ft_di(ap, data, bf);
 	if (data->type == 'o' || data->type == 'u' ||
 		data->type == 'x' || data->type == 'X')
-		ft_print_oux_x(ap, data);
+		ft_oux_x(ap, data, bf);
 }

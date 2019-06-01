@@ -1,6 +1,16 @@
 #include "ft_printf.h"
 
-static int ft_find_length(lli value)
+static lli	ft_check_sign(lli value, int *sign)
+{
+	if (value < 0)
+	{
+		value *= -1;
+		*sign = 1;
+	}
+	return (value);
+}
+
+static int	ft_find_length(lli value)
 {
 	int len;
 
@@ -13,30 +23,31 @@ static int ft_find_length(lli value)
 	return (len);
 }
 
-char *ft_itoa_signed(lli value, t_printf *data)
+void		ft_itoa_signed(lli value, t_buffer *bf)
 {
 	int len;
+	int temp;
 	int	sign;
-	char *number;
 
 	sign = 0;
 	if (value == 0)
-		return ("0");
-	if (value < 0)
 	{
-		value *= -1;
-		sign = 1;
+		bf->buffer[bf->s] = '0';
+		bf->s++;
+		return ;
 	}
+	value = ft_check_sign(value, &sign);
 	len = ft_find_length(value);
 	len += sign;
-	data->len = len;
-	number = ft_strnew(len);
+	temp = len;
 	if (sign)
-		number[0] = '-';
+		bf->buffer[bf->s] = '-';
+	bf->s += len - 1;
 	while (len-- > sign)
 	{
-		number[len] = value % 10 + '0';
+		bf->buffer[bf->s] = value % 10 + '0';
+		bf->s--;
 		value /= 10;
 	}
-	return (number);
+	bf->s += temp - sign + 1;
 }

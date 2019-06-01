@@ -17,13 +17,7 @@
 
 typedef unsigned long long int ulli;
 typedef long long int lli;
-
-typedef struct	s_sup
-{
-	int			i;
-	const char	*temp;
-	va_list		ap;
-}				t_sup;
+typedef const char cc;
 
 typedef struct	s_printf
 {
@@ -40,20 +34,23 @@ typedef struct	s_printf
 	char		*temp;
 	int			l_count;
 	int			h_count;
-	t_sup		sup;
 }				t_printf;
 
-int				ft_printf(const char *format, ...);
-const char		*ft_check_ptc(va_list ap, const char *format, t_printf *data);
-int				ft_specifier_format(const char *format, t_printf *data);
-void			ft_choose_print(va_list ap, const char *format, t_printf *data);
+typedef struct	s_buffer
+{
+	unsigned	s;
+	char		buffer[512];
+}				t_buffer;
+
+int				ft_printf(cc *format, ...);
+cc				*ft_check_ptc(va_list ap, cc *format, t_printf *data, t_buffer *bf);
+int				ft_specifier_format(cc *format, t_printf *data);
+void			ft_choose_print(va_list ap, cc *format, t_printf *data, t_buffer *bf);
 void			ft_manage_di(t_printf *data);
 void			ft_manage_oux_x(t_printf *data);
 void			ft_minus_width_rule(t_printf *data);
-void			ft_print_dioux_x(va_list ap, const char *format, t_printf *data);
-void			ft_print_char(va_list ap, const char *format, t_printf *data);
-void			ft_print_string(va_list ap, const char *format, t_printf *data);
-char			*ft_itoa_signed(lli value, t_printf *data);
+void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf);
+void			ft_itoa_signed(lli value, t_buffer *bf);
 char			*ft_itoa_base_unsigned(ulli value, int base, t_printf *data);
 
 #endif

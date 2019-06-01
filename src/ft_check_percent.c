@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static void		ft_manage_flags(t_printf *data)
+static void	ft_manage_flags(t_printf *data)
 {
 	if (data->flags & FLAG_MINUS && data->flags & FLAG_ZERO)
 		data->flags &= ~FLAG_ZERO;
@@ -10,7 +10,7 @@ static void		ft_manage_flags(t_printf *data)
 		data->flags &= ~FLAG_ZERO;
 }
 
-const char	*ft_check_ptc(va_list ap, const char *format, t_printf *data)
+cc			*ft_check_ptc(va_list ap, cc *format, t_printf *data, t_buffer *bf)
 {
 	int type_index;
 
@@ -18,6 +18,6 @@ const char	*ft_check_ptc(va_list ap, const char *format, t_printf *data)
 	if (type_index == 0)
 		return ("");
 	ft_manage_flags(data);
-	ft_choose_print(ap, format, data);
+	ft_choose_print(ap, format, data, bf);
 	return (format + type_index + 1);
 }
