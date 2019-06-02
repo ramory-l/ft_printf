@@ -10,7 +10,8 @@ int	main(void)
 
 	// printf("orig %X\n", 42);
 	// ft_printf("mine %X\n", 42);
-	ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
-	printf("@moulitest: %5.x %5.0x\n", 0, 0);
+	// ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
+	// printf("@moulitest: %5.x %5.0x\n", 0, 0);
+	ft_printf("%.7s\n", "Hello\n");
 	return (0);
 }

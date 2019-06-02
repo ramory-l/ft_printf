@@ -50,6 +50,7 @@ void			ft_choose_print(va_list ap, cc *format, t_printf *data, t_buffer *bf);
 void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf);
 void			ft_print_di(t_printf *data, t_buffer *bf);
 void			ft_print_oux_x(t_printf *data, t_buffer *bf);
+void			ft_print_string(va_list ap, t_printf *data, t_buffer *bf);
 void			ft_print_percent(t_printf *data, t_buffer *bf);
 
 /* Support functions */
