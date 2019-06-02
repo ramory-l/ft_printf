@@ -5,10 +5,12 @@
 int	main(void)
 {
 	// ft_printf("%5d\n", 42);
-	int dd = printf("orig dasdds  dasda\n");
-	int d = ft_printf("my dasdds  dasda\n");
+	// int dd = printf("orig dasdds  dasda\n");
+	// int d = ft_printf("mine dasdds  dasda\n");
 
-	ft_printf("my %d\n", dd);
-	printf("orig %d\n", dd);
+	// printf("orig %X\n", 42);
+	// ft_printf("mine %X\n", 42);
+	ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
+	printf("@moulitest: %5.x %5.0x\n", 0, 0);
 	return (0);
 }

@@ -23,31 +23,27 @@ static int	ft_find_length(lli value)
 	return (len);
 }
 
-void		ft_itoa_signed(lli value, t_buffer *bf)
+void		ft_itoa_signed(lli value, t_printf *data, t_buffer *bf)
 {
 	int len;
-	int temp;
 	int	sign;
 
 	sign = 0;
 	if (value == 0)
 	{
-		bf->buffer[bf->s] = '0';
-		bf->s++;
+		bf->temp[0] = '0';
+		data->len = 1;
 		return ;
 	}
 	value = ft_check_sign(value, &sign);
 	len = ft_find_length(value);
 	len += sign;
-	temp = len;
+	data->len = len;
 	if (sign)
-		bf->buffer[bf->s] = '-';
-	bf->s += len - 1;
+		bf->temp[0] = '-';
 	while (len-- > sign)
 	{
-		bf->buffer[bf->s] = value % 10 + '0';
-		bf->s--;
+		bf->temp[len] = value % 10 + '0';
 		value /= 10;
 	}
-	bf->s += temp - sign + 1;
 }

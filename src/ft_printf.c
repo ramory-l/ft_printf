@@ -1,15 +1,5 @@
 #include "ft_printf.h"
 
-void	ft_check_buffer(t_printf *data, t_buffer *bf)
-{
-	if (bf->s == 511)
-	{
-		write(1, bf->buffer, bf->s);
-		bf->s = 0;
-		data->printed += bf->s;
-	}
-}
-
 int		ft_printf(const char *format, ...)
 {
 	va_list		ap;

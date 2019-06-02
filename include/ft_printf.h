@@ -39,6 +39,7 @@ typedef struct	s_printf
 typedef struct	s_buffer
 {
 	unsigned	s;
+	char		temp[20];
 	char		buffer[512];
 }				t_buffer;
 
@@ -46,11 +47,17 @@ int				ft_printf(cc *format, ...);
 cc				*ft_check_ptc(va_list ap, cc *format, t_printf *data, t_buffer *bf);
 int				ft_specifier_format(cc *format, t_printf *data);
 void			ft_choose_print(va_list ap, cc *format, t_printf *data, t_buffer *bf);
-void			ft_manage_di(t_printf *data);
-void			ft_manage_oux_x(t_printf *data);
-void			ft_minus_width_rule(t_printf *data);
 void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf);
-void			ft_itoa_signed(lli value, t_buffer *bf);
-char			*ft_itoa_base_unsigned(ulli value, int base, t_printf *data);
+void			ft_print_di(t_printf *data, t_buffer *bf);
+void			ft_print_oux_x(t_printf *data, t_buffer *bf);
+void			ft_print_percent(t_printf *data, t_buffer *bf);
+
+/* Support functions */
+void			ft_itoa_signed(lli value, t_printf *data, t_buffer *bf);
+void			ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf);
+void			ft_check_buffer(t_printf *data, t_buffer *bf);
+void			ft_fill_bf(t_printf *data, t_buffer *bf);
+void			ft_fill_bf_spaces(t_printf *data, t_buffer *bf);
+void			ft_fill_bf_zeroes(t_printf *data, t_buffer *bf);
 
 #endif

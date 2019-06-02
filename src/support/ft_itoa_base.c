@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static int ft_find_length(ulli value, int base)
+static int	ft_find_length(ulli value, int base)
 {
 	int len;
 
@@ -13,11 +13,10 @@ static int ft_find_length(ulli value, int base)
 	return (len);
 }
 
-char *ft_itoa_base_unsigned(ulli value, int base, t_printf *data)
+void		ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf)
 {
 	int len;
 	char *radix;
-	char *number;
 
 	if (base == 17)
 	{
@@ -27,14 +26,16 @@ char *ft_itoa_base_unsigned(ulli value, int base, t_printf *data)
 	else
 		radix = "0123456789abcdef";
 	if (value == 0)
-		return ("0");
+	{
+		bf->temp[0] = '0';
+		data->len = 1;
+		return ;
+	}
 	len = ft_find_length(value, base);
 	data->len = len;
-	number = ft_strnew(len);
 	while (len--)
 	{
-		number[len] = radix[value % base];
+		bf->temp[len] = radix[value % base];
 		value /= base;
 	}
-	return (number);
 }
