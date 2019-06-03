@@ -1,5 +1,22 @@
 #include "ft_printf.h"
 
+static void	ft_accuracy(t_printf *data, t_buffer *bf)
+{
+	int i;
+
+	i = data->len;
+	if (data->type == 'o' && data->accuracy > data->len)
+	{
+		while (i < data->accuracy)
+		{
+			bf->buffer[bf->s] = '0';
+			bf->s++;
+			i++;
+			ft_check_buffer(data, bf);
+		}
+	}
+}
+
 static void ft_oct(t_printf *data, t_buffer *bf)
 {
 	char *temp;
@@ -27,6 +44,7 @@ static void ft_oct(t_printf *data, t_buffer *bf)
 
 static int ft_width(t_printf *data, t_buffer *bf)
 {
+	ft_accuracy(data, bf);
 	if (data->width > data->len && !(data->flags & FLAG_ZERO) &&
 		!(data->flags & FLAG_MINUS))
 	{
@@ -54,6 +72,11 @@ void ft_print_oux_x(t_printf *data, t_buffer *bf)
 {
 	if (bf->temp[0] == '0')
 	{
+		if (data->acc && data->type == 'o' && data->flags & FLAG_OCT)
+		{
+			ft_fill_bf(data, bf);
+			return ;
+		}
 		if (!data->acc)
 		{
 			ft_fill_bf(data, bf);

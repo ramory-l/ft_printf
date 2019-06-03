@@ -1,42 +1,52 @@
 #include "ft_printf.h"
 
-static int ft_width_accuracy(char *str, t_printf *data, t_buffer *bf)
+static void ft_str_tobuff(char *str, t_printf *data, t_buffer *bf)
 {
 	int i;
 
 	i = 0;
-	if (data->width > 0)
+	while (i < data->len)
 	{
-		if (data->acc)
-		{
-		}
+		bf->buffer[bf->s] = str[i];
+		bf->s++;
+		i++;
+		ft_check_buffer(data, bf);
 	}
-	else if (data->acc)
+}
+
+static int	ft_width_accuracy(char *str, t_printf *data, t_buffer *bf)
+{
+	if (data->acc && data->len > data->accuracy)
+		data->len = data->accuracy;
+	if (data->width > data->len && data->flags & FLAG_MINUS)
 	{
-		while (str[i] && i != data->accuracy)
-		{
-			bf->buffer[bf->s] = str[i];
-			bf->s++;
-			i++;
-			ft_check_buffer(data, bf);
-		}
+		ft_str_tobuff(str, data, bf);
+		ft_fill_bf_spaces(data, bf);
+		return (1);
+	}
+	if (data->width > data->len && !(data->flags & FLAG_MINUS))
+	{
+		ft_fill_bf_spaces(data, bf);
+		ft_str_tobuff(str, data, bf);
 		return (1);
 	}
 	return (0);
 }
 
-void ft_print_string(va_list ap, t_printf *data, t_buffer *bf)
+void	ft_print_string(va_list ap, t_printf *data, t_buffer *bf)
 {
 	char *str;
 
 	str = va_arg(ap, char *);
-	if (ft_width_accuracy(str, data, bf))
-		return ;
-	while (*str)
+	if (!str)
 	{
-		bf->buffer[bf->s] = *str;
-		bf->s++;
-		str++;
-		ft_check_buffer(data, bf);
+		str = "(null)";
+		data->len = 6;
+		ft_str_tobuff(str, data, bf);
+		return ;
 	}
+	data->len = ft_strlen(str);
+	if (ft_width_accuracy(str, data, bf))
+		return;
+	ft_str_tobuff(str, data, bf);
 }

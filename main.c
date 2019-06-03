@@ -12,6 +12,6 @@ int	main(void)
 	// ft_printf("mine %X\n", 42);
 	// ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
 	// printf("@moulitest: %5.x %5.0x\n", 0, 0);
-	ft_printf("%.7s\n", "Hello\n");
+	ft_printf("@moulitest: %#.o %#.0o", 0, 0);
 	return (0);
 }
