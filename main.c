@@ -8,10 +8,8 @@ int 	main(void)
 {
 	long double longDouble;
 	
-	longDouble = 0.0125;
-	printf("%.3Lf\n\n", longDouble);
-	ft_longDouble(longDouble, 3);
+	longDouble = 0.625;
+	printf("%.1Lf\n\n", longDouble);
+	ft_longDouble(longDouble, 1);
 	return (0);
 }
-
-// 0.25 = 0.3? P 1

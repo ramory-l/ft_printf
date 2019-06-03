@@ -384,6 +384,23 @@ static char		*ft_replace_num_round(int check, long long accuracy, char *result)
 	return (result);
 }
 
+// спорная ситуация с пятеркой
+static char *ft_if_five_in_fractional(char *result, int check, long long accuracy)
+{
+	int check_null;
+
+	check_null = accuracy + 1;
+	while (result[check_null])
+	{
+		if (result[check_null] != '0')
+			break ;
+		check_null++;
+	}
+	if (result[check_null])
+		result = ft_replace_num_round(check, accuracy, result);
+	return (result);
+}
+
 // округление дробной части
 static char		*ft_rounding_fraction(char *result, long long accuracy)
 {
@@ -399,7 +416,9 @@ static char		*ft_rounding_fraction(char *result, long long accuracy)
 	if (accuracy_tmp < 0)
 	{
 		check = result[accuracy] - '0';
-		if (check > 4)
+		if (check == 5)
+			result = ft_if_five_in_fractional(result, check, accuracy);
+		else if (check > 5)
 			result = ft_replace_num_round(check, accuracy, result);
 	}
 	return (result);
