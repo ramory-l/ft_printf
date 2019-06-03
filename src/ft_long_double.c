@@ -37,7 +37,7 @@ static s_arrayInt	ft_bzeroArrs(void)
 	return (arrayInt);
 }
 
-// // вывод битов unsigned long
+// вывод битов unsigned long
 // static void		ft_printBitsUnsignedLong(unsigned long number)
 // {
 // 	int	numBits;
@@ -292,7 +292,7 @@ static char		*ft_numToChar(s_arrayInt arrayInt)
 }
 
 // узнаем максимальную степень мантисы дробного числа
-static int		ft_maxPowerFractional(unsigned long	mantis)
+static int		ft_minPowerFractional(unsigned long	mantis)
 {
 	int bitIndex;
 	int power;
@@ -300,8 +300,8 @@ static int		ft_maxPowerFractional(unsigned long	mantis)
 
 	bit = 0;
 	power = 0;
-	bitIndex = 63;
-	while (bitIndex)
+	bitIndex = 0;
+	while (bitIndex < 64)
 	{
 		bit = (mantis & (1UL << bitIndex)) != 0 ? 1 : 0;
 		if (bit == 1)
@@ -309,7 +309,7 @@ static int		ft_maxPowerFractional(unsigned long	mantis)
 			power = bitIndex;
 			break ;
 		}
-		bitIndex--;
+		bitIndex++;
 	}
 	return (power);
 }	
@@ -326,9 +326,10 @@ static char		*ft_fillNulls(int exp, char *fraction, unsigned long mantis)
 	power = 0;
 	countNull = 0;
 	lenFractional = ft_strlen(fraction);
-	power = ft_maxPowerFractional(mantis);
+	lenFractional--;
+	power = ft_minPowerFractional(mantis);
 	countNull = 64 - power - exp - lenFractional;
-	countNull++;
+	// countNull++;
 	if (countNull <= 0)
 		return (NULL);
 	result = (char*)malloc((countNull + 1) * sizeof(char));
@@ -361,8 +362,30 @@ static char		*ft_workWithMantis(s_longDouble longDouble)
 	return (result);
 }
 
-// округление
-static char		*ft_rounding(char *result, long long accuracy)
+// замена чисел в округлении
+static char		*ft_replace_num_round(int check, long long accuracy, char *result)
+{
+	while (accuracy)
+	{
+		accuracy--;
+		check = result[accuracy] - '0';
+		check++;
+		if (check > 9)
+		{
+			result[accuracy] = 0 + '0';
+			check = result[accuracy] - '0';
+		}
+		else if (check != 9)
+		{	
+			result[accuracy] = check + '0';
+			break ;
+		}
+	}
+	return (result);
+}
+
+// округление дробной части
+static char		*ft_rounding_fraction(char *result, long long accuracy)
 {
 	int	check;
 	char *tmp;
@@ -370,31 +393,45 @@ static char		*ft_rounding(char *result, long long accuracy)
 
 	check = 0;
 	tmp = result;
-	accuracy_tmp = accuracy;
+	accuracy_tmp = accuracy + 1;
 	while (*tmp++)
 		accuracy_tmp--;
-	if (accuracy_tmp <= 0)
+	if (accuracy_tmp < 0)
 	{
 		check = result[accuracy] - '0';
 		if (check > 4)
-		{
-			while (accuracy)
-			{
-				accuracy--;
-				check = result[accuracy] - '0';
-				check++;
-				if (check > 9)
-				{
-					result[accuracy] = 0 + '0';
-					check = result[accuracy] - '0';
-				}
-				else if (check != 9)
-				{	
-					result[accuracy] = check + '0';
-					break ;
-				}
-			}
-		}
+			result = ft_replace_num_round(check, accuracy, result);
+	}
+	return (result);
+}
+
+// полное округление
+static char		*ft_rounding(char *result, long long accuracy)
+{
+	char	*tmp;
+	int		before;
+	int		after;
+	int		count;
+	int		check;
+
+	check = 0;
+	count = 0;
+	before = 0;
+	after = 0;
+	tmp = result;
+	while (*tmp != '.')
+	{
+		tmp++;
+		count++;
+	}
+	tmp++;
+	before = *tmp - '0';
+	tmp = ft_rounding_fraction(tmp, accuracy);
+	after = *tmp - '0';
+	if (before > after || (after >= 5 && accuracy == 0))
+	{
+		check = result[count] - '0';
+		result = ft_replace_num_round(check, count, result);
 	}
 	return (result);
 }
@@ -402,9 +439,14 @@ static char		*ft_rounding(char *result, long long accuracy)
 // вывод результата на экран
 static void		ft_printLongDouble(char *result, long long accuracy, int sign)
 {
-	int		count;
+	int before;
+	int after;
 
-	count = 0;
+	before = *result - '0';
+	result = ft_rounding(result, accuracy);
+	after = *result - '0';
+	if (after == 0 && before != 0)
+		result = ft_strjoin("1", result);
 	if (sign == 1)
 		write(1, "-", 1);
 	while (*result != '.')
@@ -418,7 +460,6 @@ static void		ft_printLongDouble(char *result, long long accuracy, int sign)
 	{
 		write(1, result, 1);
 		result++;
-		result = ft_rounding(result, accuracy);
 		while (*result && accuracy--)
 		{
 			write(1, result, 1);
