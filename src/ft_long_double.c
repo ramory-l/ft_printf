@@ -329,7 +329,6 @@ static char		*ft_fillNulls(int exp, char *fraction, unsigned long mantis)
 	lenFractional--;
 	power = ft_minPowerFractional(mantis);
 	countNull = 64 - power - exp - lenFractional;
-	// countNull++;
 	if (countNull <= 0)
 		return (NULL);
 	result = (char*)malloc((countNull + 1) * sizeof(char));
