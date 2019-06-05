@@ -55,7 +55,6 @@ void			ft_print_string(va_list ap, t_printf *data, t_buffer *bf);
 void			ft_print_percent(t_printf *data, t_buffer *bf);
 
 /* Support functions */
-void			ft_itoa_signed(lli value, t_printf *data, t_buffer *bf);
 void			ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf);
 void			ft_check_buffer(t_printf *data, t_buffer *bf);
 void			ft_fill_bf(t_printf *data, t_buffer *bf);

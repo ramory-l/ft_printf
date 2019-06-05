@@ -12,6 +12,13 @@ int	main(void)
 	// ft_printf("mine %X\n", 42);
 	// ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
 	// printf("@moulitest: %5.x %5.0x\n", 0, 0);
-	ft_printf("% d", -42);
+	// ft_printf("% d", -42);
+	// ft_printf("%-+10.5d\n", 4242);
+	// ft_printf("%+10.5d\n", 4242);
+	// ft_printf("%+10.5d\n", 4242);
+	// ft_printf("%4.15d\n", 42);
+	// ft_printf("%10.5d\n", 4242);
+	// ft_printf("%4.15d", 42);
+	ft_printf("%d", -2151);
 	return (0);
 }
