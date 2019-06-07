@@ -27,7 +27,7 @@ static void		ft_di(va_list ap, t_printf *data, t_buffer *bf)
 		di = (char)di;
 	if (data->size & SIZE_H)
 		di = (short)di;
-	if(di < 0)
+	if (di < 0)
 	{
 		data->sign = 1;
 		di *= -1;

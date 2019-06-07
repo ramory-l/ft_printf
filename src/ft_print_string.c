@@ -21,12 +21,12 @@ static int	ft_width_accuracy(char *str, t_printf *data, t_buffer *bf)
 	if (data->width > data->len && data->flags & FLAG_MINUS)
 	{
 		ft_str_tobuff(str, data, bf);
-		ft_fill_bf_spaces(data, bf);
+		ft_fill_spaces_oux(data, bf);
 		return (1);
 	}
 	if (data->width > data->len && !(data->flags & FLAG_MINUS))
 	{
-		ft_fill_bf_spaces(data, bf);
+		ft_fill_spaces_oux(data, bf);
 		ft_str_tobuff(str, data, bf);
 		return (1);
 	}

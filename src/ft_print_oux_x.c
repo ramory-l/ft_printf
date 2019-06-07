@@ -48,19 +48,19 @@ static int ft_width(t_printf *data, t_buffer *bf)
 	if (data->width > data->len && !(data->flags & FLAG_ZERO) &&
 		!(data->flags & FLAG_MINUS))
 	{
-		ft_fill_bf_spaces(data, bf);
+		ft_fill_spaces_oux(data, bf);
 		ft_oct(data, bf);
 	}
 	if (data->width > data->len && data->flags & FLAG_ZERO)
 	{
 		ft_oct(data, bf);
-		ft_fill_bf_zeroes(data, bf);
+		ft_fill_zeroes_oux(data, bf);
 	}
 	if (data->width > data->len && data->flags & FLAG_MINUS)
 	{
 		ft_oct(data, bf);
 		ft_fill_bf(data, bf);
-		ft_fill_bf_spaces(data, bf);
+		ft_fill_spaces_oux(data, bf);
 		return (1);
 	}
 	if (!data->width)
