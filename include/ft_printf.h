@@ -41,6 +41,7 @@ typedef struct			t_powerbits
 	int 				remainpower;
 	int					base;
 	int					numofbits;
+	int					flag;
 }						s_powerbits;
 
 typedef struct			t_doubletochar
@@ -51,6 +52,6 @@ typedef struct			t_doubletochar
 }						s_doubletochar;
 
 void	ft_print_int(int nbr);
-void    ft_longdouble(long double number, long long accuracy);
+void	ft_longdouble(long double number, long long accuracy);
 
 #endif

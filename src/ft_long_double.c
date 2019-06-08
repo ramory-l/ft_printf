@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/08 19:16:24 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/08 19:37:26 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static s_arrayint	ft_bzeroarrs(void)
 {
-	s_arrayint arrayint;
-	int lenarr;
-	int iarr;
+	s_arrayint	arrayint;
+	int			lenarr;
+	int			iarr;
 
 	iarr = 0;
 	lenarr = LEN_ARR;
@@ -198,35 +198,46 @@ static s_arrayint	ft_multlongnumbyaten(s_arrayint arrayint)
 	return (arrayint);
 }
 
+static s_arrayint	ft_bitsandpower(s_arrayint arrayint, s_powerbits bitspower)
+{
+	arrayint = ft_separationpower(bitspower, arrayint);
+	arrayint = ft_summpower(arrayint);
+	arrayint = ft_bzerotmparr(arrayint);
+	return (arrayint);
+}
+
+static s_powerbits	ft_bitspowercontructor(s_powerbits bitspower)
+{
+	bitspower.flag = 0;
+	bitspower.numofbits = 63;
+	bitspower.base = 5;
+	bitspower.power = (bitspower.power < 0) ? bitspower.power * -1 : 0;
+	return (bitspower);
+}
+
 static s_arrayint	ft_findingfractionpower(s_longdouble longdouble,
 int numofintbits, s_powerbits bitspower)
 {
-	int			numofbits;
 	int			bit;
 	s_arrayint	arrayint;
-	int			flag;
 
-	flag = 0;
-	numofbits = 63;
-	bitspower.base = 5;
-	bitspower.power = (bitspower.power < 0) ? bitspower.power * -1 : 0;
+	bitspower = ft_bitspowercontructor(bitspower);
 	arrayint = ft_bzeroarrs();
-	while (numofbits >= 0)
+	while (bitspower.numofbits >= 0)
 	{
-		bit = ((longdouble.mantis & (1UL << numofbits)) != 0) ? 1 : 0;
+		bit = ((longdouble.mantis & (1UL << bitspower.numofbits)) != 0) ? 1 : 0;
 		numofintbits--;
-		numofbits--;
+		bitspower.numofbits--;
 		if (numofintbits < 0)
 		{
 			bitspower.power++;
 			if (bit == 1)
 			{
-				flag = 1;
-				arrayint = ft_separationpower(bitspower, arrayint);
-				arrayint = ft_summpower(arrayint);
-				arrayint = ft_bzerotmparr(arrayint);
+				bitspower.flag = 1;
+				arrayint = ft_bitsandpower(arrayint, bitspower);
 			}
-			if (flag == 1 && (longdouble.mantis << (63 - numofbits)) != 0)
+			if (bitspower.flag == 1 && (longdouble.mantis << (63 -
+			bitspower.numofbits)) != 0)
 				arrayint = ft_multlongnumbyaten(arrayint);
 		}
 	}
@@ -420,6 +431,24 @@ static char		*ft_rounding(char *result, long long accuracy)
 	return (result);
 }
 
+static void		ft_printfractional(long long accuracy, char *result)
+{
+	if (accuracy == 0)
+		return ;
+	else
+	{
+		write(1, result, 1);
+		result++;
+		while (*result && accuracy--)
+		{
+			write(1, result, 1);
+			result++;
+		}
+		while (accuracy-- > 0)
+			write(1, "0", 1);
+	}
+}
+
 static void		ft_printlongdouble(char *result, long long accuracy, int sign)
 {
 	int before;
@@ -437,20 +466,7 @@ static void		ft_printlongdouble(char *result, long long accuracy, int sign)
 		write(1, result, 1);
 		result++;
 	}
-	if (accuracy == 0)
-		return ;
-	else
-	{
-		write(1, result, 1);
-		result++;
-		while (*result && accuracy--)
-		{
-			write(1, result, 1);
-			result++;
-		}
-		while (accuracy-- > 0)
-			write(1, "0", 1);
-	}
+	ft_printfractional(accuracy, result);
 }
 
 void	ft_longdouble(long double number, long long accuracy)
