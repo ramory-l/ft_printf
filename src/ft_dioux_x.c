@@ -60,7 +60,7 @@ static void		ft_oux_x(va_list ap, t_printf *data, t_buffer *bf)
 	ft_print_oux_x(data, bf);
 }
 
-void		ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf)
+void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf)
 {
 	if (data->type == 'd' || data->type == 'i')
 		ft_di(ap, data, bf);

@@ -15,8 +15,8 @@ static int	ft_find_length(ulli value, int base)
 
 void		ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf)
 {
-	int len;
-	char *radix;
+	int		len;
+	char	*radix;
 
 	if (base == 17)
 	{

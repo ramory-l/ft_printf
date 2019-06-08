@@ -13,7 +13,7 @@ static int	ft_width(t_printf *data, t_buffer *bf)
 	return (0);
 }
 
-void ft_print_percent(t_printf *data, t_buffer *bf)
+void		ft_print_percent(t_printf *data, t_buffer *bf)
 {
 	bf->temp[0] = '%';
 	data->len = 1;

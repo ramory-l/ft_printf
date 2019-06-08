@@ -1,15 +1,5 @@
 #include "ft_printf.h"
 
-static int	type(char c)
-{
-	if (c == 'd' || c == 'i' || c == 'o' ||
-		c == 'u' || c == 'x' || c == 'X' ||
-		c == 'c' || c == 's' || c == 'p' ||
-		c == '%')
-		return (1);
-	return (0);
-}
-
 static void	ft_check_flag(const char *format, t_printf *data)
 {
 	if (*format == '-')
@@ -35,7 +25,7 @@ static void	ft_check_width(int *i, const char *format, t_printf *data)
 	}
 }
 
-static void ft_check_acc(const char *format, t_printf *data)
+static void	ft_check_acc(const char *format, t_printf *data)
 {
 	if (*format == '.')
 	{
@@ -64,7 +54,7 @@ static void	ft_check_size(t_printf *data)
 	}
 }
 
-int	ft_specifier_format(const char *format, t_printf *data)
+int			ft_specifier_format(const char *format, t_printf *data)
 {
 	int	i;
 	int index;

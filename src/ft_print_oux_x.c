@@ -17,7 +17,7 @@ static void	ft_accuracy(t_printf *data, t_buffer *bf)
 	}
 }
 
-static void ft_oct(t_printf *data, t_buffer *bf)
+static void	ft_oct(t_printf *data, t_buffer *bf)
 {
 	char *temp;
 
@@ -42,7 +42,7 @@ static void ft_oct(t_printf *data, t_buffer *bf)
 	}
 }
 
-static int ft_width(t_printf *data, t_buffer *bf)
+static int	ft_width(t_printf *data, t_buffer *bf)
 {
 	ft_accuracy(data, bf);
 	if (data->width > data->len && !(data->flags & FLAG_ZERO) &&
@@ -68,7 +68,7 @@ static int ft_width(t_printf *data, t_buffer *bf)
 	return (0);
 }
 
-void ft_print_oux_x(t_printf *data, t_buffer *bf)
+void		ft_print_oux_x(t_printf *data, t_buffer *bf)
 {
 	if (bf->temp[0] == '0')
 	{
@@ -89,6 +89,6 @@ void ft_print_oux_x(t_printf *data, t_buffer *bf)
 		}
 	}
 	if (ft_width(data, bf))
-		return;
+		return ;
 	ft_fill_bf(data, bf);
 }

@@ -18,22 +18,25 @@
 typedef unsigned long long int ulli;
 typedef long long int lli;
 typedef const char cc;
+typedef enum
+{
+	false,
+	true
+}		bool;
 
 typedef struct	s_printf
 {
 	char		type;
 	char		flags;
-	int			width;
-	int			accuracy;
+	unsigned	width;
+	unsigned	accuracy;
 	char		size;
-	char		*nbr;
-	int			printed;
-	int			sign;
-	int			len;
-	int			acc;
-	char		*temp;
-	int			l_count;
-	int			h_count;
+	bool		sign;
+	unsigned	len;
+	bool		acc;
+	unsigned	l_count;
+	unsigned	h_count;
+	unsigned	printed;
 }				t_printf;
 
 typedef struct	s_buffer
@@ -55,6 +58,7 @@ void			ft_print_string(va_list ap, t_printf *data, t_buffer *bf);
 void			ft_print_percent(t_printf *data, t_buffer *bf);
 
 /* Support functions */
+int				type(char c);
 void			ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf);
 void			ft_check_buffer(t_printf *data, t_buffer *bf);
 void			ft_fill_bf(t_printf *data, t_buffer *bf);

@@ -6,13 +6,13 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 15:24:51 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/05 17:37:38 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:29:29 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void ft_fill_bf(t_printf *data, t_buffer *bf)
+void	ft_fill_bf(t_printf *data, t_buffer *bf)
 {
 	int i;
 

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-static void ft_str_tobuff(char *str, t_printf *data, t_buffer *bf)
+static void	ft_str_tobuff(char *str, t_printf *data, t_buffer *bf)
 {
 	int i;
 
@@ -33,7 +33,7 @@ static int	ft_width_accuracy(char *str, t_printf *data, t_buffer *bf)
 	return (0);
 }
 
-void	ft_print_string(va_list ap, t_printf *data, t_buffer *bf)
+void		ft_print_string(va_list ap, t_printf *data, t_buffer *bf)
 {
 	char *str;
 
@@ -47,6 +47,6 @@ void	ft_print_string(va_list ap, t_printf *data, t_buffer *bf)
 	}
 	data->len = ft_strlen(str);
 	if (ft_width_accuracy(str, data, bf))
-		return;
+		return ;
 	ft_str_tobuff(str, data, bf);
 }
