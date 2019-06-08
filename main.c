@@ -6,10 +6,10 @@
 
 int 	main(void)
 {
-	long double longDouble;
+	long double longdouble;
 	
-	longDouble = 0.625;
-	printf("%.1Lf\n\n", longDouble);
-	ft_longDouble(longDouble, 1);
+	longdouble = 123456789.123456789;
+	printf("%.15Lf\n\n", longdouble);
+	ft_longdouble(longdouble, 15);
 	return (0);
 }

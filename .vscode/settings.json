@@ -2,7 +2,8 @@
 	"files.associations": {
 		"stdio.h": "c",
 		"ft_printf.h": "c",
-		"limits.h": "c"
+		"limits.h": "c",
+		"float.h": "c"
 	},
 	"C_Cpp.errorSquiggles": "Disabled"
 }

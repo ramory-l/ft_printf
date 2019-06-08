@@ -14,44 +14,43 @@
 
 typedef union
 {
-	unsigned long		unsignedLong;
-	long double			longDouble;
-}						longDoubleToUnsignedLong;
+	unsigned long		unsignedlong;
+	long double			longdouble;
+}						longdoubletounsignedlong;
 
-typedef struct			t_longDouble
+typedef struct			t_longdouble
 {
 	int					sign;
 	int					exp;
 	unsigned long		mantis;
-}						s_longDouble;
+}						s_longdouble;
 
-typedef struct			t_arrayInt
+typedef struct			t_arrayint
 {
-	unsigned long int	intResult[LEN_ARR];
-	unsigned long int	intTmp[LEN_ARR];
-	int					lenArr;
-	int					iArr;
-	int					jArr;
-}						s_arrayInt;
+	unsigned long int	intresult[LEN_ARR];
+	unsigned long int	inttmp[LEN_ARR];
+	int					lenarr;
+	int					iarr;
+	int					jarr;
+}						s_arrayint;
 
-typedef struct			t_powerBits
+typedef struct			t_powerbits
 {
 	int 				power;
-	int 				countPower;
-	int 				remainPower;
+	int 				countpower;
+	int 				remainpower;
 	int					base;
-}						s_powerBits;
+	int					numofbits;
+}						s_powerbits;
 
-typedef struct			t_doubleToChar
+typedef struct			t_doubletochar
 {
-	char *intToChar;
+	char *inttochar;
 	char *nulls;
-	char *fractionToChar;
-}						s_doubleToChar;
-
-
+	char *fractiontochar;
+}						s_doubletochar;
 
 void	ft_print_int(int nbr);
-void	ft_longDouble(long double nbr, long long accuracy);
+void    ft_longdouble(long double number, long long accuracy);
 
 #endif
