@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/08 20:16:15 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/08 20:26:00 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char		*ft_numtochar(s_arrayint arrayint)
 	return (result);
 }
 
-int	ft_minpowerfractional(unsigned long mantis)
+int			ft_minpowerfractional(unsigned long mantis)
 {
 	int	bitindex;
 	int	power;
@@ -86,7 +86,7 @@ int	ft_minpowerfractional(unsigned long mantis)
 	return (power);
 }
 
-void	ft_longdouble(long double number, long long accuracy)
+void		ft_longdouble(long double number, long long accuracy)
 {
 	longdoubletounsignedlong	bits;
 	s_longdouble				longdouble;
