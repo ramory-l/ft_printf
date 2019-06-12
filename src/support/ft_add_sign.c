@@ -1,46 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fill_bf_zeroes.c                                :+:      :+:    :+:   */
+/*   ft_add_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/02 15:15:29 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/12 16:09:55 by ramory-l         ###   ########.fr       */
+/*   Created: 2019/06/09 17:12:32 by ramory-l          #+#    #+#             */
+/*   Updated: 2019/06/12 14:46:43 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_fill_zeroes_di(t_printf *data, t_buffer *bf)
+void	ft_add_sign(t_printf *data, t_buffer *bf)
 {
-	int i;
-
-	i = data->len;
-	while (i < data->accuracy)
+	if (data->sign)
 	{
-		bf->buffer[bf->s] = '0';
+		bf->buffer[bf->s] = '-';
 		bf->s++;
-		i++;
 		ft_check_buffer(data, bf);
 	}
-}
-
-void	ft_fill_zeroes_oux(t_printf *data, t_buffer *bf)
-{
-	int zeroes;
-
-	zeroes = data->width - data->len + bf->s;
-	if (data->flags & FLAG_OCT)
+	if (!data->sign && data->flags & FLAG_PLUS)
 	{
-		if (data->type == 'x' || data->type == 'X')
-			zeroes -= 2;
-		if (data->type == 'o')
-			zeroes--;
-	}
-	while (bf->s < zeroes)
-	{
-		bf->buffer[bf->s] = '0';
+		bf->buffer[bf->s] = '+';
 		bf->s++;
 		ft_check_buffer(data, bf);
 	}

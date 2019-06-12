@@ -4,11 +4,23 @@ static int		ft_choose_base(char c)
 {
 	if (c == 'o')
 		return (8);
-	if (c == 'x')
+	if (c == 'x' || c == 'p')
 		return (16);
 	if (c == 'X')
 		return (17);
 	return (10);
+}
+
+static int		ft_check_ptr(va_list ap, t_printf *data, t_buffer *bf, int base)
+{
+	if (data->type == 'p')
+	{
+		data->flags |= FLAG_OCT;
+		ft_itoa_base((int)va_arg(ap, void *), base, data, bf);
+		ft_print_oux_x(data, bf);
+		return (1);
+	}
+	return (0);
 }
 
 static void		ft_di(va_list ap, t_printf *data, t_buffer *bf)
@@ -43,6 +55,8 @@ static void		ft_oux_x(va_list ap, t_printf *data, t_buffer *bf)
 	long long				check_sign;
 
 	base = ft_choose_base(data->type);
+	if (ft_check_ptr(ap, data, bf, base))
+		return ;
 	oux_x = va_arg(ap, unsigned long long);
 	check_sign = oux_x;
 	if (check_sign < 0)
@@ -65,6 +79,7 @@ void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf)
 	if (data->type == 'd' || data->type == 'i')
 		ft_di(ap, data, bf);
 	if (data->type == 'o' || data->type == 'u' ||
-		data->type == 'x' || data->type == 'X')
+		data->type == 'x' || data->type == 'X' ||
+		data->type == 'p')
 		ft_oux_x(ap, data, bf);
 }

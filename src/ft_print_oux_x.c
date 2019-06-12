@@ -5,7 +5,7 @@ static void	ft_accuracy(t_printf *data, t_buffer *bf)
 	int i;
 
 	i = data->len;
-	if (data->type == 'o' && data->accuracy > data->len)
+	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len)
 	{
 		while (i < data->accuracy)
 		{
@@ -23,9 +23,9 @@ static void	ft_oct(t_printf *data, t_buffer *bf)
 
 	if (data->flags & FLAG_OCT && !data->acc)
 	{
-		if (data->type == 'x' || data->type == 'X')
+		if (data->type == 'x' || data->type == 'X' || data->type == 'p')
 		{
-			if (data->type == 'x')
+			if (data->type == 'x' || data->type == 'p')
 				temp = "0x";
 			if (data->type == 'X')
 				temp = "0X";

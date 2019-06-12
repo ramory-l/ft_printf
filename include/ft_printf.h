@@ -61,7 +61,10 @@ void			ft_print_percent(t_printf *data, t_buffer *bf);
 int				type(char c);
 void			ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf);
 void			ft_check_buffer(t_printf *data, t_buffer *bf);
+void			ft_add_sign(t_printf *data, t_buffer *bf);
 void			ft_fill_bf(t_printf *data, t_buffer *bf);
+void			ft_fill_spaces_di(t_printf *data, t_buffer *bf);
+void			ft_fill_zeroes_di(t_printf *data, t_buffer *bf);
 void			ft_fill_spaces_oux(t_printf *data, t_buffer *bf);
 void			ft_fill_zeroes_oux(t_printf *data, t_buffer *bf);
 
