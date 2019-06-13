@@ -22,6 +22,6 @@ int	main(void)
 	// ft_printf("%4.15d", 42);
 	// ft_printf("%d", -2151);
 	// printf("%6.1d\n", -1234);
-	ft_printf("%.6f", 2.55);
+	ft_printf("%.5f", 2.55L);
 	return (0);
 }

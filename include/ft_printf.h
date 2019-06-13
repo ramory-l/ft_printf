@@ -136,8 +136,8 @@ s_arrayint	ft_multlongnumbyaten(s_arrayint arrayint);
 int			ft_exponentiation(int power, int number);
 s_arrayint	ft_summpower(s_arrayint arrayint);
 int			ft_maxindex(s_arrayint arrayint);
-void		ft_printlongdouble(char *result, long long accuracy, int sign);
-void		ft_printfractional(long long accuracy, char *result);
+void		ft_printlongdouble(char *result, t_printf *data, int sign, t_buffer *bf);
+void		ft_printfractional(t_printf *data, char *result, t_buffer *bf);
 char		*ft_rounding(char *result, long long accuracy);
 char		*ft_rounding_fraction(char *result, long long accuracy);
 char		*ft_if_five_in_fractional(char *result,

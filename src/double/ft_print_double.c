@@ -3,49 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_double.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tulupovArtem <tulupovArtem@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:02:12 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/08 20:07:40 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:41:45 by tulupovArte      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_printfractional(long long accuracy, char *result)
+void		ft_printfractional(t_printf *data, char *result, t_buffer *bf)
 {
-	if (accuracy == 0)
+	if (data->accuracy == 0)
 		return ;
 	else
 	{
-		write(1, result, 1);
+		bf->buffer[bf->s] = *result;
+		bf->s++;
 		result++;
-		while (*result && accuracy--)
+		ft_check_buffer(data, bf);
+		while (*result && data->accuracy)
 		{
-			write(1, result, 1);
+			bf->buffer[bf->s] = *result;
+			bf->s++;
 			result++;
+			data->accuracy--;
+			ft_check_buffer(data, bf);
 		}
-		while (accuracy-- > 0)
-			write(1, "0", 1);
+		while (data->accuracy-- > 0)
+		{
+			bf->buffer[bf->s] = '0';
+			bf->s++;
+			result++;
+			data->accuracy--;
+			ft_check_buffer(data, bf);
+		}
 	}
 }
 
-void		ft_printlongdouble(char *result, long long accuracy, int sign)
+void		ft_printlongdouble(char *result, t_printf *data, int sign, t_buffer *bf)
 {
 	int before;
 	int after;
 
 	before = *result - '0';
-	result = ft_rounding(result, accuracy);
+	result = ft_rounding(result, data->accuracy);
 	after = *result - '0';
 	if (after == 0 && before != 0)
 		result = ft_strjoin("1", result);
 	if (sign == 1)
-		write(1, "-", 1);
+	{
+		bf->buffer[bf->s] = '-';
+		bf->s++;
+		ft_check_buffer(data, bf);
+	}
 	while (*result != '.')
 	{
-		write(1, result, 1);
+		bf->buffer[bf->s] = *result;
+		bf->s++;
 		result++;
+		ft_check_buffer(data, bf);
 	}
-	ft_printfractional(accuracy, result);
+	ft_printfractional(data, result, bf);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rounding.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tulupovArtem <tulupovArtem@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:08:08 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/08 20:25:14 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/13 13:23:22 by tulupovArte      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
