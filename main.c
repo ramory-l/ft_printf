@@ -1,6 +1,7 @@
 #include "ft_printf.h"
 #include <stdio.h>
 #include <math.h>
+#include <limits.h>
 
 int	main(void)
 {
@@ -21,6 +22,6 @@ int	main(void)
 	// ft_printf("%4.15d", 42);
 	// ft_printf("%d", -2151);
 	// printf("%6.1d\n", -1234);
-	ft_printf("%#p\n", 42);
+	ft_printf("%.6f", 2.55);
 	return (0);
 }

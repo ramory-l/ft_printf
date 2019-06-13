@@ -13,4 +13,6 @@ void	ft_choose_print(va_list ap, cc *format, t_printf *data, t_buffer *bf)
 		ft_print_string(ap, data, bf);
 	if (data->type == '%')
 		ft_print_percent(data, bf);
+	if (data->type == 'f')
+		ft_longdouble(ap, data, bf);
 }

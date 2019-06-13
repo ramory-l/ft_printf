@@ -6,7 +6,7 @@
 #    By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 14:34:56 by ramory-l          #+#    #+#              #
-#    Updated: 2019/06/12 16:37:58 by ramory-l         ###   ########.fr        #
+#    Updated: 2019/06/13 12:46:31 by ramory-l         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ EXE = test
 
 SRC_SEARCH = src/*.c \
 			 src/support/*.c \
-			 libft/src/*.c
+			 libft/src/*.c \
+			 src/double/*.c
 
 SRC = $(wildcard $(SRC_SEARCH))
 

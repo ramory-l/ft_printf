@@ -3,6 +3,7 @@
 
 # include "get_next_line.h"
 # include <stdarg.h>
+# include <float.h>
 
 # define FLAG_MINUS 1
 # define FLAG_PLUS 2
@@ -14,6 +15,15 @@
 # define SIZE_L 2
 # define SIZE_H 4
 # define SIZE_HH 8
+
+/* Double defines */
+
+# define MAX_POWER 10
+# define BASE_INT 2
+# define MAX_CELL 100000000
+# define LEN_ARR 1500
+
+/* */
 
 typedef unsigned long long int ulli;
 typedef long long int lli;
@@ -67,5 +77,77 @@ void			ft_fill_spaces_di(t_printf *data, t_buffer *bf);
 void			ft_fill_zeroes_di(t_printf *data, t_buffer *bf);
 void			ft_fill_spaces_oux(t_printf *data, t_buffer *bf);
 void			ft_fill_zeroes_oux(t_printf *data, t_buffer *bf);
+
+/* Double */
+
+typedef union
+{
+	unsigned long		unsignedlong;
+	long double			longdouble;
+}						longdoubletounsignedlong;
+
+typedef struct			t_longdouble
+{
+	int					sign;
+	int					exp;
+	unsigned long		mantis;
+}						s_longdouble;
+
+typedef struct			t_arrayint
+{
+	unsigned long int	intresult[LEN_ARR];
+	unsigned long int	inttmp[LEN_ARR];
+	int					lenarr;
+	int					iarr;
+	int					jarr;
+}						s_arrayint;
+
+typedef struct			t_powerbits
+{
+	int 				power;
+	int 				countpower;
+	int 				remainpower;
+	int					base;
+	int					numofbits;
+	int					flag;
+}						s_powerbits;
+
+typedef struct			t_doubletochar
+{
+	char *inttochar;
+	char *nulls;
+	char *fractiontochar;
+}						s_doubletochar;
+
+void		ft_print_int(int nbr);
+void		ft_longdouble(va_list ap, t_printf *data, t_buffer *bf);
+int			ft_minpowerfractional(unsigned long mantis);
+char		*ft_numtochar(s_arrayint arrayint);
+s_powerbits	ft_bitspowercontructor(s_powerbits bitspower);
+s_arrayint	ft_fillarray(s_powerbits bitspower, s_arrayint arrayint);
+char		*ft_workwithmantis(s_longdouble longdouble);
+s_arrayint	ft_findingintpower(s_longdouble longdouble,
+int numofintbits, s_powerbits bitspower);
+s_arrayint	ft_findingfractionpower(s_longdouble longdouble,
+int numofintbits, s_powerbits bitspower);
+char		*ft_fillnulls(int exp, char *fraction, unsigned long mantis);
+s_arrayint	ft_multlongnumbyashort(s_arrayint arrayint, int power, int base);
+s_arrayint	ft_multlongnumbyaten(s_arrayint arrayint);
+int			ft_exponentiation(int power, int number);
+s_arrayint	ft_summpower(s_arrayint arrayint);
+int			ft_maxindex(s_arrayint arrayint);
+void		ft_printlongdouble(char *result, long long accuracy, int sign);
+void		ft_printfractional(long long accuracy, char *result);
+char		*ft_rounding(char *result, long long accuracy);
+char		*ft_rounding_fraction(char *result, long long accuracy);
+char		*ft_if_five_in_fractional(char *result,
+int check, long long accuracy);
+char		*ft_replace_num_round(int check, long long accuracy,
+char *result);
+s_arrayint	ft_bzeroarrs(void);
+s_arrayint	ft_bzerotmparr(s_arrayint arrayint);
+s_arrayint	ft_separationpower(s_powerbits bitspower,
+s_arrayint arrayint);
+s_arrayint	ft_bitsandpower(s_arrayint arrayint, s_powerbits bitspower);
 
 #endif

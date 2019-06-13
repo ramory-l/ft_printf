@@ -1,42 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_print_int.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 17:26:35 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/30 14:07:36 by idunaver         ###   ########.fr       */
+/*   Created: 2019/06/08 20:23:14 by idunaver          #+#    #+#             */
+/*   Updated: 2019/06/08 20:23:18 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static	int			ft_intleng(unsigned long long int n)
+void	ft_print_int(int nbr)
 {
-	int			i;
+	char *str;
 
-	i = 0;
-	while (n /= 10)
-		i++;
-	return (i + 1);
-}
-
-char				*ft_itoa(unsigned long long int n)
-{
-	int			i;
-	int			leng;
-	char		*str;
-	unsigned long long int	b;
-
-	b = n;
-	i = 0;
-	leng = ft_intleng(b);
-	str = ft_memalloc(leng + 1);
-	while (leng-- && str[leng] != '-')
-	{
-		str[leng] = '0' + (b % 10);
-		b /= 10;
-	}
-	return (str);
+	str = ft_itoa(nbr);
+	while (*str)
+		write(1, &*str++, 1);
 }
