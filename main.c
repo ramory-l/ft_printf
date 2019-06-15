@@ -17,7 +17,7 @@
 
 int	main(void)
 {
-	ft_printf("%4.15s\n", "42");
-	printf("%4.15s\n", "42");
+	printf("orig %4.15s\n", "42");
+	ft_printf("mine %4.15s\n", "42");
 	return (0);
 }

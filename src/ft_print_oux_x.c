@@ -17,7 +17,26 @@ static void	ft_accuracy(t_printf *data, t_buffer *bf)
 	int i;
 
 	i = data->len;
-	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len)
+	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len &&
+		data->accuracy > data->width)
+	{
+		while (i < data->accuracy)
+		{
+			bf->buffer[bf->s] = '0';
+			bf->s++;
+			i++;
+			ft_check_buffer(data, bf);
+		}
+	}
+}
+
+static void	ft_accuracy_width(t_printf *data, t_buffer *bf)
+{
+	int i;
+
+	i = data->len;
+	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len &&
+		data->accuracy < data->width)
 	{
 		while (i < data->accuracy)
 		{
@@ -65,6 +84,7 @@ static int	ft_width(t_printf *data, t_buffer *bf)
 		!(data->flags & FLAG_MINUS))
 	{
 		ft_fill_spaces_oux(data, bf);
+		ft_accuracy_width(data, bf);
 		ft_oct(data, bf);
 	}
 	if (data->width > data->len && data->flags & FLAG_ZERO)
@@ -75,6 +95,7 @@ static int	ft_width(t_printf *data, t_buffer *bf)
 	if (data->width > data->len && data->flags & FLAG_MINUS)
 	{
 		ft_oct(data, bf);
+		ft_accuracy_width(data, bf);
 		ft_fill_bf(data, bf);
 		ft_fill_spaces_oux(data, bf);
 		return (1);
