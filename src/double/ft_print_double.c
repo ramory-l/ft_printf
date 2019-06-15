@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:02:12 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 15:34:40 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:54:42 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_printfractional(t_printf *data, char *result, t_buffer *bf)
 			data->accuracy--;
 			ft_check_buffer(data, bf);
 		}
-		while (data->accuracy-- > 0)
+		while (data->accuracy > 0)
 		{
 			bf->buffer[bf->s] = '0';
 			bf->s++;
