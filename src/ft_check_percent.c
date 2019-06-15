@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_percent.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:00:20 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 14:00:21 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:53:45 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_manage_flags(t_printf *data)
+static void		ft_manage_flags(t_printf *data)
 {
 	if (data->flags & FLAG_MINUS && data->flags & FLAG_ZERO)
 		data->flags &= ~FLAG_ZERO;
@@ -22,7 +22,8 @@ static void	ft_manage_flags(t_printf *data)
 		data->flags &= ~FLAG_ZERO;
 }
 
-cc			*ft_check_ptc(va_list ap, cc *format, t_printf *data, t_buffer *bf)
+t_cc			*ft_check_ptc(va_list ap,
+t_cc *format, t_printf *data, t_buffer *bf)
 {
 	int type_index;
 

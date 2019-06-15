@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_long_arithmetic.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 19:47:45 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 15:34:41 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:45:51 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			ft_maxindex(s_arrayint arrayint)
+int			ft_maxindex(t_arrayint arrayint)
 {
 	return (arrayint.iarr > arrayint.jarr ? arrayint.iarr : arrayint.jarr);
 }
@@ -30,7 +30,7 @@ int			ft_exponentiation(int power, int number)
 	return (result);
 }
 
-s_arrayint	ft_multlongnumbyaten(s_arrayint arrayint)
+t_arrayint	ft_multlongnumbyaten(t_arrayint arrayint)
 {
 	unsigned long long int	current;
 	unsigned long long int	remainder;
@@ -55,7 +55,7 @@ s_arrayint	ft_multlongnumbyaten(s_arrayint arrayint)
 	return (arrayint);
 }
 
-s_arrayint	ft_multlongnumbyashort(s_arrayint arrayint,
+t_arrayint	ft_multlongnumbyashort(t_arrayint arrayint,
 int power, int base)
 {
 	unsigned long long int	current;
@@ -84,7 +84,7 @@ int power, int base)
 	return (arrayint);
 }
 
-s_arrayint	ft_summpower(s_arrayint arrayint)
+t_arrayint	ft_summpower(t_arrayint arrayint)
 {
 	unsigned long long int	remminder;
 	unsigned long long int	current;

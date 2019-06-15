@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 13:59:43 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 13:59:58 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:03:18 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_find_length(ulli value, int base)
+static int	ft_find_length(t_ulli value, int base)
 {
 	int len;
 
@@ -25,7 +25,7 @@ static int	ft_find_length(ulli value, int base)
 	return (len);
 }
 
-void		ft_itoa_base(ulli value, int base, t_printf *data, t_buffer *bf)
+void		ft_itoa_base(t_ulli value, int base, t_printf *data, t_buffer *bf)
 {
 	int		len;
 	char	*radix;

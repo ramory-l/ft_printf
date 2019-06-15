@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_long_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 16:13:36 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:42:15 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-s_arrayint	ft_fillarray(s_powerbits bitspower, s_arrayint arrayint)
+t_arrayint	ft_fillarray(t_powerbits bitspower, t_arrayint arrayint)
 {
 	if (bitspower.countpower)
 	{
@@ -27,7 +27,7 @@ s_arrayint	ft_fillarray(s_powerbits bitspower, s_arrayint arrayint)
 	return (arrayint);
 }
 
-s_powerbits	ft_bitspowercontructor(s_powerbits bitspower)
+t_powerbits	ft_bitspowercontructor(t_powerbits bitspower)
 {
 	bitspower.flag = 0;
 	bitspower.numofbits = 63;
@@ -36,7 +36,7 @@ s_powerbits	ft_bitspowercontructor(s_powerbits bitspower)
 	return (bitspower);
 }
 
-char		*ft_numtochar(s_arrayint arrayint)
+char		*ft_numtochar(t_arrayint arrayint)
 {
 	char	*result;
 	char	*tmp;
@@ -88,8 +88,8 @@ int			ft_minpowerfractional(unsigned long mantis)
 
 void		ft_longdouble(va_list ap, t_printf *data, t_buffer *bf)
 {
-	longdoubletounsignedlong	bits;
-	s_longdouble				longdouble;
+	t_longdoubletounsignedlong	bits;
+	t_longdouble				longdouble;
 	char						*result;
 
 	if (!data->acc)

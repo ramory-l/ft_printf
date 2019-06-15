@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/25 16:05:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/13 12:46:50 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:11:09 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void				ft_striter(char *s, void (*f)(char *));
 void				ft_move_buff(char *buffer, int offset);
 void				ft_fill_buff(int start, char *buffer, char *str);
 void				ft_clean_buff(char *buffer, int start, int end);
-int					ft_fill_spaces(char *buffer, char mode, size_t size, int len);
-int					ft_fill_zeroes(char *buffer, char mode, size_t size, int len);
+int					ft_fill_spaces(char *buffer, char mode,
+size_t size, int len);
+int					ft_fill_zeroes(char *buffer, char mode,
+size_t size, int len);
 
 #endif

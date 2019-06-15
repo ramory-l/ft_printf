@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_spaces.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 10:50:35 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/05/25 01:20:24 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:11:38 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	for_mode(char *buffer, char mode, size_t size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (mode == '>')
@@ -32,7 +32,7 @@ static int	for_mode(char *buffer, char mode, size_t size)
 
 static int	back_mode(char *buffer, char mode, size_t size, int len)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (mode == '<')
@@ -47,7 +47,7 @@ static int	back_mode(char *buffer, char mode, size_t size, int len)
 	return (i);
 }
 
-int		ft_fill_spaces(char *buffer, char mode, size_t size, int len)
+int			ft_fill_spaces(char *buffer, char mode, size_t size, int len)
 {
 	return (for_mode(buffer, mode, size) ||
 			back_mode(buffer, mode, size, len));

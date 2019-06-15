@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 19:42:14 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/08 20:05:58 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/15 17:03:35 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char		*ft_fillnulls(int exp, char *fraction, unsigned long mantis)
 	return (result);
 }
 
-s_arrayint	ft_findingfractionpower(s_longdouble longdouble,
-int numofintbits, s_powerbits bitspower)
+t_arrayint	ft_findingfractionpower(t_longdouble longdouble,
+int numofintbits, t_powerbits bitspower)
 {
 	int			bit;
-	s_arrayint	arrayint;
+	t_arrayint	arrayint;
 
 	bitspower = ft_bitspowercontructor(bitspower);
 	arrayint = ft_bzeroarrs();
@@ -63,12 +63,12 @@ int numofintbits, s_powerbits bitspower)
 	return (arrayint);
 }
 
-s_arrayint	ft_findingintpower(s_longdouble longdouble,
-int numofintbits, s_powerbits bitspower)
+t_arrayint	ft_findingintpower(t_longdouble longdouble,
+int numofintbits, t_powerbits bitspower)
 {
 	int			numofbits;
 	int			bit;
-	s_arrayint	arrayint;
+	t_arrayint	arrayint;
 
 	bit = 0;
 	numofbits = 63;
@@ -92,12 +92,12 @@ int numofintbits, s_powerbits bitspower)
 	return (arrayint);
 }
 
-char		*ft_workwithmantis(s_longdouble longdouble)
+char		*ft_workwithmantis(t_longdouble longdouble)
 {
-	s_powerbits		bitspower;
+	t_powerbits		bitspower;
 	int				numofintbits;
-	s_arrayint		arrayint;
-	s_doubletochar	doublechar;
+	t_arrayint		arrayint;
+	t_doubletochar	doublechar;
 	char			*result;
 
 	numofintbits = longdouble.exp - LDBL_MAX_EXP + 2;

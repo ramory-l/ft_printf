@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_choose_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:00:29 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 16:33:40 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:54:11 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_choose_print(va_list ap, cc *format, t_printf *data, t_buffer *bf)
+void	ft_choose_print(va_list ap, t_cc *format, t_printf *data, t_buffer *bf)
 {
 	if (data->type == 'd' || data->type == 'i' ||
 		data->type == 'o' || data->type == 'u' ||

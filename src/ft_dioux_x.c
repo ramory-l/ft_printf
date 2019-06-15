@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dioux_x.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:00:36 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 16:31:05 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:58:55 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		ft_di(va_list ap, t_printf *data, t_buffer *bf)
 	if (!data->size)
 		di = (int)di;
 	if (data->size & SIZE_LL)
-		di = (lli)di;
+		di = (t_lli)di;
 	if (data->size & SIZE_L)
 		di = (long)di;
 	if (data->size & SIZE_HH)
@@ -62,7 +62,7 @@ static void		ft_oux_x(va_list ap, t_printf *data, t_buffer *bf)
 	if (!data->size)
 		ft_itoa_base((unsigned)oux_x, base, data, bf);
 	if (data->size & SIZE_LL)
-		ft_itoa_base((ulli)oux_x, base, data, bf);
+		ft_itoa_base((t_ulli)oux_x, base, data, bf);
 	if (data->size & SIZE_L)
 		ft_itoa_base((unsigned long)oux_x, base, data, bf);
 	if (data->size & SIZE_HH)
@@ -72,7 +72,8 @@ static void		ft_oux_x(va_list ap, t_printf *data, t_buffer *bf)
 	ft_print_oux_x(data, bf);
 }
 
-void			ft_dioux_x(va_list ap, cc *format, t_printf *data, t_buffer *bf)
+void			ft_dioux_x(va_list ap,
+t_cc *format, t_printf *data, t_buffer *bf)
 {
 	if (data->type == 'd' || data->type == 'i')
 		ft_di(ap, data, bf);

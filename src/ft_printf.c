@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:42 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 15:41:26 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:55:38 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_init(cc *format, t_printf *data, t_buffer *bf)
+static int	ft_init(t_cc *format, t_printf *data, t_buffer *bf)
 {
 	if (!format)
 		return (0);
