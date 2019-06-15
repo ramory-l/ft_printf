@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 15:36:07 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:15:20 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static void	ft_check_acc(const char *format, t_printf *data)
 
 static void	ft_check_size(t_printf *data)
 {
+	if (data->count_l)
+	{
+		data->size |= SIZE_LLL;
+		return ;
+	}
 	if (data->l_count)
 	{
 		if (data->l_count % 2)
@@ -71,9 +76,9 @@ int			ft_specifier_format(const char *format, t_printf *data)
 	int	i;
 	int index;
 
-	i = 1;
+	i = 0;
 	index = 0;
-	while (format[i])
+	while (format[++i])
 	{
 		if (type(format[i]))
 		{
@@ -83,11 +88,12 @@ int			ft_specifier_format(const char *format, t_printf *data)
 		ft_check_flag(&format[i], data);
 		ft_check_width(&i, format, data);
 		ft_check_acc(&format[i], data);
-		if (format[i] == 'l' || format[i] == 'L')
+		if (format[i] == 'l')
 			data->l_count++;
+		if (format[i] == 'L')
+			data->count_l++;
 		if (format[i] == 'h')
 			data->h_count++;
-		i++;
 	}
 	ft_check_size(data);
 	data->type = format[index];

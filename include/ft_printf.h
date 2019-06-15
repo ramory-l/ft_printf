@@ -15,6 +15,7 @@
 # define SIZE_L 2
 # define SIZE_H 4
 # define SIZE_HH 8
+# define SIZE_LLL 16
 
 /* Double defines */
 
@@ -45,6 +46,7 @@ typedef struct	s_printf
 	unsigned	len;
 	bool		acc;
 	unsigned	l_count;
+	unsigned	count_l;
 	unsigned	h_count;
 	unsigned	printed;
 }				t_printf;
@@ -66,6 +68,7 @@ void			ft_print_oux_x(t_printf *data, t_buffer *bf);
 void			ft_print_char(va_list ap, t_printf *data, t_buffer *bf);
 void			ft_print_string(va_list ap, t_printf *data, t_buffer *bf);
 void			ft_print_percent(t_printf *data, t_buffer *bf);
+void			ft_print_ptr(va_list ap, t_printf *data, t_buffer *bf);
 
 /* Support functions */
 int				type(char c);

@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 15:57:40 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 16:13:36 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		ft_longdouble(va_list ap, t_printf *data, t_buffer *bf)
 
 	if (!data->acc)
 		data->accuracy = 6;
-	if (data->size & SIZE_L || data->size & SIZE_LL)
+	if (data->size & SIZE_LLL)
 		bits.longdouble = va_arg(ap, long double);
 	else
 		bits.longdouble = va_arg(ap, double);
