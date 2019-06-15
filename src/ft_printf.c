@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:42 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 14:47:36 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 15:41:26 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_init(cc *format, t_printf *data, t_buffer *bf)
 	if (!format)
 		return (0);
 	bf->s = 0;
-	ft_bzero(&data, sizeof(data));
+	ft_bzero((void *)data, sizeof(*data));
 	return (1);
 }
 

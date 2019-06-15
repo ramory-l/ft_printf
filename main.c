@@ -21,9 +21,7 @@ int	main(void)
 	// ft_printf("%4.15d", 42);
 	// ft_printf("%d", -2151);
 	// printf("%6.1d\n", -1234);
-	int d = ft_printf("%lld\n", LLONG_MAX);
-	int dd = printf("%lld\n", LLONG_MAX);
-	ft_printf("mine **%d**", dd);
-	printf("orig **%d**", dd);
+	printf("%LLf\n", 2.55L);
+	ft_printf("%LLf\n", 2.55L);
 	return (0);
 }

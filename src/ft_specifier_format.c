@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:49 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 14:02:50 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 15:36:07 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			ft_specifier_format(const char *format, t_printf *data)
 		ft_check_flag(&format[i], data);
 		ft_check_width(&i, format, data);
 		ft_check_acc(&format[i], data);
-		if (format[i] == 'l')
+		if (format[i] == 'l' || format[i] == 'L')
 			data->l_count++;
 		if (format[i] == 'h')
 			data->h_count++;
