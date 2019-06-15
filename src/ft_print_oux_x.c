@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:19 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 16:30:29 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:38:00 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ static void	ft_oct(t_printf *data, t_buffer *bf)
 			bf->buffer[bf->s] = temp[0];
 			bf->buffer[bf->s + 1] = temp[1];
 			bf->s += 2;
+			if (!(data->flags & FLAG_ZERO))
+				data->width -= 2;
 		}
 		else if (data->type == 'o')
 		{
 			temp = "0";
 			bf->buffer[bf->s] = temp[0];
 			bf->s++;
+			if (!(data->flags & FLAG_ZERO))
+				data->width -= 1;
 		}
 	}
 }

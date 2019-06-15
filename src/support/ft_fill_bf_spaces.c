@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 15:15:29 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 13:59:28 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:44:17 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_fill_spaces_oux(t_printf *data, t_buffer *bf)
 	int	spaces;
 
 	spaces = data->width - data->len + bf->s;
+	if (data->accuracy > data->len && data->type != 's')
+		spaces = data->width - data->accuracy + bf->s;
 	if (data->flags & FLAG_OCT && !(data->flags & FLAG_MINUS))
 	{
 		if (data->type == 'x' || data->type == 'X')
@@ -41,6 +43,8 @@ void	ft_fill_spaces_oux(t_printf *data, t_buffer *bf)
 		if (data->type == 'o')
 			spaces--;
 	}
+	if (spaces < 0)
+		return ;
 	while (bf->s < spaces)
 	{
 		bf->buffer[bf->s] = ' ';

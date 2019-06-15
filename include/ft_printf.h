@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 16:03:52 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 17:02:46 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/15 18:14:26 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ typedef struct					s_printf
 {
 	char						type;
 	char						flags;
-	unsigned					width;
-	unsigned					accuracy;
+	int							width;
+	int							accuracy;
 	char						size;
 	t_bool						sign;
-	unsigned					len;
+	int							len;
 	t_bool						acc;
 	unsigned					l_count;
 	unsigned					count_l;
 	unsigned					h_count;
-	unsigned					printed;
+	int							printed;
 }								t_printf;
 
 typedef struct					s_buffer
