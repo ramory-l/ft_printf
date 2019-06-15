@@ -1,23 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/15 14:02:42 by ramory-l          #+#    #+#             */
+/*   Updated: 2019/06/15 14:47:36 by ramory-l         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int		ft_printf(const char *format, ...)
+static int	ft_init(cc *format, t_printf *data, t_buffer *bf)
+{
+	if (!format)
+		return (0);
+	bf->s = 0;
+	ft_bzero(&data, sizeof(data));
+	return (1);
+}
+
+int			ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	t_buffer	bf;
 	t_printf	data;
 
-	bf.s = 0;
+	if (!ft_init(format, &data, &bf))
+		return (0);
 	va_start(ap, format);
-	ft_bzero(&data, sizeof(data));
 	while (*format)
 	{
 		if (*format == '%')
 			format = ft_check_ptc(ap, format, &data, &bf);
 		if (*format && *format != '%')
 		{
-			bf.buffer[bf.s] = *format;
+			bf.buffer[bf.s++] = *format;
 			format++;
-			bf.s++;
 			ft_check_buffer(&data, &bf);
 		}
 	}

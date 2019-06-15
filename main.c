@@ -6,7 +6,6 @@
 int	main(void)
 {
 	// ft_printf("%5d\n", 42);
-	// int dd = printf("orig dasdds  dasda\n");
 	// int d = ft_printf("mine dasdds  dasda\n");
 
 	// printf("orig %X\n", 42);
@@ -22,6 +21,9 @@ int	main(void)
 	// ft_printf("%4.15d", 42);
 	// ft_printf("%d", -2151);
 	// printf("%6.1d\n", -1234);
-	ft_printf("%.5f", 2.55L);
+	int d = ft_printf("%lld\n", LLONG_MAX);
+	int dd = printf("%lld\n", LLONG_MAX);
+	ft_printf("mine **%d**", dd);
+	printf("orig **%d**", dd);
 	return (0);
 }

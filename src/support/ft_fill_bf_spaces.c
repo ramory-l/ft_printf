@@ -6,7 +6,7 @@
 /*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 15:15:29 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/12 15:58:22 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/15 13:59:28 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_fill_spaces_di(t_printf *data, t_buffer *bf)
 {
 	int i;
-	
+
 	i = data->len;
 	while (i < data->width)
 	{

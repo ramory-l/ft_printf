@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_long_double.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tulupovArtem <tulupovArtem@student.42.f    +#+  +:+       +#+        */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/13 13:49:19 by tulupovArte      ###   ########.fr       */
+/*   Updated: 2019/06/15 15:32:39 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,10 @@ void		ft_longdouble(va_list ap, t_printf *data, t_buffer *bf)
 	longdoubletounsignedlong	bits;
 	s_longdouble				longdouble;
 	char						*result;
-	long double					number;
 
-	number = va_arg(ap, long double);
 	if (!data->acc)
 		data->accuracy = 6;
-	bits.longdouble = number;
-	if (data->accuracy < 0)
-		return ;
+	bits.longdouble = va_arg(ap, long double);
 	longdouble.sign = (*(&bits.unsignedlong + 1)) & (1 << 15) ? 1 : 0;
 	longdouble.exp = (int)(*(&bits.unsignedlong + 1) & 0x7fffL);
 	longdouble.mantis = bits.unsignedlong;

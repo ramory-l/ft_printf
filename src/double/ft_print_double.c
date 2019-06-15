@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_double.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tulupovArtem <tulupovArtem@student.42.f    +#+  +:+       +#+        */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:02:12 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/13 13:41:45 by tulupovArte      ###   ########.fr       */
+/*   Updated: 2019/06/15 15:34:40 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void		ft_printfractional(t_printf *data, char *result, t_buffer *bf)
 	}
 }
 
-void		ft_printlongdouble(char *result, t_printf *data, int sign, t_buffer *bf)
+void		ft_printlongdouble(char *result, t_printf *data, int sign,
+t_buffer *bf)
 {
 	int before;
 	int after;
