@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tulupovArtem <tulupovArtem@student.42.f    +#+  +:+       +#+         #
+#    By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 14:34:56 by ramory-l          #+#    #+#              #
-#    Updated: 2019/06/13 13:31:27 by tulupovArte      ###   ########.fr        #
+#    Updated: 2019/06/20 21:30:48 by idunaver         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 %.o: %.c
-	@gcc -c $< -o $@ $(HEADERS) -g
+	@gcc -c $< -o $@ $(HEADERS)
 
 .PHONY: clean
 clean:
@@ -50,4 +50,4 @@ re: fclean all
 .PHONY: test
 test:
 	@rm -rf $(EXE)
-	@gcc -o test main.c $(HEADERS) -L . -lftprintf -g
+	@gcc -o test main.c $(HEADERS) -L . -lftprintf

@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 18:37:02 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 16:42:15 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:15:44 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,23 @@ t_powerbits	ft_bitspowercontructor(t_powerbits bitspower)
 char		*ft_numtochar(t_arrayint arrayint)
 {
 	char	*result;
-	char	*tmp;
 	int		i;
 	int		lenarr;
-	char	*nulls;
+	t_temp	temp;
 
 	i = --arrayint.iarr;
-	result = "\0";
+	result = ft_strnew(0);
 	while (i >= 0)
 	{
-		tmp = ft_itoa(arrayint.intresult[i]);
-		lenarr = ft_strlen(tmp);
+		temp.tmp = ft_itoa(arrayint.intresult[i]);
+		lenarr = ft_strlen(temp.tmp);
 		if (lenarr != 8 && *result)
-		{
-			nulls = (char*)malloc((8 - lenarr + 1) * sizeof(char));
-			nulls[8 - lenarr] = '\0';
-			nulls = ft_memset(nulls, '0', 8 - lenarr);
-			tmp = ft_strjoin(nulls, tmp);
-			free(nulls);
-		}
-		result = ft_strjoin(result, tmp);
+			temp = ft_fornulls(lenarr, temp);
+		temp.result_temp = ft_strjoin(result, temp.tmp);
+		ft_strdel(&result);
+		result = ft_strdup(temp.result_temp);
+		ft_strdel(&temp.result_temp);
+		ft_strdel(&temp.tmp);
 		i--;
 	}
 	return (result);

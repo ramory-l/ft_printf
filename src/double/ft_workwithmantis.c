@@ -6,7 +6,7 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 19:42:14 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 17:03:35 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:41:55 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,22 @@ int numofintbits, t_powerbits bitspower)
 
 char		*ft_workwithmantis(t_longdouble longdouble)
 {
-	t_powerbits		bitspower;
-	int				numofintbits;
-	t_arrayint		arrayint;
-	t_doubletochar	doublechar;
-	char			*result;
+	t_powerbits			bitspower;
+	t_arrayint			arrayint;
+	t_doubletochar		doublechar;
+	char				*result;
+	t_workwithmantis	wwm;
 
-	numofintbits = longdouble.exp - LDBL_MAX_EXP + 2;
-	bitspower.power = numofintbits;
-	arrayint = ft_findingintpower(longdouble, numofintbits, bitspower);
+	wwm.numofintbits = longdouble.exp - LDBL_MAX_EXP + 2;
+	bitspower.power = wwm.numofintbits;
+	doublechar = ft_nulldoubletochar(doublechar);
+	arrayint = ft_findingintpower(longdouble, wwm.numofintbits, bitspower);
 	doublechar.inttochar = ft_numtochar(arrayint);
-	arrayint = ft_findingfractionpower(longdouble, numofintbits, bitspower);
+	arrayint = ft_findingfractionpower(longdouble, wwm.numofintbits, bitspower);
 	doublechar.fractiontochar = ft_numtochar(arrayint);
-	if (numofintbits < 0)
-		doublechar.nulls = ft_fillnulls(numofintbits,
-		doublechar.fractiontochar, longdouble.mantis);
-	result = ft_strjoin(*doublechar.inttochar ?
-	doublechar.inttochar : "0", ".");
-	if (doublechar.nulls)
-		result = ft_strjoin(result, doublechar.nulls);
-	result = ft_strjoin(result, *doublechar.fractiontochar ?
-	doublechar.fractiontochar : "0");
+	doublechar.nulls = ft_fillnulls(wwm.numofintbits,
+	doublechar.fractiontochar, longdouble.mantis);
+	result = ft_doublecat(result, doublechar, wwm);
+	ft_freedoubletochar(doublechar);
 	return (result);
 }

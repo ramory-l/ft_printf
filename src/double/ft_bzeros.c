@@ -6,13 +6,36 @@
 /*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 20:11:00 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 16:44:46 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:21:37 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-t_arrayint	ft_bzeroarrs(void)
+char			*ft_strdupandfree(t_workwithmantis wwm, char *result)
+{
+	free(result);
+	result = ft_strdup(wwm.result_tmp);
+	free(wwm.result_tmp);
+	return (result);
+}
+
+void			ft_freedoubletochar(t_doubletochar doublechar)
+{
+	free(doublechar.inttochar);
+	free(doublechar.nulls);
+	free(doublechar.fractiontochar);
+}
+
+t_doubletochar	ft_nulldoubletochar(t_doubletochar doublechar)
+{
+	doublechar.inttochar = NULL;
+	doublechar.fractiontochar = NULL;
+	doublechar.nulls = NULL;
+	return (doublechar);
+}
+
+t_arrayint		ft_bzeroarrs(void)
 {
 	t_arrayint	arrayint;
 	int			lenarr;
@@ -32,7 +55,7 @@ t_arrayint	ft_bzeroarrs(void)
 	return (arrayint);
 }
 
-t_arrayint	ft_bzerotmparr(t_arrayint arrayint)
+t_arrayint		ft_bzerotmparr(t_arrayint arrayint)
 {
 	int iarr;
 	int lenarr;

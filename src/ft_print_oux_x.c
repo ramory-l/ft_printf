@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_oux_x.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:19 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 18:38:00 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/20 20:49:16 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	ft_accuracy(t_printf *data, t_buffer *bf)
 	int i;
 
 	i = data->len;
-	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len &&
-		data->accuracy > data->width)
+	if ((data->type == 'o' || data->type == 'u') && data->accuracy >
+	data->len && data->accuracy > data->width)
 	{
 		while (i < data->accuracy)
 		{
@@ -35,8 +35,8 @@ static void	ft_accuracy_width(t_printf *data, t_buffer *bf)
 	int i;
 
 	i = data->len;
-	if ((data->type == 'o' || data->type == 'u') && data->accuracy > data->len &&
-		data->accuracy < data->width)
+	if ((data->type == 'o' || data->type == 'u') && data->accuracy >
+	data->len && data->accuracy < data->width)
 	{
 		while (i < data->accuracy)
 		{

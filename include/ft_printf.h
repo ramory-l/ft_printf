@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 16:03:52 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/15 18:14:26 by ramory-l         ###   ########.fr       */
+/*   Updated: 2019/06/20 21:15:13 by idunaver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "get_next_line.h"
 # include <stdarg.h>
 # include <float.h>
+# include <stdio.h>
 
 # define FLAG_MINUS 1
 # define FLAG_PLUS 2
@@ -89,6 +90,14 @@ typedef struct					s_arrayint
 	int							jarr;
 }								t_arrayint;
 
+typedef struct					s_temp 
+{
+	char						*tmp;
+	char						*temp;
+	char						*result_temp;
+}								t_temp;
+
+
 typedef struct					s_powerbits
 {
 	int							power;
@@ -105,6 +114,13 @@ typedef struct					s_doubletochar
 	char						*nulls;
 	char						*fractiontochar;
 }								t_doubletochar;
+
+typedef struct					s_workwithmantis
+{
+	int							numofintbits;
+	char						*result_tmp;
+}								t_workwithmantis;
+
 
 int								ft_printf(t_cc *format, ...);
 t_cc							*ft_check_ptc(va_list ap,
@@ -183,5 +199,11 @@ t_arrayint						ft_bitsandpower(t_arrayint arrayint,
 t_powerbits bitspower);
 void							ft_print_ptr(va_list ap, t_printf *data,
 t_buffer *bf);
+void							ft_freedoubletochar(t_doubletochar doublechar);
+t_doubletochar					ft_nulldoubletochar(t_doubletochar doublechar);
+char							*ft_strdupandfree(t_workwithmantis wwm, char *result);
+char							*ft_doublecat(char *result,
+t_doubletochar doublechar, t_workwithmantis wwm);
+t_temp							ft_fornulls(int lenarr, t_temp temp);
 
 #endif
