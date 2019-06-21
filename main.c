@@ -17,21 +17,23 @@
 
 int	main(void)
 {
-	ft_printf("mine %.100Lf\n", 123456.0000000123L);
-	printf("orig %.100Lf\n\n", 123456.0000000123L);
-	ft_printf("mine %.100Lf\n", 123456.123L);
-	printf("orig %.100Lf\n\n", 123456.123L);
-	ft_printf("mine %.100Lf\n", 0.123L);
-	printf("orig %.100Lf\n\n", 0.123L);
-	ft_printf("mine %.100Lf\n", 123456.0L);
-	printf("orig %.100Lf\n\n", 123456.0L);
-	ft_printf("mine %.100Lf\n", 0.0L);
-	printf("orig %.100Lf\n\n", 0.0L);
-	ft_printf("mine %.100f\n", 0.0);
-	printf("orig %.100f\n\n", 0.0);
-	ft_printf("mine %.500f\n", DBL_MIN);
-	printf("orig %.500f\n\n", DBL_MIN);
-	ft_printf("mine %.3f\n", DBL_MAX);
-	printf("orig %.3f\n\n", DBL_MAX);
+	// ft_printf("mine %.100Lf\n", 123456.0000000123L);
+	// printf("orig %.100Lf\n\n", 123456.0000000123L);
+	// ft_printf("mine %.100Lf\n", 123456.123L);
+	// printf("orig %.100Lf\n\n", 123456.123L);
+	// ft_printf("mine %.100Lf\n", 0.123L);
+	// printf("orig %.100Lf\n\n", 0.123L);
+	// ft_printf("mine %.100Lf\n", 123456.0L);
+	// printf("orig %.100Lf\n\n", 123456.0L);
+	// ft_printf("mine %.100Lf\n", 0.0L);
+	// printf("orig %.100Lf\n\n", 0.0L);
+	// ft_printf("mine %.100f\n", 0.0);
+	// printf("orig %.100f\n\n", 0.0);
+	// ft_printf("mine %.500f\n", DBL_MIN);
+	// printf("orig %.500f\n\n", DBL_MIN);
+	// ft_printf("mine %.3f\n", DBL_MAX);
+	// printf("orig %.3f\n\n", DBL_MAX);
+	printf("orig %4.15s\n", "42");
+	ft_printf("mine %4.15s\n", "42");
 	return (0);
 }

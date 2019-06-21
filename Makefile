@@ -34,7 +34,7 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 %.o: %.c
-	@gcc -c $< -o $@ $(HEADERS)
+	@gcc -c $< -o $@ $(HEADERS) -g
 
 .PHONY: clean
 clean:
@@ -50,4 +50,4 @@ re: fclean all
 .PHONY: test
 test:
 	@rm -rf $(EXE)
-	@gcc -o test main.c $(HEADERS) -L . -lftprintf
+	@gcc -o test main.c $(HEADERS) -L . -lftprintf -g
