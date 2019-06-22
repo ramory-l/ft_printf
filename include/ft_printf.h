@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 16:03:52 by idunaver          #+#    #+#             */
-/*   Updated: 2019/06/20 21:15:13 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/22 16:56:51 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,12 @@ typedef struct					s_arrayint
 	int							jarr;
 }								t_arrayint;
 
-typedef struct					s_temp 
+typedef struct					s_temp
 {
 	char						*tmp;
 	char						*temp;
 	char						*result_temp;
 }								t_temp;
-
 
 typedef struct					s_powerbits
 {
@@ -120,7 +119,6 @@ typedef struct					s_workwithmantis
 	int							numofintbits;
 	char						*result_tmp;
 }								t_workwithmantis;
-
 
 int								ft_printf(t_cc *format, ...);
 t_cc							*ft_check_ptc(va_list ap,
@@ -201,7 +199,8 @@ void							ft_print_ptr(va_list ap, t_printf *data,
 t_buffer *bf);
 void							ft_freedoubletochar(t_doubletochar doublechar);
 t_doubletochar					ft_nulldoubletochar(t_doubletochar doublechar);
-char							*ft_strdupandfree(t_workwithmantis wwm, char *result);
+char							*ft_strdupandfree(t_workwithmantis wwm,
+char *result);
 char							*ft_doublecat(char *result,
 t_doubletochar doublechar, t_workwithmantis wwm);
 t_temp							ft_fornulls(int lenarr, t_temp temp);

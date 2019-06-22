@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_kostil.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/22 16:50:54 by ramory-l          #+#    #+#             */
+/*   Updated: 2019/06/22 16:51:09 by ramory-l         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static void ft_width(t_printf *data, t_buffer *bf)
+static void	ft_width(t_printf *data, t_buffer *bf)
 {
 	if (data->flags & FLAG_PLUS || data->sign)
 		data->width--;
@@ -27,7 +39,7 @@ static void ft_width(t_printf *data, t_buffer *bf)
 	}
 }
 
-static void ft_check(t_printf *data, t_buffer *bf)
+static void	ft_check(t_printf *data, t_buffer *bf)
 {
 	if (data->flags & FLAG_ZERO)
 	{
@@ -44,7 +56,7 @@ static void ft_check(t_printf *data, t_buffer *bf)
 	}
 }
 
-int ft_kostil(t_printf *data, t_buffer *bf)
+int			ft_kostil(t_printf *data, t_buffer *bf)
 {
 	if (bf->temp[0] == '0' && data->acc && !data->accuracy)
 	{

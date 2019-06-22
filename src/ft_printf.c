@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: idunaver <idunaver@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ramory-l <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/15 14:02:42 by ramory-l          #+#    #+#             */
-/*   Updated: 2019/06/15 16:55:38 by idunaver         ###   ########.fr       */
+/*   Updated: 2019/06/22 16:57:02 by ramory-l         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ static int	ft_init(t_cc *format, t_printf *data, t_buffer *bf)
 	bf->s = 0;
 	ft_bzero((void *)data, sizeof(*data));
 	return (1);
+}
+
+static void	ft_check(t_printf *data, t_buffer *bf)
+{
+	if (bf->s)
+	{
+		write(1, bf->buffer, bf->s);
+		data->printed += bf->s;
+	}
 }
 
 int			ft_printf(const char *format, ...)
@@ -44,11 +53,7 @@ int			ft_printf(const char *format, ...)
 			ft_check_buffer(&data, &bf);
 		}
 	}
-	if (bf.s)
-	{
-		write(1, bf.buffer, bf.s);
-		data.printed += bf.s;
-	}
+	ft_check(&data, &bf);
 	va_end(ap);
 	return (data.printed);
 }
