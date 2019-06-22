@@ -33,7 +33,7 @@ int	main(void)
 	// printf("orig %.500f\n\n", DBL_MIN);
 	// ft_printf("mine %.3f\n", DBL_MAX);
 	// printf("orig %.3f\n\n", DBL_MAX);
-	printf("orig %4.15s\n", "42");
-	ft_printf("mine %4.15s\n", "42");
+	printf("orig {% 04d}\n", 0);
+	ft_printf("mine {% 04d}\n", 0);
 	return (0);
 }

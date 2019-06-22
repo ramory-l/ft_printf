@@ -12,21 +12,6 @@
 
 #include "ft_printf.h"
 
-static void	ft_accuracy(t_printf *data, t_buffer *bf)
-{
-	if (data->accuracy > data->len && data->accuracy > data->width &&
-		data->width > 0)
-		ft_fill_zeroes_di(data, bf);
-	if (data->accuracy > data->len && !data->width)
-		ft_fill_zeroes_di(data, bf);
-}
-
-static void	ft_accuracy_width(t_printf *data, t_buffer *bf)
-{
-	if (data->accuracy > data->len && data->accuracy < data->width)
-		ft_fill_zeroes_di(data, bf);
-}
-
 static void	ft_oct(t_printf *data, t_buffer *bf)
 {
 	char *temp;
@@ -54,6 +39,28 @@ static void	ft_oct(t_printf *data, t_buffer *bf)
 				data->width -= 1;
 		}
 	}
+}
+
+static void	ft_accuracy(t_printf *data, t_buffer *bf)
+{
+	if (data->accuracy > data->len && data->accuracy > data->width &&
+		data->width > 0)
+		ft_fill_zeroes_di(data, bf);
+	if (data->accuracy > data->len && !data->width && !(data->flags & FLAG_OCT))
+		ft_fill_zeroes_di(data, bf);
+	if (data->accuracy > data->len && !data->width && data->flags & FLAG_OCT)
+	{
+		ft_oct(data, bf);
+		if (data->flags & FLAG_OCT && data->type == 'o')
+			data->accuracy--;
+		ft_fill_zeroes_di(data, bf);
+	}
+}
+
+static void	ft_accuracy_width(t_printf *data, t_buffer *bf)
+{
+	if (data->accuracy > data->len && data->accuracy < data->width)
+		ft_fill_zeroes_di(data, bf);
 }
 
 static int	ft_width(t_printf *data, t_buffer *bf)

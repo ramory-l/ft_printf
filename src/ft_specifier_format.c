@@ -28,7 +28,8 @@ static void	ft_check_flag(const char *format, t_printf *data)
 
 static void	ft_check_width(int *i, const char *format, t_printf *data)
 {
-	if (format[*i] >= '1' && format[*i] <= '9' && format[*i - 1] != '.')
+	if (format[*i] >= '1' && format[*i] <= '9' && format[*i - 1] != '.' &&
+		data->width == 0)
 	{
 		data->width = ft_atoi(&format[*i]);
 		while (ft_isdigit(format[*i]))

@@ -44,7 +44,7 @@ void		ft_print_ptr(va_list ap, t_printf *data, t_buffer *bf)
 	ft_fill_bf(data, bf);
 	if (data->len < data->width - 2 && data->flags & FLAG_MINUS)
 	{
-		data->width += 1;
+		data->width -= 2;
 		ft_fill_spaces_oux(data, bf);
 	}
 }
