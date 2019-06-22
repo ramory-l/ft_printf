@@ -64,7 +64,7 @@ typedef struct					s_printf
 typedef struct					s_buffer
 {
 	unsigned					s;
-	char						temp[20];
+	char						temp[22];
 	char						buffer[512];
 }								t_buffer;
 
@@ -205,5 +205,6 @@ char							*ft_strdupandfree(t_workwithmantis wwm, char *result);
 char							*ft_doublecat(char *result,
 t_doubletochar doublechar, t_workwithmantis wwm);
 t_temp							ft_fornulls(int lenarr, t_temp temp);
+int								ft_kostil(t_printf *data, t_buffer *bf);
 
 #endif

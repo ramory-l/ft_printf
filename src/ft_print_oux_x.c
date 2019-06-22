@@ -114,7 +114,4 @@ void		ft_print_oux_x(t_printf *data, t_buffer *bf)
 	if (ft_width(data, bf))
 		return ;
 	ft_fill_bf(data, bf);
-	data->h_count = 0;
-	data->l_count = 0;
-	data->size = 0;
 }

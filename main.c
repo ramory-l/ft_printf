@@ -33,7 +33,7 @@ int	main(void)
 	// printf("orig %.500f\n\n", DBL_MIN);
 	// ft_printf("mine %.3f\n", DBL_MAX);
 	// printf("orig %.3f\n\n", DBL_MAX);
-	printf("orig {% 04d}\n", 0);
-	ft_printf("mine {% 04d}\n", 0);
+	printf("orig @moulitest: %5.d %5.0d\n", 0, 0);
+	ft_printf("mine @moulitest: %5.d %5.0d\n", 0, 0);
 	return (0);
 }

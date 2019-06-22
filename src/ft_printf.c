@@ -33,7 +33,10 @@ int			ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
+		{
 			format = ft_check_ptc(ap, format, &data, &bf);
+			ft_bzero(&data, sizeof(data));
+		}
 		if (*format && *format != '%')
 		{
 			bf.buffer[bf.s++] = *format;
